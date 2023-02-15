@@ -1,8 +1,26 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import {Text} from '@rneui/themed';
+import {Button} from '@rneui/themed';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MainContext} from '../contexts/MainContext';
 
 const Profile = ({navigation}) => {
-  return <Text>Profile</Text>;
+  const {setIsLoggedIn, setUser} = React.useContext(MainContext);
+  return (
+    <Button
+      title="Logout!"
+      onPress={async () => {
+        console.log('Loggin out');
+        setUser({});
+        setIsLoggedIn(false);
+        try {
+          await AsyncStorage.clear();
+        } catch (error) {
+          console.warn('clearing AsyncStorage failed', error);
+        }
+      }}
+    />
+  );
 };
 
 Profile.propTypes = {

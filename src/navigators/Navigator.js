@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../views/Home';
 import Profile from '../views/Profile';
+import {MainContext} from '../contexts/MainContext';
 import {Icon} from '@rneui/themed';
 import AddPlant from '../views/AddPlant';
 import Search from '../views/Search';
+import Login from '../views/Login';
+import Signup from '../views/Signup';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -47,16 +50,20 @@ const TabScreen = () => {
 };
 
 const StackScreen = () => {
-  // const {isLoggedIn} = useContext(MainContext);
+  const {isLoggedIn} = useContext(MainContext);
   return (
     <Stack.Navigator>
-      <>
-        <Stack.Screen
-          name="Tabs"
-          component={TabScreen}
-          options={{headerShown: false}}
-        />
-      </>
+      {isLoggedIn ? (
+        <>
+          <Stack.Screen
+            name="Tabs"
+            component={TabScreen}
+            options={{headerShown: false}}
+          />
+        </>
+      ) : (
+        <Stack.Screen name="Login" component={Login} />
+      )}
     </Stack.Navigator>
   );
 };
