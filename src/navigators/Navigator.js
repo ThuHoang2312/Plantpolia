@@ -9,7 +9,6 @@ import {Icon} from '@rneui/themed';
 import AddPlant from '../views/AddPlant';
 import Search from '../views/Search';
 import Login from '../views/Login';
-import Signup from '../views/Signup';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
