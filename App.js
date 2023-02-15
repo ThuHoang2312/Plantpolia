@@ -1,6 +1,6 @@
 import {StatusBar} from 'expo-status-bar';
-import {MainProvider} from './contexts/MainContext';
-import Navigator from './navigators/Navigator';
+import {MainProvider} from './src/contexts/MainContext';
+import Navigator from './src/navigators/Navigator';
 
 const App = () => {
   return (
