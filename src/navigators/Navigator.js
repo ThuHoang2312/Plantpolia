@@ -9,6 +9,9 @@ import {Icon} from '@rneui/themed';
 import AddPlant from '../views/AddPlant';
 import Search from '../views/Search';
 import Login from '../views/Login';
+import {WateringProcess} from '../views/WateringProcess';
+import {WateringProcessStarted} from '../views/WateringProcessStarted';
+import {WateringProcessFinished} from '../views/WateringProcessFinished';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -58,6 +61,27 @@ const StackScreen = () => {
             name="Tabs"
             component={TabScreen}
             options={{headerShown: false}}
+          />
+          <Stack.Screen name="WateringProcess" component={WateringProcess} />
+          <Stack.Screen
+            name="WateringProcessStarted"
+            component={WateringProcessStarted}
+            options={({navigation}) => ({
+              headerBackVisible: false,
+              gestureEnabled: false,
+              headerLeft: () => (
+                <WateringProcessStarted.HeaderLeft navigation={navigation} />
+              ),
+            })}
+          />
+
+          <Stack.Screen
+            name="WateringProcessFinished"
+            component={WateringProcessFinished}
+            options={{
+              headerBackVisible: false,
+              gestureEnabled: false,
+            }}
           />
         </>
       ) : (
