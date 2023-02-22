@@ -15,6 +15,7 @@ import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import {Button} from '@rneui/themed';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {colors} from '../utils/colors';
 
 const Login = ({navigation}) => {
   // props is needed for navigation
@@ -64,12 +65,14 @@ const Login = ({navigation}) => {
               }}
               buttonStyle={styles.button}
               type="clear"
+              titleStyle={{color: colors.primary700}}
             />
             {toggleForm && (
               <Button
                 title="Forgot your password?"
                 buttonStyle={styles.button}
                 type="clear"
+                titleStyle={{color: colors.primary700}}
               />
             )}
           </KeyboardAvoidingView>

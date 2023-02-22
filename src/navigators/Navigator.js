@@ -7,44 +7,54 @@ import Profile from '../views/Profile';
 import {MainContext} from '../contexts/MainContext';
 import {Icon} from '@rneui/themed';
 import AddPlant from '../views/AddPlant';
-import Search from '../views/Search';
 import Login from '../views/Login';
 import {WateringProcess} from '../views/WateringProcess';
 import {WateringProcessStarted} from '../views/WateringProcessStarted';
 import {WateringProcessFinished} from '../views/WateringProcessFinished';
+import {colors} from '../utils/colors';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+const screenOptions = {
+  tabBarStyle: {
+    backgroundColor: colors.primary50,
+  },
+};
+
 const TabScreen = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator {...{screenOptions}}>
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          tabBarIcon: ({color}) => <Icon name="home" color={color} />,
+          tabBarIcon: () => (
+            <Icon name="home" color={colors.primary700} size={30} />
+          ),
         }}
       />
       <Tab.Screen
-        name="AddPlant"
+        name="Add Plant"
         component={AddPlant}
         options={{
-          tabBarIcon: ({color}) => <Icon name="cloud-upload" color={color} />,
+          tabBarIcon: () => (
+            <Icon
+              type="material"
+              name="add-circle-outline"
+              color={colors.primary700}
+              size={30}
+            />
+          ),
         }}
       />
       <Tab.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: ({color}) => <Icon name="person" color={color} />,
-        }}
-      />
-      <Tab.Screen
-        name="Search"
-        component={Search}
-        options={{
-          tabBarIcon: ({color}) => <Icon name="search" color={color} />,
+          tabBarIcon: () => (
+            <Icon name="person" color={colors.primary700} size={30} />
+          ),
         }}
       />
     </Tab.Navigator>

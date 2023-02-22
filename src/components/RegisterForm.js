@@ -1,10 +1,15 @@
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {useUser} from '../hooks/ApiHooks';
+import {useAuthentication, useUser} from '../hooks/ApiHooks';
 import {Button, Card, Input, Text} from '@rneui/themed';
-import {StyleSheet} from 'react-native';
+import {Alert, StyleSheet} from 'react-native';
+import {colors} from '../utils/colors';
+import {userTag} from '../utils/variables';
+import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MainContext} from '../contexts/MainContext';
 
-const RegisterForm = (props) => {
+const RegisterForm = ({navigation}) => {
   const {
     control,
     handleSubmit,
@@ -21,22 +26,46 @@ const RegisterForm = (props) => {
     mode: 'onBlur',
   });
   const {postUser, checkUsername} = useUser();
+  const {postLogin} = useAuthentication();
+  const {setUser, setIsLoggedIn, setToken} = React.useContext(MainContext);
+
+  const onLogin = async (data) => {
+    console.log(data);
+    try {
+      const userData = await postLogin(data);
+      await AsyncStorage.setItem('userToken', userData.token);
+      setToken(userData.token);
+      setUser(userData.user);
+      setIsLoggedIn(true);
+    } catch (error) {
+      Alert.alert('Login failed!', 'Wrong username or password!');
+      console.error(error);
+    }
+  };
 
   const register = async (registerData) => {
-    console.log('Registering: ', registerData);
     delete registerData.confrimPassword;
+    registerData.username = userTag + registerData.username;
+    registerData.email = userTag + registerData.email;
+    console.log('Registering: ', registerData);
     try {
       const registerResult = await postUser(registerData);
       console.log('register result: ', registerResult);
+      if (registerResult) {
+        Alert.alert('Success', 'User created successfully!');
+        delete registerData.full_name;
+        delete registerData.email;
+        onLogin(registerData);
+      }
     } catch (error) {
       console.error('Register', error);
-      // TODO: notify user about failed register attempt
+      Alert.alert('Error occurs. Please check input fields again.');
     }
   };
 
   const checkUser = async (username) => {
     try {
-      const userAvailable = await checkUsername(username);
+      const userAvailable = await checkUsername(userTag + username);
       console.log('checkUser', userAvailable);
       return userAvailable || 'Username is already taken';
     } catch (error) {
@@ -66,6 +95,7 @@ const RegisterForm = (props) => {
             autoCapitalize="none"
             errorMessage={errors.username && errors.username.message}
             inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
           />
         )}
         name="username"
@@ -89,6 +119,7 @@ const RegisterForm = (props) => {
             autoCapitalize="none"
             errorMessage={errors.email && errors.email.message}
             inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
           />
         )}
         name="email"
@@ -113,6 +144,7 @@ const RegisterForm = (props) => {
             autoCapitalize="none"
             errorMessage={errors.password && errors.password.message}
             inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
           />
         )}
         name="password"
@@ -141,6 +173,7 @@ const RegisterForm = (props) => {
               errors.confrimPassword && errors.confrimPassword.message
             }
             inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
           />
         )}
         name="confrimPassword"
@@ -158,6 +191,7 @@ const RegisterForm = (props) => {
             autoCapitalize="words"
             errorMessage={errors.full_name && errors.full_name.message}
             inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
           />
         )}
         name="full_name"
@@ -180,10 +214,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    // fontWeight: 'bold',
-    fontSize: 30,
+    fontWeight: 'medium',
+    fontSize: 40,
     textAlign: 'center',
     paddingVertical: 50,
+    color: colors.primary700,
   },
   input: {
     borderWidth: 1,
@@ -197,10 +232,15 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     height: 50,
+    backgroundColor: colors.primary700,
   },
   wrapper: {
     flex: 1,
   },
 });
+
+RegisterForm.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default RegisterForm;

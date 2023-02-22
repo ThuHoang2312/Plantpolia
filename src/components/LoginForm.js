@@ -4,10 +4,12 @@ import {useAuthentication} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import {Controller, useForm} from 'react-hook-form';
 import {Button, Card, Input, Text} from '@rneui/themed';
-import {StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
+import {colors} from '../utils/colors';
+import {userTag} from '../utils/variables';
 
 const LoginForm = (props) => {
-  const {setIsLoggedIn, setUser} = React.useContext(MainContext);
+  const {setIsLoggedIn, setUser, setToken} = React.useContext(MainContext);
   const {postLogin} = useAuthentication();
   const {
     control,
@@ -17,16 +19,22 @@ const LoginForm = (props) => {
 
   const logIn = async (loginData) => {
     console.log('Login button pressed', loginData);
-    // const data = {username: 'thuhoang', password: '123456789A'};
     try {
+      loginData.username = userTag + loginData.username;
+      loginData.email = userTag + loginData.email;
       const loginResult = await postLogin(loginData);
       console.log('logIn', loginResult);
       await AsyncStorage.setItem('userToken', loginResult.token);
       setUser(loginResult.user);
+      setToken(loginResult.token);
       setIsLoggedIn(true);
     } catch (error) {
-      console.error('logIn', error);
-      // TODO: notify user about failed login attempt
+      console.log('logIn', error);
+      if (error == 'Error: Authentication failed due bad password') {
+        Alert.alert('Incorrect password');
+      } else if (error == 'Error: Authentication failed due bad username') {
+        Alert.alert('Username is not available');
+      }
     }
   };
 
@@ -52,6 +60,7 @@ const LoginForm = (props) => {
               autoCapitalize="none"
               errorMessage={errors.username && errors.username.message}
               inputContainerStyle={styles.input}
+              inputStyle={{color: colors.primary800}}
             />
           )}
           name="username"
@@ -70,6 +79,7 @@ const LoginForm = (props) => {
               autoCapitalize="none"
               errorMessage={errors.password && errors.password.message}
               inputContainerStyle={styles.input}
+              inputStyle={{color: colors.primary800}}
             />
           )}
           name="password"
@@ -93,10 +103,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    // fontWeight: 'bold',
-    fontSize: 30,
+    fontWeight: 'medium',
+    fontSize: 40,
     textAlign: 'center',
     paddingVertical: 50,
+    color: colors.primary700,
   },
   input: {
     borderWidth: 1,
@@ -110,6 +121,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     height: 50,
+    backgroundColor: colors.primary700,
   },
   wrapper: {
     flex: 1,
