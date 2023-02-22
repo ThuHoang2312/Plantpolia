@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Image, Text} from '@rneui/themed';
 import {useAssets} from 'expo-asset';
+import {fontSizes, spacing} from '../utils/sizes';
+import {colors} from '../utils/colors';
 
 /**
  * Success page shown after the plant were added successfully
@@ -21,6 +23,7 @@ export const UploadCompleted = ({navigation, route}) => {
       style={{
         display: 'flex',
         justifyContent: 'space-around',
+        backgroundColor: colors.background,
       }}
     >
       {assets && (
@@ -36,11 +39,12 @@ export const UploadCompleted = ({navigation, route}) => {
       )}
       <Text
         style={{
-          fontSize: 20,
+          color: colors.primary700,
+          fontSize: fontSizes.lg,
           fontWeight: 'bold',
           textAlign: 'center',
-          paddingVertical: 30,
-          paddingHorizontal: 10,
+          paddingVertical: spacing.lg,
+          paddingHorizontal: spacing.sm,
         }}
       >
         Added Succesfully
@@ -49,9 +53,11 @@ export const UploadCompleted = ({navigation, route}) => {
         onPress={() => {
           navigation.navigate('Home');
         }}
-        buttonStyle={{paddingVertical: 40}}
+        buttonStyle={{paddingVertical: spacing.xxl}}
+        color={colors.primary700}
         titleStyle={{
           fontWeight: 'bold',
+          color: colors.primary50,
         }}
       >
         Return to Home Page
