@@ -61,8 +61,8 @@ const Upload = ({navigation, route}) => {
       });
     }
 
-    setIsLoading(true);
     try {
+      setIsLoading(true);
       // console.log('token', token);
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(
@@ -71,14 +71,17 @@ const Upload = ({navigation, route}) => {
       );
       setUpload(!upload);
       setUpdate(update + 1);
+
       setTimeout(() => {
-        tagResponse && navigation.navigate('UploadCompleted');
-      }, 3000);
+        tagResponse &&
+          (setIsLoading(false), navigation.navigate('UploadCompleted'));
+      }, 1000);
     } catch (error) {
+      setIsLoading(false);
       setError(error);
       // console.log('error', error);
     }
-    setIsLoading(false);
+
     setLastWater('');
     setNotificationTime('');
   };

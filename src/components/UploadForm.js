@@ -1,26 +1,36 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {View, ScrollView, Text, StyleSheet, Image, Alert} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 import {spacing, fontSizes} from '../utils/sizes';
 import {colors} from '../utils/colors';
 import Input from './shared/Input';
 import Button from './shared/Button';
-import PickerForm from './AddPlant/PickerForm';
 import {MainContext} from '../contexts/MainContext';
 import {useUpLoadFormState} from '../services/useUploadFormState';
 import {uploadUrl} from '../utils/variables';
+import {usePickerState} from '../services/usePicker';
 
 const UploadForm = ({plant, isOthers, onSubmit}) => {
+  const {image, imageSelected, setImage, setImageSelected, setType} =
+    useContext(MainContext);
   const {
-    image,
-    imageSelected,
-    setImage,
-    setImageSelected,
-    setType,
     lastWater,
+    lastWaterItem,
     notificationTime,
-  } = useContext(MainContext);
+    notificationTimeItem,
+    onLastWaterOpen,
+    onNotificationTimeOpen,
+    setLastWater,
+    setLastWaterItem,
+    setNotificationTime,
+    setNotificationTimeItem,
+    openLastWater,
+    openNotificationTime,
+    setOpenLastWater,
+    setOpenNotificationTime,
+  } = usePickerState();
   const {title, waterInterval} = useUpLoadFormState();
   console.log('IMAGE: ', image);
   console.log('PLANT', plant);
@@ -105,7 +115,38 @@ const UploadForm = ({plant, isOthers, onSubmit}) => {
           Invalid input values - Please enter a number
         </Text>
       )}
-      <PickerForm />
+      <DropDownPicker
+        zIndex={3000}
+        zIndexInverse={1000}
+        open={openLastWater}
+        onOpen={onLastWaterOpen}
+        value={lastWater}
+        items={lastWaterItem}
+        setOpen={setOpenLastWater}
+        setValue={setLastWater}
+        setItems={setLastWaterItem}
+        listMode="SCROLLVIEW"
+        placeholder="Last time the plant was watered?"
+        containerStyle={styles.picker}
+        textStyle={styles.textPicker}
+        selectedItemLabelStyle={{fontWeight: 'bold'}}
+      />
+      <DropDownPicker
+        zIndex={1000}
+        zIndexInverse={3000}
+        placeholder="Notification time preferences"
+        open={openNotificationTime}
+        value={notificationTime}
+        items={notificationTimeItem}
+        setItems={setNotificationTimeItem}
+        setOpen={setOpenNotificationTime}
+        setValue={setNotificationTime}
+        listMode="SCROLLVIEW"
+        onOpen={onNotificationTimeOpen}
+        containerStyle={styles.picker}
+        textStyle={styles.textPicker}
+        selectedItemLabelStyle={{fontWeight: 'bold'}}
+      />
       <Button text="Save" onPress={handlerSubmit} disabled={buttonStatus} />
     </View>
   );
@@ -145,6 +186,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: spacing.lg,
     marginBottom: spacing.lg,
+  },
+  picker: {
+    height: spacing.xxl,
+    width: '82%',
+    alignSelf: 'center',
+    marginBottom: spacing.lg,
+    marginTop: spacing.sm,
+    backgroundColor: colors.primary100,
+  },
+  textPicker: {
+    fontSize: fontSizes.md,
+    color: colors.primary700,
   },
 });
 
