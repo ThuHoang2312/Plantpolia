@@ -60,6 +60,7 @@ const Upload = ({navigation, route}) => {
         type: type + '/' + fileExtension,
       });
     }
+    console.log('FORMDATA: ', formData);
 
     try {
       setIsLoading(true);
@@ -71,6 +72,8 @@ const Upload = ({navigation, route}) => {
       );
       setUpload(!upload);
       setUpdate(update + 1);
+      console.log('POST RESPONSE: ', response);
+      console.log('TAG RESPONSE: ', response);
 
       setTimeout(() => {
         tagResponse &&
@@ -78,7 +81,7 @@ const Upload = ({navigation, route}) => {
       }, 1000);
     } catch (error) {
       setIsLoading(false);
-      setError(error);
+      setError(error.message);
       // console.log('error', error);
     }
 
