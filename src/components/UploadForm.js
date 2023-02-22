@@ -13,6 +13,7 @@ import {uploadUrl} from '../utils/variables';
 
 const UploadForm = ({plant, isOthers, onSubmit}) => {
   const {
+    image,
     imageSelected,
     setImage,
     setImageSelected,
@@ -21,11 +22,13 @@ const UploadForm = ({plant, isOthers, onSubmit}) => {
     notificationTime,
   } = useContext(MainContext);
   const {title, waterInterval} = useUpLoadFormState();
+  console.log('IMAGE: ', image);
+  console.log('PLANT', plant);
 
   // Condition to check for disable button
   let buttonStatus = false;
 
-  if (!lastWater || !waterInterval) {
+  if (!lastWater || !notificationTime) {
     buttonStatus = true;
   }
   // If the user choose to add plant not in prefix, required all input
@@ -34,11 +37,6 @@ const UploadForm = ({plant, isOthers, onSubmit}) => {
     (!lastWater || !notificationTime || !title.value || !imageSelected)
   ) {
     buttonStatus = true;
-  }
-
-  // Set prefix image if user don't add their own
-  if (!imageSelected) {
-    setImage(plant.image);
   }
 
   const imageUrl = uploadUrl + plant.thumbnails.w160;
@@ -81,37 +79,35 @@ const UploadForm = ({plant, isOthers, onSubmit}) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{uri: pickUri}} />
-        </View>
-        <Text style={styles.title}>{plant.title}</Text>
-        <Text style={styles.text} onPress={pickImage}>
-          Click here to choose your image
-        </Text>
-        <Input
-          text={isOthers ? 'Name your plant' : 'Name your plant (optional)'}
-          onChangeText={title.set}
-        />
-        {isOthers ? (
-          <Input
-            text="Days between water"
-            onChangeText={waterInterval.set}
-            error={!waterInterval.valid}
-          />
-        ) : (
-          <></>
-        )}
-        {!waterInterval.valid && (
-          <Text style={styles.text}>
-            Invalid input values - Please enter a number
-          </Text>
-        )}
-        <PickerForm />
-        <Button text="Save" onPress={handlerSubmit} disabled={buttonStatus} />
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={{uri: pickUri}} />
       </View>
-    </ScrollView>
+      <Text style={styles.title}>{plant.title}</Text>
+      <Text style={styles.text} onPress={pickImage}>
+        Click here to choose your image
+      </Text>
+      <Input
+        text={isOthers ? 'Name your plant' : 'Name your plant (optional)'}
+        onChangeText={title.set}
+      />
+      {isOthers ? (
+        <Input
+          text="Days between water"
+          onChangeText={waterInterval.set}
+          error={!waterInterval.valid}
+        />
+      ) : (
+        <></>
+      )}
+      {!waterInterval.valid && (
+        <Text style={styles.text}>
+          Invalid input values - Please enter a number
+        </Text>
+      )}
+      <PickerForm />
+      <Button text="Save" onPress={handlerSubmit} disabled={buttonStatus} />
+    </View>
   );
 };
 
