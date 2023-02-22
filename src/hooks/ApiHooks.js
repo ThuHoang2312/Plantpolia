@@ -1,17 +1,23 @@
-import {baseUrl} from '../utils/variables';
+import {useContext, useEffect, useState} from 'react';
+import {MainContext} from '../contexts/MainContext';
+import {userTag, appTag, baseUrl} from '../utils/variables';
 
-const doFetch = async (url, options) => {
-  const response = await fetch(url, options);
-  const json = await response.json();
-  if (!response.ok) {
-    const message = json.error
-      ? `${json.message}: ${json.error}`
-      : json.message;
-    throw new Error(message || response.statusText);
+const doFetch = async (url, options = {}) => {
+  try {
+    const response = await fetch(url, options);
+    const json = await response.json();
+    if (response.ok) {
+      return json;
+    } else {
+      const message = json.error
+        ? `${json.message}: ${json.error}`
+        : json.message;
+      throw new Error(message || response.statusText);
+    }
+  } catch (err) {
+    throw new Error(err.message);
   }
-  return json;
 };
-
 const useAuthentication = () => {
   const postLogin = async (userCredentials) => {
     // user credentials format: {username: 'someUsername', password: 'somePassword'}
@@ -78,4 +84,102 @@ const useUser = () => {
   return {postUser, checkUsername, getUserByToken};
 };
 
-export {useUser, useAuthentication};
+// PLANTS
+const useMedia = (myFilesOnly) => {
+  const [prefixArray, setPrefixArray] = useState([]);
+  const [plantArray, setPlantArray] = useState([]);
+  const {update, user} = useContext(MainContext);
+  const [load, setLoad] = useState(false);
+
+  const loadPrefix = async () => {
+    setLoad(true);
+    try {
+      const json = await useTag().getFileByTag(appTag);
+
+      // if (myFilesOnly) {
+      //   json = json.filter((file) => file.user_id === user.user_id);
+      // }
+      const media = await Promise.all(
+        json.map(async (item) => {
+          const response = await fetch(baseUrl + 'media/' + item.file_id);
+          const mediaData = await response.json();
+          return mediaData;
+        })
+      );
+
+      setPrefixArray(media);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoad(false);
+    }
+  };
+
+  const loadPlant = async () => {
+    setLoad(true);
+    try {
+      let json = await useTag().getFileByTag(userTag);
+      if (myFilesOnly) {
+        json = json.filter((file) => file.user_id === user.user_id);
+      }
+      const media = await Promise.all(
+        json.map(async (item) => {
+          const response = await fetch(baseUrl + 'media/' + item.file_id);
+          const mediaData = await response.json();
+          return mediaData;
+        })
+      );
+      setPlantArray(media);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoad(false);
+    }
+  };
+
+  // Call loadMedia() only once when the component is loaded
+  // Or when update state is changed
+  useEffect(() => {
+    loadPrefix();
+    loadPlant();
+  }, [update]);
+
+  // Upload plant
+  const postMedia = async (formData, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'x-access-token': token,
+      },
+      body: formData,
+    };
+    return await doFetch(baseUrl + 'media', options);
+  };
+  return {
+    prefixArray,
+    plantArray,
+    postMedia,
+    load,
+  };
+};
+
+// CREATE TAG
+const useTag = () => {
+  const postTag = async (tagData, token) => {
+    const options = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'x-access-token': token},
+      body: JSON.stringify(tagData),
+    };
+    return await doFetch(baseUrl + 'tags/', options);
+  };
+
+  const getFileByTag = async (tag) => {
+    return await doFetch(baseUrl + 'tags/' + tag);
+  };
+
+  return {postTag, getFileByTag};
+};
+
+export {useUser, useAuthentication, useTag, useMedia};

@@ -1,17 +1,41 @@
-import React from 'react';
+import React, {useState, createContext} from 'react';
 import PropTypes from 'prop-types';
 
-const MainContext = React.createContext({});
+const MainContext = createContext({});
 
 const MainProvider = (props) => {
-  // TODO: create state isLoggedIn, set value to false
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [user, setUser] = React.useState({});
-  const [update, setUpdate] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState({});
+  const [update, setUpdate] = useState(true);
+  const [lastWater, setLastWater] = useState('');
+  const [notificationTime, setNotificationTime] = useState('');
+  const [image, setImage] = useState('');
+  const [imageSelected, setImageSelected] = useState(false);
+  const [type, setType] = useState('image');
+  const [upload, setUpload] = useState(false);
 
   return (
     <MainContext.Provider
-      value={{isLoggedIn, setIsLoggedIn, user, setUser, update, setUpdate}}
+      value={{
+        isLoggedIn,
+        setIsLoggedIn,
+        user,
+        setUser,
+        update,
+        setUpdate,
+        lastWater,
+        setLastWater,
+        notificationTime,
+        setNotificationTime,
+        image,
+        setImage,
+        upload,
+        setUpload,
+        type,
+        setType,
+        imageSelected,
+        setImageSelected,
+      }}
     >
       {props.children}
     </MainContext.Provider>

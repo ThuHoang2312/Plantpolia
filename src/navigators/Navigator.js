@@ -9,6 +9,8 @@ import {Icon} from '@rneui/themed';
 import AddPlant from '../views/AddPlant';
 import Search from '../views/Search';
 import Login from '../views/Login';
+import Upload from '../views/Upload';
+import {UploadCompleted} from '../views/UploadCompleted';
 import {WateringProcess} from '../views/WateringProcess';
 import {WateringProcessStarted} from '../views/WateringProcessStarted';
 import {WateringProcessFinished} from '../views/WateringProcessFinished';
@@ -78,6 +80,16 @@ const StackScreen = () => {
           <Stack.Screen
             name="WateringProcessFinished"
             component={WateringProcessFinished}
+            options={{
+              headerBackVisible: false,
+              gestureEnabled: false,
+            }}
+          />
+
+          <Stack.Screen name="Upload" component={Upload} />
+          <Stack.Screen
+            name="UploadCompleted"
+            component={UploadCompleted}
             options={{
               headerBackVisible: false,
               gestureEnabled: false,
