@@ -1,9 +1,13 @@
-import React, {useState, createContext} from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import PropTypes from 'prop-types';
 
-const MainContext = createContext({});
+/** @type {import('../types/MainContextModel').MainContextReactContext} */
+export const MainContext = createContext({
+  isLoggedIn: false,
+  setIsLoggedIn: () => {},
+});
 
-const MainProvider = (props) => {
+export const MainProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [update, setUpdate] = useState(true);
@@ -49,4 +53,8 @@ MainProvider.propTypes = {
   children: PropTypes.node,
 };
 
-export {MainContext, MainProvider};
+export const useMainContext = () => {
+  const context = useContext(MainContext);
+
+  return context;
+};
