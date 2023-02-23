@@ -10,13 +10,14 @@ import {MainContext} from '../../contexts/MainContext';
 const PlantListItem = ({plant, imageUrl, title, navigation}) => {
   // console.log('PLANT LIST ITEM:', plant);
   // const imageUrl = uploadUrl + plant.thumbnails.w160;
-  const {setImage, upload, setUpload} = useContext(MainContext);
+  const {setImage, setUpload} = useContext(MainContext);
+  // console.log('ITEM UPLOAD: ', upload);
 
   return (
     <RNEListItem
       onPress={() => {
         setImage(uploadUrl + imageUrl);
-        setUpload(!upload);
+        setUpload(false);
         navigation.navigate('Upload', {plant: plant});
       }}
     >
