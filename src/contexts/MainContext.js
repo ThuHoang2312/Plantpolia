@@ -13,6 +13,7 @@ const MainProvider = (props) => {
   const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
   const [upload, setUpload] = useState(false);
+  const [token, setToken] = React.useState('token');
 
   return (
     <MainContext.Provider
@@ -35,6 +36,8 @@ const MainProvider = (props) => {
         setType,
         imageSelected,
         setImageSelected,
+        token,
+        setToken,
       }}
     >
       {props.children}

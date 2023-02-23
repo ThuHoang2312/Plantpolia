@@ -13,7 +13,9 @@ import {MainContext} from '../contexts/MainContext';
 import {useUser} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
-import {Button, Text} from '@rneui/themed';
+import {Button} from '@rneui/themed';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {colors} from '../utils/colors';
 
 const Login = ({navigation}) => {
   // props is needed for navigation
@@ -40,40 +42,63 @@ const Login = ({navigation}) => {
   }, []);
 
   return (
-    <ScrollView>
-      <TouchableOpacity
-        onPress={() => Keyboard.dismiss()}
-        style={{flex: 1}}
-        activeOpacity={1}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.container}
+    <SafeAreaView style={styles.wrapper}>
+      <ScrollView>
+        <TouchableOpacity
+          onPress={() => Keyboard.dismiss()}
+          style={{flex: 1}}
+          activeOpacity={1}
         >
-          {toggleForm ? <LoginForm /> : <RegisterForm />}
-          <Text>
-            {toggleForm
-              ? 'No account yet? Please register!'
-              : 'Already have an account? Login!'}
-          </Text>
-          <Button
-            title={toggleForm ? 'Register here!' : 'Login!'}
-            onPress={() => {
-              setToggleForm(!toggleForm);
-            }}
-          />
-        </KeyboardAvoidingView>
-      </TouchableOpacity>
-    </ScrollView>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}
+          >
+            {toggleForm ? <LoginForm /> : <RegisterForm />}
+            <Button
+              title={
+                toggleForm
+                  ? `Don't have an account yet? Register!`
+                  : 'Already have an account? Login!'
+              }
+              onPress={() => {
+                setToggleForm(!toggleForm);
+              }}
+              buttonStyle={styles.button}
+              type="clear"
+              titleStyle={{color: colors.primary700}}
+            />
+            {toggleForm && (
+              <Button
+                title="Forgot your password?"
+                buttonStyle={styles.button}
+                type="clear"
+                titleStyle={{color: colors.primary700}}
+              />
+            )}
+          </KeyboardAvoidingView>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    backgroundColor: '#fff',
+    paddingTop: Platform.OS === 'android' ? 30 : 0,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button: {
+    alignSelf: 'stretch',
+    padding: 8,
+    borderRadius: 8,
+    height: 50,
   },
 });
 

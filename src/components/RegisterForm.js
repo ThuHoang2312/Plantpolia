@@ -1,9 +1,15 @@
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {useUser} from '../hooks/ApiHooks';
-import {Button, Input, Text} from '@rneui/themed';
+import {useAuthentication, useUser} from '../hooks/ApiHooks';
+import {Button, Card, Input, Text} from '@rneui/themed';
+import {Alert, StyleSheet} from 'react-native';
+import {colors} from '../utils/colors';
+import {userAccountTag} from '../utils/variables';
+import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MainContext} from '../contexts/MainContext';
 
-const RegisterForm = (props) => {
+const RegisterForm = ({navigation}) => {
   const {
     control,
     handleSubmit,
@@ -20,22 +26,46 @@ const RegisterForm = (props) => {
     mode: 'onBlur',
   });
   const {postUser, checkUsername} = useUser();
+  const {postLogin} = useAuthentication();
+  const {setUser, setIsLoggedIn, setToken} = React.useContext(MainContext);
+
+  const onLogin = async (data) => {
+    console.log(data);
+    try {
+      const userData = await postLogin(data);
+      await AsyncStorage.setItem('userToken', userData.token);
+      setToken(userData.token);
+      setUser(userData.user);
+      setIsLoggedIn(true);
+    } catch (error) {
+      Alert.alert('Login failed!', 'Wrong username or password!');
+      console.error(error);
+    }
+  };
 
   const register = async (registerData) => {
-    console.log('Registering: ', registerData);
     delete registerData.confrimPassword;
+    registerData.username = userAccountTag + registerData.username;
+    registerData.email = userAccountTag + registerData.email;
+    console.log('Registering: ', registerData);
     try {
       const registerResult = await postUser(registerData);
       console.log('register result: ', registerResult);
+      if (registerResult) {
+        Alert.alert('Success', 'User created successfully!');
+        delete registerData.full_name;
+        delete registerData.email;
+        onLogin(registerData);
+      }
     } catch (error) {
       console.error('Register', error);
-      // TODO: notify user about failed register attempt
+      Alert.alert('Error occurs. Please check input fields again.');
     }
   };
 
   const checkUser = async (username) => {
     try {
-      const userAvailable = await checkUsername(username);
+      const userAvailable = await checkUsername(userAccountTag + username);
       console.log('checkUser', userAvailable);
       return userAvailable || 'Username is already taken';
     } catch (error) {
@@ -44,8 +74,8 @@ const RegisterForm = (props) => {
   };
 
   return (
-    <>
-      <Text h3>Registeration Form</Text>
+    <Card containerStyle={styles.container}>
+      <Text style={styles.header}>Sign Up</Text>
       <Controller
         control={control}
         rules={{
@@ -64,9 +94,35 @@ const RegisterForm = (props) => {
             placeholder="Username"
             autoCapitalize="none"
             errorMessage={errors.username && errors.username.message}
+            inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
           />
         )}
         name="username"
+      />
+
+      <Controller
+        control={control}
+        rules={{
+          required: {value: true, message: 'This is required.'},
+          pattern: {
+            value: /^[a-z0-9.]{1,64}@[a-z0-9.-]{2,64}/i,
+            message: 'Please enter a valid email!',
+          },
+        }}
+        render={({field: {onChange, onBlur, value}}) => (
+          <Input
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+            placeholder="Email"
+            autoCapitalize="none"
+            errorMessage={errors.email && errors.email.message}
+            inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
+          />
+        )}
+        name="email"
       />
 
       <Controller
@@ -87,6 +143,8 @@ const RegisterForm = (props) => {
             secureTextEntry={true}
             autoCapitalize="none"
             errorMessage={errors.password && errors.password.message}
+            inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
           />
         )}
         name="password"
@@ -114,31 +172,11 @@ const RegisterForm = (props) => {
             errorMessage={
               errors.confrimPassword && errors.confrimPassword.message
             }
+            inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
           />
         )}
         name="confrimPassword"
-      />
-
-      <Controller
-        control={control}
-        rules={{
-          required: {value: true, message: 'This is required.'},
-          pattern: {
-            value: /^[a-z0-9.]{1,64}@[a-z0-9.-]{2,64}/i,
-            message: 'Please enter a valid email!',
-          },
-        }}
-        render={({field: {onChange, onBlur, value}}) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Email"
-            autoCapitalize="none"
-            errorMessage={errors.email && errors.email.message}
-          />
-        )}
-        name="email"
       />
 
       <Controller
@@ -152,13 +190,57 @@ const RegisterForm = (props) => {
             placeholder="Full name"
             autoCapitalize="words"
             errorMessage={errors.full_name && errors.full_name.message}
+            inputContainerStyle={styles.input}
+            inputStyle={{color: colors.primary800}}
           />
         )}
         name="full_name"
       />
-      <Button title="Register!" onPress={handleSubmit(register)} />
-    </>
+      <Button
+        title="Register!"
+        onPress={handleSubmit(register)}
+        buttonStyle={styles.button}
+      />
+    </Card>
   );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    borderWidth: 0,
+    shadowOpacity: 0,
+    elevation: 0,
+    backgroundColor: '#fff',
+  },
+  header: {
+    fontWeight: 'medium',
+    fontSize: 40,
+    textAlign: 'center',
+    paddingVertical: 50,
+    color: colors.primary700,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#EAF1EA',
+    padding: 8,
+    borderRadius: 8,
+  },
+  button: {
+    alignSelf: 'stretch',
+    marginHorizontal: 10,
+    padding: 8,
+    borderRadius: 8,
+    height: 50,
+    backgroundColor: colors.primary700,
+  },
+  wrapper: {
+    flex: 1,
+  },
+});
+
+RegisterForm.propTypes = {
+  navigation: PropTypes.object,
 };
 
 export default RegisterForm;
