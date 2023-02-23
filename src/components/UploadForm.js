@@ -13,8 +13,7 @@ import {uploadUrl} from '../utils/variables';
 import {usePickerState} from '../services/usePicker';
 
 const UploadForm = ({plant, onSubmit}) => {
-  const {image, setImage, imageSelected, setImageSelected, setType} =
-    useContext(MainContext);
+  const {setImage, setImageSelected, setType} = useContext(MainContext);
   const {
     lastWater,
     lastWaterItem,
@@ -31,9 +30,21 @@ const UploadForm = ({plant, onSubmit}) => {
     setOpenLastWater,
     setOpenNotificationTime,
   } = usePickerState();
-  const {title, waterInterval} = useUpLoadFormState();
-  console.log('UPLOAD FORM IMAGE: ', image);
-  console.log('PLANT', plant);
+  const {
+    title,
+    waterInterval,
+    clean,
+    otherNames,
+    waterInstruction,
+    level,
+    liquidFertilizing,
+  } = useUpLoadFormState();
+  // console.log('UPLOAD FORM IMAGE: ', image);
+  // console.log('PLANT', plant);
+
+  // Get the default values from database
+  const defaultValues = JSON.parse(plant.description);
+  // console.log('UPLOAD FORM DEFAULT: ', defaultValues);
 
   // Condition to check for disable button
   let buttonStatus = false;
@@ -68,19 +79,34 @@ const UploadForm = ({plant, onSubmit}) => {
 
   // Handler submit form
   const handlerSubmit = () => {
+    // Set default values when submit the form
     if (title.value === '') title.value = plant.title;
+
+    if (clean.value === '') clean.value = defaultValues.clean;
+
+    if (waterInterval.value === '')
+      waterInterval.value = defaultValues.waterInterval;
+
+    if (liquidFertilizing.value === '')
+      liquidFertilizing.value = defaultValues.liquidFertilizing;
+
+    if (waterInstruction.value === '')
+      waterInstruction.value = defaultValues.waterInstruction;
+
+    if (otherNames.value === '') otherNames.value = defaultValues.otherNames;
+    if (level.value === '') level.value = defaultValues.level;
 
     const formData = {
       title: title.value,
       description: {
-        waterInterval: '',
+        waterInterval: waterInterval.value,
         lastWater: lastWater,
         notificationTime: notificationTime,
-        clean: '',
-        level: '',
-        liquidFertilizing: '',
-        otherNames: '',
-        waterInstruction: '',
+        clean: clean.value,
+        level: level.value,
+        liquidFertilizing: liquidFertilizing.value,
+        otherNames: otherNames.value,
+        waterInstruction: waterInstruction.value,
       },
     };
 
