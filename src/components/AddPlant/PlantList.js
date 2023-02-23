@@ -6,6 +6,7 @@ import {useMedia} from '../../hooks/ApiHooks';
 import PlantListItem from '../shared/PlantListItem';
 import {colors} from '../../utils/colors';
 import {useSearch} from '../../services/useSearch';
+import PlantNotFound from '../shared/PlantNotFound';
 
 const PlantList = ({navigation}) => {
   const {prefixArray} = useMedia(false);
@@ -32,7 +33,7 @@ const PlantList = ({navigation}) => {
         value={search.value}
       />
       {searchResult.length === 0 ? (
-        <Text> Sorry, no plant was found</Text>
+        <PlantNotFound navigation={navigation} />
       ) : (
         <FlatList
           data={searchResult}
