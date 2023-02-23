@@ -12,8 +12,8 @@ import {useUpLoadFormState} from '../services/useUploadFormState';
 import {uploadUrl} from '../utils/variables';
 import {usePickerState} from '../services/usePicker';
 
-const UploadForm = ({plant, isOthers, onSubmit}) => {
-  const {image, imageSelected, setImage, setImageSelected, setType} =
+const UploadForm = ({plant, onSubmit}) => {
+  const {image, setImage, imageSelected, setImageSelected, setType} =
     useContext(MainContext);
   const {
     lastWater,
@@ -32,20 +32,13 @@ const UploadForm = ({plant, isOthers, onSubmit}) => {
     setOpenNotificationTime,
   } = usePickerState();
   const {title, waterInterval} = useUpLoadFormState();
-  console.log('IMAGE: ', image);
+  console.log('UPLOAD FORM IMAGE: ', image);
   console.log('PLANT', plant);
 
   // Condition to check for disable button
   let buttonStatus = false;
 
   if (!lastWater || !notificationTime) {
-    buttonStatus = true;
-  }
-  // If the user choose to add plant not in prefix, required all input
-  if (
-    isOthers &&
-    (!lastWater || !notificationTime || !title.value || !imageSelected)
-  ) {
     buttonStatus = true;
   }
 
@@ -64,6 +57,7 @@ const UploadForm = ({plant, isOthers, onSubmit}) => {
 
       if (!result.canceled) {
         setImage(result.uri);
+        // console.log('SET IMAGE IF PICK', result.uri);
         setImageSelected(true);
         setType(result.type);
       }
@@ -79,9 +73,14 @@ const UploadForm = ({plant, isOthers, onSubmit}) => {
     const formData = {
       title: title.value,
       description: {
-        waterInterval: waterInterval.value,
+        waterInterval: '',
         lastWater: lastWater,
         notificationTime: notificationTime,
+        clean: '',
+        level: '',
+        liquidFertilizing: '',
+        otherNames: '',
+        waterInstruction: '',
       },
     };
 
@@ -97,19 +96,8 @@ const UploadForm = ({plant, isOthers, onSubmit}) => {
       <Text style={styles.text} onPress={pickImage}>
         Click here to choose your image
       </Text>
-      <Input
-        text={isOthers ? 'Name your plant' : 'Name your plant (optional)'}
-        onChangeText={title.set}
-      />
-      {isOthers ? (
-        <Input
-          text="Days between water"
-          onChangeText={waterInterval.set}
-          error={!waterInterval.valid}
-        />
-      ) : (
-        <></>
-      )}
+      <Input text="Name your plant (optional)" onChangeText={title.set} />
+
       {!waterInterval.valid && (
         <Text style={styles.text}>
           Invalid input values - Please enter a number
@@ -203,7 +191,6 @@ const styles = StyleSheet.create({
 
 UploadForm.propTypes = {
   plant: PropTypes.object,
-  isOthers: PropTypes.bool,
   onSubmit: PropTypes.func,
 };
 

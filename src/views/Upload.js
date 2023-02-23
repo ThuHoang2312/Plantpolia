@@ -9,6 +9,7 @@ import {useMedia, useTag} from '../hooks/ApiHooks';
 import LoadingOverlay from '../components/shared/LoadingOverlay';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
 import {spacing} from '../utils/sizes';
+import {validateUploadFormData} from '../services/validateUploadFormData';
 
 const Upload = ({navigation, route}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,20 +29,33 @@ const Upload = ({navigation, route}) => {
   } = useContext(MainContext);
 
   const plantData = route.params.plant;
-  let isOthers = false;
-  if (plantData.title === 'Others') {
-    isOthers = true;
-  }
 
   // Get the prefix days between watering
-  const prefixWaterInterval = JSON.parse(plantData.description);
+  // console.log('UPLOAD IMAGE:', image);
   // console.log(prefixWaterInterval);
 
   const handlerSubmit = async (data) => {
-    // If the upload plant belong to prefix list
-    if (!isOthers) {
-      data.description.waterInterval = prefixWaterInterval.waterInterval;
-    }
+    // // Validate data before upload
+    // const description = data.description;
+    // if (description.clean === '') {
+    //   description.clean = plantData.clean;
+    // }
+    // if (description.waterInstruction === '') {
+    //   description.waterInstruction = plantData.waterInstruction;
+    // }
+    // if (description.level === '') {
+    //   description.level = plantData.level;
+    // }
+    // if (description.liquidFertilizing === '') {
+    //   description.liquidFertilizing = plantData.liquidFertilizing;
+    // }
+    // if (description.otherNames === '') {
+    //   description.otherNames = plantData.otherNames;
+    // }
+    validateUploadFormData(data, plantData);
+
+    console.log('FORM DATA INPUT: ', data);
+
     const addData = JSON.stringify(data.description);
 
     // Get token of user
@@ -50,16 +64,16 @@ const Upload = ({navigation, route}) => {
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('description', addData);
-    if (imageSelected) {
-      const filename = image.split('/').pop();
-      let fileExtension = filename.split('.').pop();
-      fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
-      formData.append('file', {
-        uri: image,
-        name: filename,
-        type: type + '/' + fileExtension,
-      });
-    }
+
+    const filename = image.split('/').pop();
+    let fileExtension = filename.split('.').pop();
+    fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
+    formData.append('file', {
+      uri: image,
+      name: filename,
+      type: type + '/' + fileExtension,
+    });
+
     console.log('FORMDATA: ', formData);
 
     try {
@@ -103,11 +117,7 @@ const Upload = ({navigation, route}) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <UploadForm
-          plant={plantData}
-          isOthers={isOthers}
-          onSubmit={handlerSubmit}
-        />
+        <UploadForm plant={plantData} onSubmit={handlerSubmit} />
       </View>
     </ScrollView>
   );
