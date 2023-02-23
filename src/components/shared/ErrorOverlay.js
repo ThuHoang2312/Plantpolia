@@ -10,7 +10,7 @@ const ErrorOverlay = ({message, onConfirm}) => {
     <View style={styles.container}>
       <Text style={[styles.title, styles.text]}>An error occured!</Text>
       <Text style={styles.text}>{message}</Text>
-      <Button onPress={onConfirm}>Okay</Button>
+      <Button text="Okay" disabled={false} onPress={onConfirm} />
     </View>
   );
 };
