@@ -6,7 +6,6 @@ import {Alert, StyleSheet} from 'react-native';
 import {colors} from '../utils/colors';
 import {userAccountTag} from '../utils/variables';
 import PropTypes from 'prop-types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MainContext} from '../contexts/MainContext';
 
 const RegisterForm = ({navigation}) => {
@@ -27,16 +26,16 @@ const RegisterForm = ({navigation}) => {
   });
   const {postUser, checkUsername} = useUser();
   const {postLogin} = useAuthentication();
-  const {setUser, setIsLoggedIn, setToken} = React.useContext(MainContext);
+  const {setUser, setToken, setExpirationDate, ACCESS_TOKEN_AGE_IN_MS} =
+    React.useContext(MainContext);
 
   const onLogin = async (data) => {
     console.log(data);
     try {
       const userData = await postLogin(data);
-      await AsyncStorage.setItem('userToken', userData.token);
       setToken(userData.token);
       setUser(userData.user);
-      setIsLoggedIn(true);
+      setExpirationDate(Date.now() + ACCESS_TOKEN_AGE_IN_MS); //  Token expires in 10 min ?
     } catch (error) {
       Alert.alert('Login failed!', 'Wrong username or password!');
       console.error(error);

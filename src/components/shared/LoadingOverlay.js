@@ -6,7 +6,7 @@ import {spacing} from '../../utils/sizes';
 const LoadingOverlay = () => {
   return (
     <View style={styles.container}>
-      <ActivityIndicator size="large" color={colors.primary50} />
+      <ActivityIndicator size="large" color={colors.primary700} />
     </View>
   );
 };
@@ -19,6 +19,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: spacing.md,
-    backgroundColor: colors.primary700,
+    backgroundColor: colors.primary50,
   },
 });
