@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
-import {Text} from '@rneui/themed';
+import UserPlantDetail from '../components/Home/UserPlantDetail';
 
-const PlantDetail = ({navigation}) => {
-  return <Text>Plant Detail</Text>;
+const PlantDetail = ({navigation, route}) => {
+  return <UserPlantDetail navigation={navigation} plant={route.params.plant} />;
 };
 
-PlantDetail.propTypes = {
+PlantDetail.propTypesXX = {
   navigation: PropTypes.object,
+  route: PropTypes.object,
 };
 
 export default PlantDetail;

@@ -1,95 +1,91 @@
 import React, {useContext} from 'react';
-import {ScrollView, StyleSheet, View, Image} from 'react-native';
-import {Avatar, Button, Card, Text} from 'react-native-paper';
+import PropTypes from 'prop-types';
+import {ScrollView, StyleSheet, View, Text, Image} from 'react-native';
 import {DataTable} from 'react-native-paper';
-import {uploadUrl} from '../../utils/variables';
 import {MainContext} from '../../contexts/MainContext';
-import {fontSizes, spacing} from '../../utils/sizes';
-import PropertyDisplay from '../shared/PropertyDisplay';
 import {colors} from '../../utils/colors';
+import {spacing, fontSizes} from '../../utils/sizes';
 
-const UserPlantDetail = (plant) => {
-  const userPlant = plant.plant;
-  // console.log('USER PLANT DETAIL : ', userPlant);
-  const plantDescription = JSON.parse(userPlant.description);
+const UserPlantDetail = ({plant, navigation}) => {
+  console.log('USER PLANT DETAIL : ', plant.title);
+  const plantDescription = JSON.parse(plant.description);
   const {image} = useContext(MainContext);
+  console.log(image);
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text>{userPlant.title}</Text>
-        <Card>
-          <Image source={{uri: image}} />
-        </Card>
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={{uri: image}} />
       </View>
-      {/* <Card
-        style={styles.container}
-        contentStyle={styles.contentContainer}
-        mode="contained"
-      >
-        <Card.Content contentStyle={styles.header}>
-          <Text variant="titleLarge" style={styles.header}>
-            {userPlant.title}
-          </Text>
-          <Text variant="bodyMedium" style={styles.text}>
-            {plantDescription.otherNames}
-          </Text>
-        </Card.Content>
-        <Card.Cover source={{uri: image}} />
-        <Card.Content style={styles.contentContainer}>
-          <DataTable>
-            <DataTable.Row>
-              <DataTable.Cell style={styles.label}>Level</DataTable.Cell>
-              <DataTable.Cell style={styles.text}>
-                {plantDescription.level}
-              </DataTable.Cell>
-            </DataTable.Row>
-            <DataTable.Row>
-              <DataTable.Cell style={styles.label}>
-                Liquid Fertilizing
-              </DataTable.Cell>
-              <DataTable.Cell style={styles.text}>
-                {plantDescription.liquidFertilizing}
-              </DataTable.Cell>
-            </DataTable.Row>
-            <DataTable.Row>
-              <DataTable.Cell style={styles.label}>Clean</DataTable.Cell>
-              <DataTable.Cell style={styles.text}>
-                {plantDescription.clean}
-              </DataTable.Cell>
-            </DataTable.Row>
-          </DataTable>
-          <PropertyDisplay
-            label="Water Instruction"
-            content={plantDescription.waterInstruction}
-          />
-        </Card.Content>
-        <Card.Actions>
-          <Button>I watered this plant</Button>
-        </Card.Actions>
-      </Card> */}
-    </ScrollView>
+      <Text style={styles.title}>{plant.title}</Text>
+      <DataTable>
+        <DataTable.Row>
+          <DataTable.Cell style={styles.label}>Other names</DataTable.Cell>
+          <DataTable.Cell>{plantDescription.otherNames}</DataTable.Cell>
+        </DataTable.Row>
+        <DataTable.Row>
+          <DataTable.Cell style={styles.label}>Level</DataTable.Cell>
+          <DataTable.Cell>{plantDescription.level}</DataTable.Cell>
+        </DataTable.Row>
+        <DataTable.Row>
+          <DataTable.Cell style={styles.label}>Clean</DataTable.Cell>
+          <DataTable.Cell>{plantDescription.clean}</DataTable.Cell>
+        </DataTable.Row>
+        <DataTable.Row>
+          <DataTable.Cell style={styles.label}>
+            Liquid Fertilizing
+          </DataTable.Cell>
+          <DataTable.Cell>{plantDescription.liquidFertilizing}</DataTable.Cell>
+        </DataTable.Row>
+
+        <Text style={styles.label}>Water Instruction</Text>
+        <Text style={styles.text}>{plantDescription.waterInstruction}</Text>
+      </DataTable>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: colors.background,
-    color: colors.primary800,
   },
-  contentContainer: {
+  imageContainer: {
+    width: '70%',
+    alignSelf: 'center',
     marginHorizontal: spacing.md,
     marginVertical: spacing.md,
   },
-  header: {
-    textAlign: 'center',
-    fontWeight: 'bold',
+  image: {
+    resizeMode: 'contain',
+    width: '100%',
+    aspectRatio: 1,
+    alignSelf: 'center',
+    top: 7,
+    borderRadius: spacing.md,
+    borderColor: colors.primary100,
+    borderWidth: spacing.sm / 4,
   },
-  text: {
-    textAlign: 'center',
-    color: colors.primary800,
+  title: {
+    fontSize: fontSizes.lg,
+    marginTop: spacing.sm,
+    alignSelf: 'center',
+    color: colors.primary700,
+  },
+  label: {
+    fontWeight: 'bold',
+    marginHorizontal: spacing.md,
     marginVertical: spacing.md,
   },
+  text: {
+    marginHorizontal: spacing.md,
+    marginVertical: spacing.sm,
+  },
 });
+
+UserPlantDetail.propTypes = {
+  navigation: PropTypes.object,
+  plant: PropTypes.object,
+};
 
 export default UserPlantDetail;
