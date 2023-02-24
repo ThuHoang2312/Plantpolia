@@ -11,7 +11,7 @@ import {MainContext} from '../../contexts/MainContext';
 import {useMedia, useTag} from '../../hooks/ApiHooks';
 import {imageDefault, requestTag} from '../../utils/variables';
 
-const PlantNotFound = ({navigation}) => {
+const PlantNotFound = ({navigation, isUserList}) => {
   const [visible, setVisible] = useState(false);
   const {
     token,
@@ -111,82 +111,99 @@ const PlantNotFound = ({navigation}) => {
 
   return (
     <>
-      <View style={styles.container}>
-        <Text style={styles.title}>Plant not found</Text>
-        <Text style={styles.text}>
-          You can suggest this plant to be added. Please note that Plantpolia
-          supports only houseplant right now.
-        </Text>
-      </View>
-      <View style={styles.container}>
-        <Button
-          text="Suggest plant to be added"
-          disabled={false}
-          onPress={toggleOverlay}
-        />
-      </View>
-      <Overlay
-        overlayStyle={styles.overlay}
-        isVisible={visible}
-        onBackdropPress={toggleOverlay}
-      >
-        <Text style={styles.title}>Suggest plant</Text>
-        <Text style={styles.text}>Add a picture of your plant (Required)</Text>
-
-        <Card containerStyle={styles.card}>
-          {imageSelected ? (
-            <Card.Image
-              source={{uri: image}}
-              style={styles.image}
-              onPress={pickImage}
+      {isUserList ? (
+        <View style={styles.container}>
+          <Text style={styles.title}>Plant not found</Text>
+          <Text style={styles.text}>
+            You can add the plant by clicking the add button
+          </Text>
+        </View>
+      ) : (
+        <>
+          <View style={styles.container}>
+            <Text style={styles.title}>Plant not found</Text>
+            <Text style={styles.text}>
+              You can suggest this plant to be added. Please note that
+              Plantpolia supports only houseplant right now.
+            </Text>
+          </View>
+          <View style={styles.container}>
+            <Button
+              text="Suggest plant to be added"
+              disabled={false}
+              onPress={toggleOverlay}
             />
-          ) : (
-            <Icon
-              name="image"
-              size={50}
-              type="font-awesome"
-              color={colors.primary800}
-              onPress={pickImage}
-            />
-          )}
-        </Card>
+          </View>
+          <Overlay
+            overlayStyle={styles.overlay}
+            isVisible={visible}
+            onBackdropPress={toggleOverlay}
+          >
+            <Text style={styles.title}>Suggest plant</Text>
+            <Text style={styles.text}>
+              Add a picture of your plant (Required)
+            </Text>
 
-        <Text style={styles.text}>Scientific name (required)</Text>
-        <Controller
-          control={control}
-          rules={{
-            required: {value: true, message: 'This is required.'},
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              style={styles.input}
-              onChangeText={onChange}
-              value={value}
-              autoCapitalize="none"
-              errorMessage={errors.description}
-            />
-          )}
-          name="scientificName"
-        />
+            <Card containerStyle={styles.card}>
+              {imageSelected ? (
+                <Card.Image
+                  source={{uri: image}}
+                  style={styles.image}
+                  onPress={pickImage}
+                />
+              ) : (
+                <Icon
+                  name="image"
+                  size={50}
+                  type="font-awesome"
+                  color={colors.primary800}
+                  onPress={pickImage}
+                />
+              )}
+            </Card>
 
-        <Text style={styles.text}>Common name (Optional)</Text>
-        <Controller
-          control={control}
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInput
-              style={styles.input}
-              onChangeText={onChange}
-              value={value}
-              autoCapitalize="none"
-              errorMessage={errors.description}
+            <Text style={styles.text}>Scientific name (required)</Text>
+            <Controller
+              control={control}
+              rules={{
+                required: {value: true, message: 'This is required.'},
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <TextInput
+                  style={styles.input}
+                  onChangeText={onChange}
+                  value={value}
+                  autoCapitalize="none"
+                  errorMessage={errors.description}
+                />
+              )}
+              name="scientificName"
             />
-          )}
-          name="commonName"
-        />
 
-        <Button text="Submit" onPress={onSubmit} disabled={!imageSelected} />
-        <Button text="Cancel" onPress={toggleOverlay} />
-      </Overlay>
+            <Text style={styles.text}>Common name (Optional)</Text>
+            <Controller
+              control={control}
+              render={({field: {onChange, onBlur, value}}) => (
+                <TextInput
+                  style={styles.input}
+                  onChangeText={onChange}
+                  value={value}
+                  autoCapitalize="none"
+                  errorMessage={errors.description}
+                />
+              )}
+              name="commonName"
+            />
+
+            <Button
+              text="Submit"
+              onPress={onSubmit}
+              disabled={!imageSelected}
+            />
+            <Button text="Cancel" onPress={toggleOverlay} />
+          </Overlay>
+        </>
+      )}
     </>
   );
 };
@@ -242,6 +259,7 @@ const styles = StyleSheet.create({
 
 PlantNotFound.propTypes = {
   navigation: PropTypes.object.isRequired,
+  isUserList: PropTypes.bool,
 };
 
 export default PlantNotFound;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, Text} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import {SearchBar} from '@rneui/themed';
 import {useMedia} from '../../hooks/ApiHooks';
 import PlantListItem from '../shared/PlantListItem';
@@ -8,6 +8,7 @@ import {colors} from '../../utils/colors';
 import {useSearch} from '../../services/useSearch';
 import PlantNotFound from '../shared/PlantNotFound';
 import LoadingOverlay from '../shared/LoadingOverlay';
+import {spacing} from '../../utils/sizes';
 
 const PlantList = ({navigation}) => {
   const {prefixArray, load} = useMedia(false);
@@ -26,19 +27,18 @@ const PlantList = ({navigation}) => {
   return (
     <>
       <SearchBar
+        lightTheme
         autoCapitalize="none"
         autoCorrect={false}
-        containerStyle={{
-          backgroundColor: colors.primary50,
-        }}
-        inputContainerStyle={{backgroundColor: colors.primary50}}
+        containerStyle={styles.searchContainer}
+        inputContainerStyle={styles.searchInput}
         inputStyle={{color: colors.primary700}}
         placeholder="Search for plant ..."
         onChangeText={search.update}
         value={search.value}
       />
       {searchResult.length === 0 ? (
-        <PlantNotFound navigation={navigation} />
+        <PlantNotFound navigation={navigation} isUserList={false} />
       ) : (
         <FlatList
           data={searchResult}
@@ -57,6 +57,19 @@ const PlantList = ({navigation}) => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  searchContainer: {
+    backgroundColor: colors.background,
+    borderColor: colors.background,
+    height: spacing.xxl,
+    justifyContent: 'center',
+  },
+  searchInput: {
+    backgroundColor: colors.primary50,
+  },
+});
+
 PlantList.propTypes = {
   navigation: PropTypes.object.isRequired,
 };
