@@ -7,9 +7,10 @@ import PlantListItem from '../shared/PlantListItem';
 import {colors} from '../../utils/colors';
 import {useSearch} from '../../services/useSearch';
 import PlantNotFound from '../shared/PlantNotFound';
+import LoadingOverlay from '../shared/LoadingOverlay';
 
 const PlantList = ({navigation}) => {
-  const {prefixArray} = useMedia(false);
+  const {prefixArray, load} = useMedia(false);
 
   const {search} = useSearch();
 
@@ -17,6 +18,10 @@ const PlantList = ({navigation}) => {
     obj.title.toLowerCase().includes(search.value.toLowerCase())
   );
   console.log(searchResult.length);
+
+  if (load) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <>

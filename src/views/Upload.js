@@ -12,7 +12,7 @@ import {spacing} from '../utils/sizes';
 
 const Upload = ({navigation, route}) => {
   const [error, setError] = useState();
-  const {postMedia} = useMedia();
+  const {postMedia, load} = useMedia();
   const {postTag} = useTag();
   const {
     image,
@@ -79,10 +79,10 @@ const Upload = ({navigation, route}) => {
     setError(null);
   };
 
-  if (error && !upload) {
+  if (error && !load) {
     return <ErrorOverlay message={error} onConfirm={errorHandler} />;
   }
-  if (upload) {
+  if (load) {
     return <LoadingOverlay />;
   }
 
