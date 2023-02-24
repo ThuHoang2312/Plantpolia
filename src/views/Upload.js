@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {ScrollView, View, StyleSheet} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {MainContext} from '../contexts/MainContext';
 import {userTag} from '../utils/variables';
@@ -9,16 +8,14 @@ import {useMedia, useTag} from '../hooks/ApiHooks';
 import LoadingOverlay from '../components/shared/LoadingOverlay';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
 import {spacing} from '../utils/sizes';
-import {validateUploadFormData} from '../services/validateUploadFormData';
 
 const Upload = ({navigation, route}) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-  const {postMedia} = useMedia();
+  const {postMedia, load} = useMedia();
   const {postTag} = useTag();
   const {
     image,
-    imageSelected,
+    token,
     type,
     update,
     upload,
@@ -26,40 +23,16 @@ const Upload = ({navigation, route}) => {
     setUpdate,
     setLastWater,
     setNotificationTime,
+    imageSelected,
+    setImageSelected,
   } = useContext(MainContext);
+  // console.log('UPLOAD upload', upload);
 
   const plantData = route.params.plant;
-
-  // Get the prefix days between watering
-  // console.log('UPLOAD IMAGE:', image);
-  // console.log(prefixWaterInterval);
+  // const prefixDescription = plantData.description;
 
   const handlerSubmit = async (data) => {
-    // // Validate data before upload
-    // const description = data.description;
-    // if (description.clean === '') {
-    //   description.clean = plantData.clean;
-    // }
-    // if (description.waterInstruction === '') {
-    //   description.waterInstruction = plantData.waterInstruction;
-    // }
-    // if (description.level === '') {
-    //   description.level = plantData.level;
-    // }
-    // if (description.liquidFertilizing === '') {
-    //   description.liquidFertilizing = plantData.liquidFertilizing;
-    // }
-    // if (description.otherNames === '') {
-    //   description.otherNames = plantData.otherNames;
-    // }
-    validateUploadFormData(data, plantData);
-
-    console.log('FORM DATA INPUT: ', data);
-
     const addData = JSON.stringify(data.description);
-
-    // Get token of user
-    const token = await AsyncStorage.getItem('userToken');
 
     const formData = new FormData();
     formData.append('title', data.title);
@@ -74,10 +47,7 @@ const Upload = ({navigation, route}) => {
       type: type + '/' + fileExtension,
     });
 
-    console.log('FORMDATA: ', formData);
-
     try {
-      setIsLoading(true);
       // console.log('token', token);
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(
@@ -85,16 +55,13 @@ const Upload = ({navigation, route}) => {
         token
       );
       setUpload(!upload);
+      // console.log('AFTER REQUEST UPLOAD', upload);
       setUpdate(update + 1);
-      console.log('POST RESPONSE: ', response);
-      console.log('TAG RESPONSE: ', response);
-
+      setImageSelected(!imageSelected);
       setTimeout(() => {
-        tagResponse &&
-          (setIsLoading(false), navigation.navigate('UploadCompleted'));
+        tagResponse && navigation.navigate('UploadCompleted');
       }, 1000);
     } catch (error) {
-      setIsLoading(false);
       setError(error.message);
       // console.log('error', error);
     }
@@ -107,10 +74,10 @@ const Upload = ({navigation, route}) => {
     setError(null);
   };
 
-  if (error && !isLoading) {
+  if (error && !load) {
     return <ErrorOverlay message={error} onConfirm={errorHandler} />;
   }
-  if (isLoading) {
+  if (load) {
     return <LoadingOverlay />;
   }
 

@@ -1,52 +1,88 @@
-import React, {useState, createContext} from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import PropTypes from 'prop-types';
+import {useClock} from '../utils/useClock';
 
-const MainContext = createContext({});
+/** @type {import('../types/MainContextModel').MainContextReactContext} */
+export const MainContext = createContext(null);
 
-const MainProvider = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
+// eslint-disable-next-line valid-jsdoc
+/** @type {import('../types/MainContextModel').MainContextProviderFC} */
+export const MainProvider = ({
+  accessToken,
+  expirationDate,
+  userProfile,
+  setAccessToken,
+  setExpirationDate,
+  setUserProfile,
+  children,
+}) => {
+  const date = useClock();
+  /** @type {import('../types/MainContextModel').UpdateUseStateModel} */
   const [update, setUpdate] = useState(true);
-  const [lastWater, setLastWater] = useState('');
-  const [notificationTime, setNotificationTime] = useState('');
-  const [image, setImage] = useState('');
-  const [imageSelected, setImageSelected] = useState(false);
-  const [type, setType] = useState('image');
-  const [upload, setUpload] = useState(false);
-  const [token, setToken] = React.useState('token');
 
-  return (
-    <MainContext.Provider
-      value={{
-        isLoggedIn,
-        setIsLoggedIn,
-        user,
-        setUser,
-        update,
-        setUpdate,
-        lastWater,
-        setLastWater,
-        notificationTime,
-        setNotificationTime,
-        image,
-        setImage,
-        upload,
-        setUpload,
-        type,
-        setType,
-        imageSelected,
-        setImageSelected,
-        token,
-        setToken,
-      }}
-    >
-      {props.children}
-    </MainContext.Provider>
-  );
+  /** @type {import('../types/MainContextModel').LastWaterUseStateModel} */
+  const [lastWater, setLastWater] = useState('');
+
+  /** @type {import('../types/MainContextModel').NotificationTimeUseStateModel} */
+  const [notificationTime, setNotificationTime] = useState('');
+
+  /** @type {import('../types/MainContextModel').ImageUseStateModel} */
+  const [image, setImage] = useState('');
+
+  /** @type {import('../types/MainContextModel').ImageSelectedUseStateModel} */
+  const [imageSelected, setImageSelected] = useState(false);
+
+  /** @type {import('../types/MainContextModel').TypeUseStateModel} */
+  const [type, setType] = useState('image');
+
+  /** @type {import('../types/MainContextModel').UploadUseStateModel} */
+  const [upload, setUpload] = useState(false);
+
+  const isExpired = !!accessToken && !!userProfile && expirationDate < date;
+  const isLoggedIn = !isExpired && !!userProfile && !!accessToken;
+
+  /** @type {import('../types/MainContextModel').MainContextModel} */
+  const state = {
+    ACCESS_TOKEN_AGE_IN_MS: 86_400_000, //  One Day
+    isLoggedIn,
+    isExpired,
+    user: userProfile,
+    setUser: setUserProfile,
+    update,
+    setUpdate,
+    lastWater,
+    setLastWater,
+    notificationTime,
+    setNotificationTime,
+    image,
+    setImage,
+    upload,
+    setUpload,
+    type,
+    setType,
+    imageSelected,
+    setImageSelected,
+    token: accessToken,
+    setToken: setAccessToken,
+    expirationDate,
+    setExpirationDate,
+  };
+
+  return <MainContext.Provider value={state}>{children}</MainContext.Provider>;
+};
+
+export const useMainContext = () => {
+  const context = useContext(MainContext);
+
+  return context;
 };
 
 MainProvider.propTypes = {
   children: PropTypes.node,
+  setUserProfile: PropTypes.func,
+  setExpirationDate: PropTypes.func,
+  setAccessToken: PropTypes.func,
+  userProfile: PropTypes.any,
+  expirationDate: PropTypes.number,
+  accessToken: PropTypes.string,
 };
-
-export {MainContext, MainProvider};

@@ -1,5 +1,4 @@
 import React from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAuthentication} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import {Controller, useForm} from 'react-hook-form';
@@ -9,7 +8,8 @@ import {colors} from '../utils/colors';
 import {userAccountTag} from '../utils/variables';
 
 const LoginForm = (props) => {
-  const {setIsLoggedIn, setUser, setToken} = React.useContext(MainContext);
+  const {setUser, setToken, setExpirationDate, ACCESS_TOKEN_AGE_IN_MS} =
+    React.useContext(MainContext);
   const {postLogin} = useAuthentication();
   const {
     control,
@@ -24,10 +24,9 @@ const LoginForm = (props) => {
       loginData.email = userAccountTag + loginData.email;
       const loginResult = await postLogin(loginData);
       console.log('logIn', loginResult);
-      await AsyncStorage.setItem('userToken', loginResult.token);
       setUser(loginResult.user);
       setToken(loginResult.token);
-      setIsLoggedIn(true);
+      setExpirationDate(Date.now() + ACCESS_TOKEN_AGE_IN_MS); //  Token expires in 10 min ?
     } catch (error) {
       console.log('logIn', error);
       if (error == 'Error: Authentication failed due bad password') {
