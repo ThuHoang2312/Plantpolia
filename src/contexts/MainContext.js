@@ -1,16 +1,22 @@
 import React, {createContext, useContext, useState} from 'react';
 import PropTypes from 'prop-types';
+import {useClock} from '../utils/useClock';
 
 /** @type {import('../types/MainContextModel').MainContextReactContext} */
 export const MainContext = createContext(null);
 
-export const MainProvider = (props) => {
-  /** @type {import('../types/MainContextModel').IsLoggedInUseStateModel} */
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  /** @type {import('../types/MainContextModel').UserUseStateModel} */
-  const [user, setUser] = useState(null);
-
+// eslint-disable-next-line valid-jsdoc
+/** @type {import('../types/MainContextModel').MainContextProviderFC} */
+export const MainProvider = ({
+  accessToken,
+  expirationDate,
+  userProfile,
+  setAccessToken,
+  setExpirationDate,
+  setUserProfile,
+  children,
+}) => {
+  const date = useClock();
   /** @type {import('../types/MainContextModel').UpdateUseStateModel} */
   const [update, setUpdate] = useState(true);
 
@@ -32,15 +38,16 @@ export const MainProvider = (props) => {
   /** @type {import('../types/MainContextModel').UploadUseStateModel} */
   const [upload, setUpload] = useState(false);
 
-  /** @type {import('../types/MainContextModel').TokenUseStateModel} */
-  const [token, setToken] = React.useState('token');
+  const isExpired = !!accessToken && !!userProfile && expirationDate < date;
+  const isLoggedIn = !isExpired && !!userProfile && !!accessToken;
 
   /** @type {import('../types/MainContextModel').MainContextModel} */
   const state = {
+    ACCESS_TOKEN_AGE_IN_MS: 86_400_000, //  One Day
     isLoggedIn,
-    setIsLoggedIn,
-    user,
-    setUser,
+    isExpired,
+    user: userProfile,
+    setUser: setUserProfile,
     update,
     setUpdate,
     lastWater,
@@ -55,13 +62,13 @@ export const MainProvider = (props) => {
     setType,
     imageSelected,
     setImageSelected,
-    token,
-    setToken,
+    token: accessToken,
+    setToken: setAccessToken,
+    expirationDate,
+    setExpirationDate,
   };
 
-  return (
-    <MainContext.Provider value={state}>{props.children}</MainContext.Provider>
-  );
+  return <MainContext.Provider value={state}>{children}</MainContext.Provider>;
 };
 
 export const useMainContext = () => {
@@ -72,4 +79,10 @@ export const useMainContext = () => {
 
 MainProvider.propTypes = {
   children: PropTypes.node,
+  setUserProfile: PropTypes.func,
+  setExpirationDate: PropTypes.func,
+  setAccessToken: PropTypes.func,
+  userProfile: PropTypes.any,
+  expirationDate: PropTypes.number,
+  accessToken: PropTypes.string,
 };
