@@ -21,14 +21,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: spacing.md,
-    backgroundColor: colors.primary700,
+    backgroundColor: colors.primary50,
   },
   text: {
-    color: colors.primary50,
+    color: colors.primary700,
     textAlign: 'center',
     marginBottom: spacing.sm,
   },
   title: {
+    color: colors.primary700,
     fontSize: fontSizes.lg,
     fontWeight: 'bold',
   },
