@@ -1,15 +1,32 @@
-import {Context, Dispatch} from 'react';
+import React, {Context, Dispatch, PropsWithChildren} from 'react';
 import {IUserModel} from './UserModel';
 
+export interface MainContextProviderProps {
+  userProfile: IUserModel | null;
+  accessToken: string | null;
+  expirationDate: number | null;
+  setUserProfile: (userModel: IUserModel | null) => void;
+  setAccessToken: (accessToken: string) => void;
+  setExpirationDate: (expirationDate: number) => void;
+}
+
+export type MainContextProviderFC = React.FC<
+  PropsWithChildren<MainContextProviderProps>
+>;
+
 export interface MainContextModel {
+  /**
+   * Constant access token age in ms.
+   */
+  ACCESS_TOKEN_AGE_IN_MS: number;
   /**
    * When it's true user is logged in.
    */
   isLoggedIn: boolean;
   /**
-   * TODO: Write description.
+   * When there is a user profile and token, but it's expired.
    */
-  setIsLoggedIn: Dispatch<boolean>;
+  isExpired: boolean;
   /**
    * Logged in user's UserProfile.
    */
@@ -18,6 +35,14 @@ export interface MainContextModel {
    * TODO: Write description.
    */
   setUser: Dispatch<IUserModel | null>;
+  /**
+   * Logged in user's UserProfile.
+   */
+  expirationDate: number | null;
+  /**
+   * TODO: Write description.
+   */
+  setExpirationDate: Dispatch<number | null>;
   /**
    * When true means data needs to be updated.
    */
@@ -84,7 +109,6 @@ type UseStateModel<VarName extends keyof MainContextModel> = [
 ];
 
 export type IsLoggedInUseStateModel = UseStateModel<'isLoggedIn'>;
-export type UserUseStateModel = UseStateModel<'user'>;
 export type UpdateUseStateModel = UseStateModel<'update'>;
 export type LastWaterUseStateModel = UseStateModel<'lastWater'>;
 export type NotificationTimeUseStateModel = UseStateModel<'notificationTime'>;
@@ -92,6 +116,5 @@ export type ImageUseStateModel = UseStateModel<'image'>;
 export type ImageSelectedUseStateModel = UseStateModel<'imageSelected'>;
 export type TypeUseStateModel = UseStateModel<'type'>;
 export type UploadUseStateModel = UseStateModel<'upload'>;
-export type TokenUseStateModel = UseStateModel<'token'>;
 
 export type MainContextReactContext = Context<MainContextModel>;

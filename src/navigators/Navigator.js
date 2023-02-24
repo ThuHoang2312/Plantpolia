@@ -9,6 +9,7 @@ import {Icon} from '@rneui/themed';
 import AddPlant from '../views/AddPlant';
 import Login from '../views/Login';
 import Upload from '../views/Upload';
+import {ExpiredToken} from '../views/ExpiredToken';
 import {UploadCompleted} from '../views/UploadCompleted';
 import {WateringProcess} from '../views/WateringProcess';
 import {WateringProcessStarted} from '../views/WateringProcessStarted';
@@ -64,7 +65,7 @@ const TabScreen = () => {
 };
 
 const StackScreen = () => {
-  const {isLoggedIn} = useContext(MainContext);
+  const {isLoggedIn, isExpired} = useContext(MainContext);
   return (
     <Stack.Navigator>
       {isLoggedIn ? (
@@ -104,6 +105,19 @@ const StackScreen = () => {
               headerBackVisible: false,
               gestureEnabled: false,
             }}
+          />
+        </>
+      ) : isExpired ? (
+        <>
+          <Stack.Screen
+            name="ExpiredToken"
+            component={ExpiredToken}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
           />
         </>
       ) : (

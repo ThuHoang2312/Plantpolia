@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {ScrollView, View, StyleSheet} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {MainContext} from '../contexts/MainContext';
 import {userTag} from '../utils/variables';
@@ -18,7 +17,7 @@ const Upload = ({navigation, route}) => {
   const {postTag} = useTag();
   const {
     image,
-    imageSelected,
+    token,
     type,
     update,
     upload,
@@ -57,9 +56,6 @@ const Upload = ({navigation, route}) => {
     console.log('FORM DATA INPUT: ', data);
 
     const addData = JSON.stringify(data.description);
-
-    // Get token of user
-    const token = await AsyncStorage.getItem('userToken');
 
     const formData = new FormData();
     formData.append('title', data.title);
