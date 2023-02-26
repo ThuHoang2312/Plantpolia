@@ -5,7 +5,7 @@ const PlantDetail = ({navigation, route}) => {
   return <UserPlantDetail navigation={navigation} plant={route.params.plant} />;
 };
 
-PlantDetail.propTypesXX = {
+PlantDetail.propTypes = {
   navigation: PropTypes.object,
   route: PropTypes.object,
 };

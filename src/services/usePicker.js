@@ -1,5 +1,4 @@
-import React from 'react';
-import {useState, useCallback, useContext} from 'react';
+import {useCallback, useContext, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
 
 export const usePickerState = () => {
@@ -29,11 +28,11 @@ export const usePickerState = () => {
   // Close other picker when one is in used
   const onLastWaterOpen = useCallback(() => {
     setOpenNotificationTime(false);
-  });
+  }, []);
 
   const onNotificationTimeOpen = useCallback(() => {
     setOpenLastWater(false);
-  });
+  }, []);
 
   return {
     lastWater,

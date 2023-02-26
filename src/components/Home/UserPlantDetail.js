@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {ScrollView, StyleSheet, View, Text, Image} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import {DataTable} from 'react-native-paper';
 import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
-import {spacing, fontSizes} from '../../utils/sizes';
+import {fontSizes, spacing} from '../../utils/sizes';
 
 const UserPlantDetail = ({plant, navigation}) => {
   console.log('USER PLANT DETAIL : ', plant.title);
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
 
 UserPlantDetail.propTypes = {
   navigation: PropTypes.object,
+  route: PropTypes.object,
   plant: PropTypes.object,
 };
 

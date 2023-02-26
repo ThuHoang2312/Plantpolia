@@ -1,7 +1,7 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import {View, TextInput, StyleSheet} from 'react-native';
-import {spacing, fontSizes} from '../../utils/sizes';
+import {StyleSheet, TextInput, View} from 'react-native';
+import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 
 const Input = ({text, ...inputConfig}) => {

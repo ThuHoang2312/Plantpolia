@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Overlay, Icon, Card} from '@rneui/themed';
+import {Card, Icon, Overlay} from '@rneui/themed';
 import * as ImagePicker from 'expo-image-picker';
-import {useForm, Controller} from 'react-hook-form';
-import {View, Text, StyleSheet, Alert, TextInput} from 'react-native';
-import {spacing, fontSizes} from '../../utils/sizes';
+import {Controller, useForm} from 'react-hook-form';
+import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
+import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
@@ -26,7 +26,7 @@ const PlantNotFound = ({navigation, isUserList}) => {
     update,
     setUpdate,
   } = useContext(MainContext);
-  const {postMedia, load} = useMedia();
+  const {postMedia} = useMedia();
   const {postTag} = useTag();
   const toggleOverlay = () => {
     setImageSelected(false);
@@ -89,6 +89,7 @@ const PlantNotFound = ({navigation, isUserList}) => {
         token
       );
       setUpload(!upload);
+      //  TODO: fix: boolean + number ?
       setUpdate(update + 1);
       setImage(imageDefault);
       setImageSelected(!imageSelected);

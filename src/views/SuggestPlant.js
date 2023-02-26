@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {Button, Overlay, Icon} from '@rneui/themed';
-import {View, Text, StyleSheet} from 'react-native';
+import {Button, Overlay} from '@rneui/themed';
+import {StyleSheet, Text, View} from 'react-native';
 
 const SuggestPlant = (navigation) => {
   const [visible, setVisible] = useState(false);

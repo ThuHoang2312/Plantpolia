@@ -1,5 +1,6 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import PropTypes from 'prop-types';
 
 export const RoundedButton = ({
   style = {},
@@ -30,3 +31,11 @@ const styles = (size) =>
     },
     text: {color: '#fff', fontSize: size / 3},
   });
+
+RoundedButton.propTypes = {
+  style: PropTypes.object,
+  textStyle: PropTypes.object,
+  size: PropTypes.number,
+  onPress: PropTypes.func,
+  title: PropTypes.string,
+};
