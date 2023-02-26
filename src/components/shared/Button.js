@@ -21,7 +21,7 @@ const Button = ({text, onPress, disabled}) => {
 
 const styles = StyleSheet.create({
   buttonEnabled: {
-    width: '85%',
+    width: '45%',
     backgroundColor: colors.primary700,
     alignSelf: 'center',
     alignItems: 'center',
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
   },
   buttonDisabled: {
-    width: '85%',
+    width: '45%',
     backgroundColor: colors.primary50,
     alignSelf: 'center',
     alignItems: 'center',

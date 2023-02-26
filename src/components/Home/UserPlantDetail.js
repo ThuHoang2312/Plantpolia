@@ -1,85 +1,149 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {DataTable} from 'react-native-paper';
+import {ScrollView, StyleSheet, View, Text, Image, Alert} from 'react-native';
+import {IconButton} from 'react-native-paper';
+import {Provider, Menu} from 'react-native-paper';
 import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {spacing, fontSizes} from '../../utils/sizes';
+import {useMedia} from '../../hooks/ApiHooks';
+import UploadForm from '../UploadForm';
+import Button from '../shared/Button';
+import PlantOverview from './PlantOverview';
+// import PlantPhotoList from './PlantPhotoList';
+// import UpdateFormOverlay from './UpdateFormOverlay';
+import {uploadUrl} from '../../utils/variables';
 
 const UserPlantDetail = ({plant, navigation}) => {
-  console.log('USER PLANT DETAIL : ', plant.title);
+  // console.log('USER PLANT DETAIL : ', plant.title);
+  // Get plant's description and its file id
   const plantDescription = JSON.parse(plant.description);
+  const plantId = plant.file_id;
   const {image} = useContext(MainContext);
-  console.log(image);
+
+  // State to store user's choice on tab
+  const [isOverview, setIsOverView] = useState(true);
+
+  // Function to switch tab
+  const switchTab = () => {
+    setIsOverView(!isOverview);
+  };
+
+  // // MENU
+  // const [visible, setVisible] = useState(false);
+  // const openMenu = () => setVisible(!visible);
+
+  // console.log(image);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{uri: image}} />
-      </View>
-      <Text style={styles.title}>{plant.title}</Text>
-      <DataTable>
-        <DataTable.Row>
-          <DataTable.Cell style={styles.label}>Other names</DataTable.Cell>
-          <DataTable.Cell>{plantDescription.otherNames}</DataTable.Cell>
-        </DataTable.Row>
-        <DataTable.Row>
-          <DataTable.Cell style={styles.label}>Level</DataTable.Cell>
-          <DataTable.Cell>{plantDescription.level}</DataTable.Cell>
-        </DataTable.Row>
-        <DataTable.Row>
-          <DataTable.Cell style={styles.label}>Clean</DataTable.Cell>
-          <DataTable.Cell>{plantDescription.clean}</DataTable.Cell>
-        </DataTable.Row>
-        <DataTable.Row>
-          <DataTable.Cell style={styles.label}>
-            Liquid Fertilizing
-          </DataTable.Cell>
-          <DataTable.Cell>{plantDescription.liquidFertilizing}</DataTable.Cell>
-        </DataTable.Row>
+    <>
+      <>
+        <View style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Image
+              style={styles.image}
+              source={{uri: image}}
+              blurRadius={0.1}
+            />
+            <Text style={styles.title}>{plant.title}</Text>
+            <View style={styles.buttonWrapper}>
+              <Button
+                text="Overview"
+                disabled={!isOverview}
+                onPress={switchTab}
+              />
 
-        <Text style={styles.label}>Water Instruction</Text>
-        <Text style={styles.text}>{plantDescription.waterInstruction}</Text>
-      </DataTable>
-    </View>
+              <Button
+                text="Photos & Notes"
+                onPress={switchTab}
+                disabled={isOverview}
+              />
+            </View>
+
+            <View style={styles.headerContainer}>
+              <View style={styles.menuContainer}>
+                <IconButton
+                  icon="cog"
+                  size={30}
+                  iconColor={colors.primary800}
+                  onPress={() => console.log('ICON PRESSED')}
+                />
+              </View>
+            </View>
+          </View>
+          {!isOverview ? (
+            <View style={styles.contentContainer}>
+              <ScrollView>
+                <PlantOverview plantDescription={plantDescription} />
+              </ScrollView>
+            </View>
+          ) : (
+            <View style={styles.contentContainer}>
+              <View
+                style={{
+                  backgroundColor: colors.background,
+                  width: '100%',
+                  height: '100%',
+                }}
+              >
+                {/* <PlantPhotoList fileId={plant.file_id} title={plant.title} /> */}
+              </View>
+            </View>
+          )}
+        </View>
+      </>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 0,
   },
   imageContainer: {
-    width: '70%',
-    alignSelf: 'center',
-    marginHorizontal: spacing.md,
-    marginVertical: spacing.md,
+    flex: 5,
+    flexDirection: 'column',
+  },
+  contentContainer: {
+    flex: 8,
+  },
+  buttonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  menuContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   image: {
-    resizeMode: 'contain',
     width: '100%',
-    aspectRatio: 1,
+    height: '65%',
     alignSelf: 'center',
-    top: 7,
-    borderRadius: spacing.md,
-    borderColor: colors.primary100,
-    borderWidth: spacing.sm / 4,
   },
   title: {
     fontSize: fontSizes.lg,
-    marginTop: spacing.sm,
-    alignSelf: 'center',
-    color: colors.primary700,
-  },
-  label: {
     fontWeight: 'bold',
-    marginHorizontal: spacing.md,
-    marginVertical: spacing.md,
+    marginTop: spacing.sm,
+    color: colors.primary700,
+    marginVertical: spacing.sm,
+    alignSelf: 'center',
   },
   text: {
-    marginHorizontal: spacing.md,
-    marginVertical: spacing.sm,
+    color: colors.primary700,
+    fontSize: spacing.md,
+    fontWeight: 'bold',
+    marginHorizontal: spacing.lg,
+    marginVertical: spacing.md,
   },
 });
 
