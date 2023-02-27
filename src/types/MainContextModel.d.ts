@@ -65,6 +65,12 @@ export interface MainContextModel {
   notificationTime: any;
   setNotificationTime: Dispatch<any>;
   /**
+   *
+   *  * TODO: Write description.
+   */
+  plantLocation: any;
+  setPlantLocation: Dispatch<any>;
+  /**
    * TODO: Write description.
    */
   image: any;
@@ -116,5 +122,6 @@ export type ImageUseStateModel = UseStateModel<'image'>;
 export type ImageSelectedUseStateModel = UseStateModel<'imageSelected'>;
 export type TypeUseStateModel = UseStateModel<'type'>;
 export type UploadUseStateModel = UseStateModel<'upload'>;
+export type PlantLocationUseStateModel = UseStateModel<'plantLocation'>;
 
 export type MainContextReactContext = Context<MainContextModel>;

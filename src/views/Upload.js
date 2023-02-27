@@ -25,6 +25,8 @@ const Upload = ({navigation, route}) => {
     setNotificationTime,
     imageSelected,
     setImageSelected,
+    plantLocation,
+    setPlantLocation,
   } = useContext(MainContext);
   // console.log('UPLOAD upload', upload);
 
@@ -66,8 +68,10 @@ const Upload = ({navigation, route}) => {
       // console.log('error', error);
     }
 
+    // Clear picker choices
     setLastWater('');
     setNotificationTime('');
+    setPlantLocation('');
   };
 
   const errorHandler = () => {
@@ -84,7 +88,12 @@ const Upload = ({navigation, route}) => {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <UploadForm plant={plantData} onSubmit={handlerSubmit} />
+        <UploadForm
+          plant={plantData}
+          onSubmit={handlerSubmit}
+          cancelSubmit={() => navigation.navigate('Home')}
+          isModify={false}
+        />
       </View>
     </ScrollView>
   );
