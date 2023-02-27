@@ -66,6 +66,18 @@ const useUser = () => {
     }
   };
 
+  const putUser = async (data, token) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(data),
+    };
+    return await doFetch(baseUrl + 'users', options);
+  };
+
   const checkUsername = async (username) => {
     const options = {
       method: 'GET',
@@ -81,7 +93,7 @@ const useUser = () => {
     }
   };
 
-  return {postUser, checkUsername, getUserByToken};
+  return {postUser, checkUsername, getUserByToken, putUser};
 };
 
 // PLANTS
