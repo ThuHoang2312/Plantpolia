@@ -10,7 +10,7 @@ import {useMedia} from '../../hooks/ApiHooks';
 import UploadForm from '../UploadForm';
 import Button from '../shared/Button';
 import PlantOverview from './PlantOverview';
-// import PlantPhotoList from './PlantPhotoList';
+import PlantPhotoList from './PlantPhotoList';
 // import UpdateFormOverlay from './UpdateFormOverlay';
 import {uploadUrl} from '../../utils/variables';
 
@@ -19,10 +19,12 @@ const UserPlantDetail = ({plant, navigation}) => {
   // Get plant's description and its file id
   const plantDescription = JSON.parse(plant.description);
   const plantId = plant.file_id;
+  console.log(plantId);
   const {image} = useContext(MainContext);
 
   // State to store user's choice on tab
-  const [isOverview, setIsOverView] = useState(true);
+  const [isOverview, setIsOverView] = useState(false);
+  // console.log(isOverview);
 
   // Function to switch tab
   const switchTab = () => {
@@ -86,7 +88,11 @@ const UserPlantDetail = ({plant, navigation}) => {
                   height: '100%',
                 }}
               >
-                {/* <PlantPhotoList fileId={plant.file_id} title={plant.title} /> */}
+                <PlantPhotoList
+                  fileId={plantId}
+                  title={plant.title}
+                  navigation={navigation}
+                />
               </View>
             </View>
           )}
