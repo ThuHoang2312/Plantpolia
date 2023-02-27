@@ -92,7 +92,6 @@ const Upload = ({navigation, route}) => {
           plant={plantData}
           onSubmit={handlerSubmit}
           cancelSubmit={() => navigation.navigate('Home')}
-          isModify={false}
         />
       </View>
     </ScrollView>

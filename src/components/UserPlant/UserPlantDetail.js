@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
 import {ScrollView, StyleSheet, View, Text, Image, Alert} from 'react-native';
 import {IconButton} from 'react-native-paper';
-import {Provider, Menu} from 'react-native-paper';
+import {Overlay} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
 import {spacing, fontSizes} from '../../utils/sizes';
@@ -13,13 +13,15 @@ import PlantOverview from './PlantOverview';
 import PlantPhotoList from './PlantPhotoList';
 // import UpdateFormOverlay from './UpdateFormOverlay';
 import {uploadUrl} from '../../utils/variables';
+import {ConfigOverlay} from './ConfigOverlay';
 
 const UserPlantDetail = ({plant, navigation}) => {
-  // console.log('USER PLANT DETAIL : ', plant.title);
+  console.log('USER DETAIL PLANT:', plant);
   // Get plant's description and its file id
-  const plantDescription = JSON.parse(plant.description);
+  const description = JSON.parse(plant.description);
+  console.log('TYPE:', typeof description);
   const plantId = plant.file_id;
-  console.log(plantId);
+  // console.log(plantId);
   const {image} = useContext(MainContext);
 
   // State to store user's choice on tab
@@ -31,11 +33,13 @@ const UserPlantDetail = ({plant, navigation}) => {
     setIsOverView(!isOverview);
   };
 
-  // // MENU
-  // const [visible, setVisible] = useState(false);
-  // const openMenu = () => setVisible(!visible);
+  // Overlay for modify plant
+  const [configVisible, setConfigVisible] = useState(false);
+  const toggleConfig = () => {
+    setConfigVisible(!configVisible);
+  };
 
-  // console.log(image);
+  // Submit the config form
 
   return (
     <>
@@ -68,15 +72,28 @@ const UserPlantDetail = ({plant, navigation}) => {
                   icon="cog"
                   size={30}
                   iconColor={colors.primary800}
-                  onPress={() => console.log('ICON PRESSED')}
+                  onPress={toggleConfig}
                 />
+                <Overlay
+                  overlayStyle={styles.overlay}
+                  isVisible={configVisible}
+                  onBackdropPress={toggleConfig}
+                >
+                  <ConfigOverlay
+                    fileId={plantId}
+                    name={plant.title}
+                    plant={plant}
+                    closeOverlay={toggleConfig}
+                    navigation={navigation}
+                  />
+                </Overlay>
               </View>
             </View>
           </View>
           {!isOverview ? (
             <View style={styles.contentContainer}>
               <ScrollView>
-                <PlantOverview plantDescription={plantDescription} />
+                <PlantOverview plantDescription={description} />
               </ScrollView>
             </View>
           ) : (
@@ -112,6 +129,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     right: 0,
+  },
+  overlay: {
+    marginHorizontal: spacing.md,
+    marginVertical: spacing.md,
+    height: '90%',
+    width: '90%',
   },
   imageContainer: {
     flex: 5,

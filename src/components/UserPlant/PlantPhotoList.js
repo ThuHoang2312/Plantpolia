@@ -2,12 +2,9 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {FlatList, StyleSheet, View, Text, ScrollView} from 'react-native';
 import {IconButton} from 'react-native-paper';
-import {Overlay, Card, Icon} from '@rneui/themed';
+import {Overlay} from '@rneui/themed';
 import {useMedia} from '../../hooks/ApiHooks';
 import {colors} from '../../utils/colors';
-import {useSearch} from '../../services/useSearch';
-import PlantNotFound from '../shared/PlantNotFound';
-import LoadingOverlay from '../shared/LoadingOverlay';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {AddPlantForm} from '../shared/AddPlantForm';
 import {PlantPhotoListItem} from './PlantPhotoListItem';
@@ -15,7 +12,7 @@ import {PlantPhotoListItem} from './PlantPhotoListItem';
 const PlantPhotoList = ({title, fileId, navigation}) => {
   const {photoArray, load} = useMedia(true, fileId);
 
-  // Overlay state and function
+  // Overlay state and function for photos and note tab
   const [visible, setVisible] = useState(false);
   const toggleOverlay = () => {
     setVisible(!visible);
@@ -55,9 +52,6 @@ const PlantPhotoList = ({title, fileId, navigation}) => {
           <>
             <FlatList
               numColumns={2}
-              // style={styles.listContainer}
-              // contentContainerStyle={styles.list}
-              // columnWrapperStyle={styles.column}
               data={photoArray}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => (

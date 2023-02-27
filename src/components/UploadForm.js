@@ -11,7 +11,7 @@ import {MainContext} from '../contexts/MainContext';
 import {useUploadFormState} from '../services/useUploadFormState';
 import {uploadUrl} from '../utils/variables';
 
-const UploadForm = ({plant, onSubmit, cancelSubmit, isModify}) => {
+const UploadForm = ({plant, onSubmit, cancelSubmit}) => {
   const {setImage, setImageSelected, setType} = useContext(MainContext);
   const {
     title,
@@ -104,9 +104,11 @@ const UploadForm = ({plant, onSubmit, cancelSubmit, isModify}) => {
           <Image style={styles.image} source={{uri: pickUri}} />
         </View>
         <Text style={styles.title}>{plant.title}</Text>
+
         <Text style={styles.text} onPress={pickImage}>
           Click here to choose your image
         </Text>
+
         <Input text="Name your plant (optional)" onChangeText={setTitle} />
 
         <DropDownPicker

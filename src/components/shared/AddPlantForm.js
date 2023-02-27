@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 
-import {Card, Icon, Overlay} from '@rneui/themed';
+import {Card, Icon} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {useMedia, useTag} from '../../hooks/ApiHooks';
 import Button from './Button';
 import {spacing, fontSizes} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
-import {userTag, defaultPhoto} from '../../utils/variables';
+import {userTag} from '../../utils/variables';
 
 export const AddPlantForm = ({title, fileId, closeForm}) => {
   // console.log(`${fileId}${userTag}`);
@@ -106,7 +106,7 @@ export const AddPlantForm = ({title, fileId, closeForm}) => {
   return (
     <View>
       <Text style={styles.title}> Keep notes on progress</Text>
-      <Text style={styles.text}>Add a picture of your plant (Optional)</Text>
+      <Text style={styles.text}>Add a picture of your plant</Text>
 
       <Card containerStyle={styles.card}>
         {imageSelected ? (
