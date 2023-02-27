@@ -4,7 +4,7 @@ import {useUser} from '../hooks/ApiHooks';
 import {Button, Input, Text} from '@rneui/themed';
 import {Alert, ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../utils/colors';
-import {userAccountTag} from '../utils/variables';
+import {applicationPrefixId} from '../utils/variables';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -35,8 +35,8 @@ const EditProfile = ({navigation}) => {
         delete data.password;
       }
       const userToken = await AsyncStorage.getItem('userToken');
-      data.username = userAccountTag + data.username;
-      data.email = userAccountTag + data.email;
+      data.username = applicationPrefixId + data.username;
+      data.email = applicationPrefixId + data.email;
       const userData = await putUser(data, userToken);
       if (userData) {
         Alert.alert('Success', userData.message);
@@ -51,7 +51,7 @@ const EditProfile = ({navigation}) => {
 
   const checkUser = async (username) => {
     try {
-      const userAvailable = await checkUsername(userAccountTag + username);
+      const userAvailable = await checkUsername(applicationPrefixId + username);
       return userAvailable || 'Username is already taken';
     } catch (error) {
       console.error('checkUser', error.message);

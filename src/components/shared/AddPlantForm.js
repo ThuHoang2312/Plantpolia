@@ -8,9 +8,9 @@ import {Card, Icon} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {useMedia, useTag} from '../../hooks/ApiHooks';
 import Button from './Button';
-import {spacing, fontSizes} from '../../utils/sizes';
+import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
-import {userTag} from '../../utils/variables';
+import {userPlantTagName} from '../../utils/variables';
 
 export const AddPlantForm = ({title, fileId, closeForm}) => {
   // console.log(`${fileId}${userTag}`);
@@ -77,7 +77,7 @@ export const AddPlantForm = ({title, fileId, closeForm}) => {
     try {
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: `${fileId}${userTag}`},
+        {file_id: response.file_id, tag: `${fileId}${userPlantTagName}`},
         token
       );
 

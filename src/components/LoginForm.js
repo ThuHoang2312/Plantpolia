@@ -5,7 +5,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {Button, Card, Input, Text} from '@rneui/themed';
 import {Alert, StyleSheet, View} from 'react-native';
 import {colors} from '../utils/colors';
-import {userAccountTag} from '../utils/variables';
+import {applicationPrefixId} from '../utils/variables';
 
 const LoginForm = (props) => {
   const {setUser, setToken, setExpirationDate, ACCESS_TOKEN_AGE_IN_MS} =
@@ -20,8 +20,8 @@ const LoginForm = (props) => {
   const logIn = async (loginData) => {
     console.log('Login button pressed', loginData);
     try {
-      loginData.username = userAccountTag + loginData.username;
-      loginData.email = userAccountTag + loginData.email;
+      loginData.username = applicationPrefixId + loginData.username;
+      loginData.email = applicationPrefixId + loginData.email;
       const loginResult = await postLogin(loginData);
       console.log('logIn', loginResult);
       setUser(loginResult.user);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {MainContext} from '../contexts/MainContext';
-import {userTag} from '../utils/variables';
+import {userPlantTagName} from '../utils/variables';
 import {useMedia, useTag} from '../hooks/ApiHooks';
 import LoadingOverlay from '../components/shared/LoadingOverlay';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
@@ -52,7 +52,7 @@ const Upload = ({navigation, route}) => {
       // console.log('token', token);
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: userTag},
+        {file_id: response.file_id, tag: userPlantTagName},
         token
       );
       setUpload(!upload);

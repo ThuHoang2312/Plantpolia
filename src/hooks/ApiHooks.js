@@ -1,6 +1,10 @@
 import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
-import {userTag, appTag, baseUrl} from '../utils/variables';
+import {
+  baseUrl,
+  primaryPlantTagName,
+  userPlantTagName,
+} from '../utils/variables';
 
 const doFetch = async (url, options = {}) => {
   try {
@@ -108,7 +112,7 @@ const useMedia = (myFilesOnly, fileId = null) => {
   const loadPrefix = async () => {
     setLoad(true);
     try {
-      const json = await useTag().getFileByTag(appTag);
+      const json = await useTag().getFileByTag(primaryPlantTagName);
       const media = await Promise.all(
         json.map(async (item) => {
           const response = await fetch(baseUrl + 'media/' + item.file_id);
@@ -129,7 +133,7 @@ const useMedia = (myFilesOnly, fileId = null) => {
   const loadPlant = async () => {
     setLoad(true);
     try {
-      let json = await useTag().getFileByTag(userTag);
+      let json = await useTag().getFileByTag(userPlantTagName);
       if (myFilesOnly) {
         json = json.filter((file) => file.user_id === user.user_id);
       }
@@ -152,7 +156,7 @@ const useMedia = (myFilesOnly, fileId = null) => {
   const loadPhoto = async () => {
     setLoad(true);
     try {
-      const json = await useTag().getFileByTag(`${fileId}${userTag}`);
+      const json = await useTag().getFileByTag(`${fileId}${userPlantTagName}`);
       console.log(json);
       const media = await Promise.all(
         json.map(async (item) => {

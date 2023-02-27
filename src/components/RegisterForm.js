@@ -4,7 +4,7 @@ import {useAuthentication, useUser} from '../hooks/ApiHooks';
 import {Button, Card, Input, Text} from '@rneui/themed';
 import {Alert, StyleSheet} from 'react-native';
 import {colors} from '../utils/colors';
-import {userAccountTag} from '../utils/variables';
+import {applicationPrefixId} from '../utils/variables';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
 
@@ -44,8 +44,8 @@ const RegisterForm = ({navigation}) => {
 
   const register = async (registerData) => {
     delete registerData.confrimPassword;
-    registerData.username = userAccountTag + registerData.username;
-    registerData.email = userAccountTag + registerData.email;
+    registerData.username = applicationPrefixId + registerData.username;
+    registerData.email = applicationPrefixId + registerData.email;
     console.log('Registering: ', registerData);
     try {
       const registerResult = await postUser(registerData);
@@ -64,7 +64,7 @@ const RegisterForm = ({navigation}) => {
 
   const checkUser = async (username) => {
     try {
-      const userAvailable = await checkUsername(userAccountTag + username);
+      const userAvailable = await checkUsername(applicationPrefixId + username);
       console.log('checkUser', userAvailable);
       return userAvailable || 'Username is already taken';
     } catch (error) {

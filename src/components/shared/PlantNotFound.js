@@ -9,7 +9,7 @@ import {colors} from '../../utils/colors';
 import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
 import {useMedia, useTag} from '../../hooks/ApiHooks';
-import {imageDefault, requestTag} from '../../utils/variables';
+import {imageDefault, requestedPlantTagName} from '../../utils/variables';
 
 const PlantNotFound = ({navigation, isUserList}) => {
   const [visible, setVisible] = useState(false);
@@ -85,7 +85,7 @@ const PlantNotFound = ({navigation, isUserList}) => {
     try {
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: requestTag},
+        {file_id: response.file_id, tag: requestedPlantTagName},
         token
       );
       setUpload(!upload);
