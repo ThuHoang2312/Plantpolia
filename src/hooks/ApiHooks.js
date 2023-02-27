@@ -178,12 +178,51 @@ const useMedia = (myFilesOnly, fileId = null) => {
     };
     return await doFetch(baseUrl + 'media', options);
   };
+
+  // Modify plant
+  const putMedia = async (id, data, token) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      return await doFetch(baseUrl + 'media/' + id, options);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoad(false);
+    }
+  };
+
+  // Delete plant
+  const deleteMedia = async (fileId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    try {
+      return await doFetch(baseUrl + 'media/' + fileId, options);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoad(false);
+    }
+  };
+
   return {
     prefixArray,
     plantArray,
     photoArray,
     postMedia,
     load,
+    putMedia,
+    deleteMedia,
   };
 };
 
