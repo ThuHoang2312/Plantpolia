@@ -127,44 +127,40 @@ const UploadForm = ({plant, onSubmit, cancelSubmit}) => {
           textStyle={styles.textPicker}
           selectedItemLabelStyle={{fontWeight: 'bold'}}
         />
-        {isModify ? (
-          <></>
-        ) : (
-          <>
-            <DropDownPicker
-              zIndex={6000}
-              zIndexInverse={3000}
-              open={openLastWater}
-              onOpen={onLastWaterOpen}
-              value={lastWater}
-              items={lastWaterItem}
-              setOpen={setOpenLastWater}
-              setValue={setLastWater}
-              setItems={setLastWaterItem}
-              listMode="SCROLLVIEW"
-              placeholder="Last time the plant was watered?"
-              containerStyle={styles.picker}
-              textStyle={styles.textPicker}
-              selectedItemLabelStyle={{fontWeight: 'bold'}}
-            />
-            <DropDownPicker
-              zIndex={3000}
-              zIndexInverse={6000}
-              placeholder="Notification time preferences"
-              open={openNotificationTime}
-              value={notificationTime}
-              items={notificationTimeItem}
-              setItems={setNotificationTimeItem}
-              setOpen={setOpenNotificationTime}
-              setValue={setNotificationTime}
-              listMode="SCROLLVIEW"
-              onOpen={onNotificationTimeOpen}
-              containerStyle={styles.picker}
-              textStyle={styles.textPicker}
-              selectedItemLabelStyle={{fontWeight: 'bold'}}
-            />
-          </>
-        )}
+
+        <DropDownPicker
+          zIndex={6000}
+          zIndexInverse={3000}
+          open={openLastWater}
+          onOpen={onLastWaterOpen}
+          value={lastWater}
+          items={lastWaterItem}
+          setOpen={setOpenLastWater}
+          setValue={setLastWater}
+          setItems={setLastWaterItem}
+          listMode="SCROLLVIEW"
+          placeholder="Last time the plant was watered?"
+          containerStyle={styles.picker}
+          textStyle={styles.textPicker}
+          selectedItemLabelStyle={{fontWeight: 'bold'}}
+        />
+        <DropDownPicker
+          zIndex={3000}
+          zIndexInverse={6000}
+          placeholder="Notification time preferences"
+          open={openNotificationTime}
+          value={notificationTime}
+          items={notificationTimeItem}
+          setItems={setNotificationTimeItem}
+          setOpen={setOpenNotificationTime}
+          setValue={setNotificationTime}
+          listMode="SCROLLVIEW"
+          onOpen={onNotificationTimeOpen}
+          containerStyle={styles.picker}
+          textStyle={styles.textPicker}
+          selectedItemLabelStyle={{fontWeight: 'bold'}}
+        />
+
         <View style={styles.buttonWrapper}>
           <Button text="Save" onPress={handlerSubmit} disabled={buttonStatus} />
           <Button text="Cancel" onPress={cancelSubmit} disabled={false} />

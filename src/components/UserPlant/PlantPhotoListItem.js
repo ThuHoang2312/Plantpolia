@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
-import {Card, ListItem as RNEListItem} from '@rneui/themed';
+import {Card} from '@rneui/themed';
 import {uploadUrl} from '../../utils/variables';
 import {colors} from '../../utils/colors';
 import {spacing} from '../../utils/sizes';

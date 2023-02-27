@@ -25,7 +25,6 @@ const Upload = ({navigation, route}) => {
     setNotificationTime,
     imageSelected,
     setImageSelected,
-    plantLocation,
     setPlantLocation,
   } = useContext(MainContext);
   // console.log('UPLOAD upload', upload);

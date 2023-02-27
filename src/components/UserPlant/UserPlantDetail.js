@@ -1,18 +1,14 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {ScrollView, StyleSheet, View, Text, Image, Alert} from 'react-native';
+import {ScrollView, StyleSheet, View, Text, Image} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
 import {spacing, fontSizes} from '../../utils/sizes';
-import {useMedia} from '../../hooks/ApiHooks';
-import UploadForm from '../UploadForm';
 import Button from '../shared/Button';
 import PlantOverview from './PlantOverview';
 import PlantPhotoList from './PlantPhotoList';
-// import UpdateFormOverlay from './UpdateFormOverlay';
-import {uploadUrl} from '../../utils/variables';
 import {ConfigOverlay} from './ConfigOverlay';
 
 const UserPlantDetail = ({plant, navigation}) => {

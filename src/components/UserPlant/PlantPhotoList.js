@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, StyleSheet, View, Text, ScrollView} from 'react-native';
+import {FlatList, StyleSheet, View, Text} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
 import {useMedia} from '../../hooks/ApiHooks';
@@ -10,7 +10,7 @@ import {AddPlantForm} from '../shared/AddPlantForm';
 import {PlantPhotoListItem} from './PlantPhotoListItem';
 
 const PlantPhotoList = ({title, fileId, navigation}) => {
-  const {photoArray, load} = useMedia(true, fileId);
+  const {photoArray} = useMedia(true, fileId);
 
   // Overlay state and function for photos and note tab
   const [visible, setVisible] = useState(false);
