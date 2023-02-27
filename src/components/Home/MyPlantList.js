@@ -8,15 +8,12 @@ import Welcome from './Welcome';
 import {colors} from '../../utils/colors';
 import {useSearch} from '../../services/useSearch';
 import {SearchBar} from '@rneui/themed';
-import LoadingOverlay from '../shared/LoadingOverlay';
 import PlantNotFound from '../shared/PlantNotFound';
 import {spacing} from '../../utils/sizes';
 
 const MyPlantList = ({navigation, myFilesOnly}) => {
   const {user} = useContext(MainContext);
-  // console.log('USER : ', user);
-  const {userPlantList, load} = useMedia(myFilesOnly, user.user_id);
-  // console.log('PLANT LIST: ', plantArray);
+  const {userPlantList} = useMedia(myFilesOnly, user.user_id);
   const {search} = useSearch();
 
   let searchResult = [];
@@ -26,9 +23,10 @@ const MyPlantList = ({navigation, myFilesOnly}) => {
     );
   }
 
-  if (load) {
-    return <LoadingOverlay />;
-  }
+  // if (load) {
+  //   return <LoadingOverlay />;
+  // }
+
   return (
     <View style={styles.container}>
       <Welcome />

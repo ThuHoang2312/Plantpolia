@@ -14,11 +14,9 @@ export const useMedia = (myFilesOnly, fileId = null) => {
   const [userPlantList, setUserPlantList] = useState([]);
   const [userPlantPhotoList, setUserPlantPhotoList] = useState([]);
   const {update, user} = useContext(MainContext);
-  const [load, setLoad] = useState(false);
 
   // Get the list of plant option for adding plant
   const fetchPrimaryPlantList = async () => {
-    setLoad(true);
     try {
       const json = await getFileByTag(primaryPlantTagName);
       const media = await Promise.all(
@@ -32,14 +30,11 @@ export const useMedia = (myFilesOnly, fileId = null) => {
       setPrimaryPlantList(media);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoad(false);
     }
   };
 
   // Get the list of user plant
   const fetchUserPlantList = async () => {
-    setLoad(true);
     try {
       let json = await getFileByTag(userPlantTagName);
       if (myFilesOnly) {
@@ -55,14 +50,11 @@ export const useMedia = (myFilesOnly, fileId = null) => {
       setUserPlantList(media);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoad(false);
     }
   };
 
   // Get the list of photos of user plant
   const fetchUserPlantPhotoList = async () => {
-    setLoad(true);
     try {
       const json = await getFileByTag(`${fileId}${userPlantTagName}`);
       const media = await Promise.all(
@@ -75,8 +67,6 @@ export const useMedia = (myFilesOnly, fileId = null) => {
       setUserPlantPhotoList(media);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoad(false);
     }
   };
 
@@ -92,6 +82,5 @@ export const useMedia = (myFilesOnly, fileId = null) => {
     primaryPlantList: primaryPlantList,
     userPlantList: userPlantList,
     userPlantPhotoList: userPlantPhotoList,
-    load,
   };
 };

@@ -5,14 +5,11 @@ import UploadForm from '../components/UploadForm';
 import {MainContext} from '../contexts/MainContext';
 import {userPlantTagName} from '../utils/variables';
 import {useApi} from '../hooks/ApiHooks';
-import {useMedia} from '../hooks/MediaHooks';
-import LoadingOverlay from '../components/shared/LoadingOverlay';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
 import {spacing} from '../utils/sizes';
 
 const Upload = ({navigation, route}) => {
   const [error, setError] = useState();
-  const {load} = useMedia();
   const {postTag, postMedia} = useApi();
   const {
     image,
@@ -78,11 +75,12 @@ const Upload = ({navigation, route}) => {
     setError(null);
   };
 
-  if (error && !load) {
+  // if (load) {
+  //   return <LoadingOverlay />;
+  // }
+
+  if (error) {
     return <ErrorOverlay message={error} onConfirm={errorHandler} />;
-  }
-  if (load) {
-    return <LoadingOverlay />;
   }
 
   return (

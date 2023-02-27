@@ -7,11 +7,10 @@ import PlantListItem from '../shared/PlantListItem';
 import {colors} from '../../utils/colors';
 import {useSearch} from '../../services/useSearch';
 import PlantNotFound from '../shared/PlantNotFound';
-import LoadingOverlay from '../shared/LoadingOverlay';
 import {spacing} from '../../utils/sizes';
 
 const PlantList = ({navigation}) => {
-  const {primaryPlantList, load} = useMedia(false);
+  const {primaryPlantList} = useMedia(false);
 
   const {search} = useSearch();
 
@@ -38,9 +37,9 @@ const PlantList = ({navigation}) => {
   // });
   // console.log(searchResult.length);
 
-  if (load) {
-    return <LoadingOverlay />;
-  }
+  // if (load) {
+  //   return <LoadingOverlay />;
+  // }
 
   return (
     <>
