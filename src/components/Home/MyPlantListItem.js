@@ -13,9 +13,15 @@ const MyPlantListItem = ({plant, imageUrl, title, description, navigation}) => {
   const {setImage, setUpload} = useContext(MainContext);
   // console.log('ITEM UPLOAD: ', upload);
   const plantDescription = JSON.parse(description);
+  let plantLocation = plantDescription.plantLocation;
+  console.log('plantLocation', plantLocation);
+  if (plantLocation === undefined) {
+    plantLocation = 'Unknown';
+  }
 
   return (
     <RNEListItem
+      style={{marginVertical: spacing.md}}
       onPress={() => {
         setImage(uploadUrl + imageUrl);
         setUpload(false);
@@ -29,16 +35,20 @@ const MyPlantListItem = ({plant, imageUrl, title, description, navigation}) => {
       />
       <RNEListItem.Content style={styles.content}>
         <RNEListItem.Title style={styles.title}>{title}</RNEListItem.Title>
-        <RNEListItem.Title>{plantDescription.otherNames}</RNEListItem.Title>
+        <RNEListItem.Subtitle>
+          {plantDescription.otherNames}
+        </RNEListItem.Subtitle>
         <View style={styles.statusContainer}>
-          <View style={styles.levelContainer}>
-            <RNEListItem.Title style={styles.level}>
-              {plantDescription.level}
-            </RNEListItem.Title>
+          <View style={styles.locationContainer}>
+            <RNEListItem.Subtitle style={styles.location}>
+              {plantLocation}
+            </RNEListItem.Subtitle>
           </View>
           {/* TODO: Change style when have data */}
           <View style={styles.waterContainer}>
-            <RNEListItem.Title style={styles.level}>Water</RNEListItem.Title>
+            <RNEListItem.Subtitle style={styles.waterDone}>
+              Water
+            </RNEListItem.Subtitle>
           </View>
         </View>
       </RNEListItem.Content>
@@ -61,25 +71,31 @@ const styles = StyleSheet.create({
     marginVertical: spacing.sm,
   },
   statusContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
   },
   waterContainer: {
     backgroundColor: colors.primary700,
     borderRadius: spacing.sm,
-    marginVertical: spacing.sm,
+    // marginVertical: spacing.sm,
   },
 
-  levelContainer: {
+  locationContainer: {
     backgroundColor: colors.primary700,
     borderRadius: spacing.sm,
     marginVertical: spacing.sm,
     marginRight: spacing.sm,
   },
-  level: {
+  location: {
     color: colors.primary100,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.sm,
     paddingVertical: spacing.sm / 2,
+  },
+  waterDone: {
+    color: colors.primary100,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.sm / 2,
+    textAlign: 'center',
   },
 });
 
