@@ -109,7 +109,6 @@ const App = () => {
       return;
     }
     (async () => {
-      console.log('set: ', storageExpirationDate);
       if (storageExpirationDate) {
         await AsyncStorage.setItem(
           EXPIRATION_DATE_STORAGE_KEY,

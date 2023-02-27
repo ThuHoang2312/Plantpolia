@@ -157,7 +157,6 @@ export const useMedia = (myFilesOnly, fileId = null) => {
     setLoad(true);
     try {
       const json = await useTag().getFileByTag(`${fileId}${userPlantTagName}`);
-      console.log(json);
       const media = await Promise.all(
         json.map(async (item) => {
           const response = await fetch(baseUrl + 'media/' + item.file_id);
@@ -165,7 +164,6 @@ export const useMedia = (myFilesOnly, fileId = null) => {
           return mediaData;
         })
       );
-      console.log(media);
       setUserPlantPhotoList(media);
     } catch (error) {
       console.error(error);

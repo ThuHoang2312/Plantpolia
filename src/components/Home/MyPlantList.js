@@ -24,7 +24,6 @@ const MyPlantList = ({navigation, myFilesOnly}) => {
     searchResult = userPlantList.filter((obj) =>
       obj.title.toLowerCase().includes(search.value.toLowerCase())
     );
-    console.log(searchResult.length);
   }
 
   if (load) {

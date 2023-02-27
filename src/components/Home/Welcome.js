@@ -1,12 +1,11 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
 import {fontSizes, spacing} from '../../utils/sizes';
 
 const Welcome = () => {
   const {user} = useContext(MainContext);
-  console.log(user);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome back {user.full_name}!</Text>

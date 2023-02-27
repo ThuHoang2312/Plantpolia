@@ -30,7 +30,6 @@ const RegisterForm = ({navigation}) => {
     React.useContext(MainContext);
 
   const onLogin = async (data) => {
-    console.log(data);
     try {
       const userData = await postLogin(data);
       setToken(userData.token);
