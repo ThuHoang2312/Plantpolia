@@ -26,6 +26,9 @@ export const MainProvider = ({
   /** @type {import('../types/MainContextModel').NotificationTimeUseStateModel} */
   const [notificationTime, setNotificationTime] = useState('');
 
+  /** @type {import('../types/MainContextModel').plantLocationUseStateModel} */
+  const [plantLocation, setPlantLocation] = useState('');
+
   /** @type {import('../types/MainContextModel').ImageUseStateModel} */
   const [image, setImage] = useState('');
 
@@ -66,6 +69,8 @@ export const MainProvider = ({
     setToken: setAccessToken,
     expirationDate,
     setExpirationDate,
+    plantLocation,
+    setPlantLocation,
   };
 
   return <MainContext.Provider value={state}>{children}</MainContext.Provider>;

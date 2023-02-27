@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {spacing, fontSizes} from '../utils/sizes';
@@ -8,13 +8,14 @@ import {colors} from '../utils/colors';
 import Input from './shared/Input';
 import Button from './shared/Button';
 import {MainContext} from '../contexts/MainContext';
-import {useUpLoadFormState} from '../services/useUploadFormState';
+import {useUploadFormState} from '../services/useUploadFormState';
 import {uploadUrl} from '../utils/variables';
-import {usePickerState} from '../services/usePicker';
 
-const UploadForm = ({plant, onSubmit}) => {
+const UploadForm = ({plant, onSubmit, cancelSubmit}) => {
   const {setImage, setImageSelected, setType} = useContext(MainContext);
   const {
+    title,
+    setTitle,
     lastWater,
     lastWaterItem,
     notificationTime,
@@ -29,18 +30,14 @@ const UploadForm = ({plant, onSubmit}) => {
     openNotificationTime,
     setOpenLastWater,
     setOpenNotificationTime,
-  } = usePickerState();
-  const {
-    title,
-    waterInterval,
-    clean,
-    otherNames,
-    waterInstruction,
-    level,
-    liquidFertilizing,
-  } = useUpLoadFormState();
-  // console.log('UPLOAD FORM IMAGE: ', image);
-  // console.log('PLANT', plant);
+    plantLocation,
+    plantLocationItem,
+    onPlantLocationOpen,
+    setPlantLocation,
+    setOpenPlantLocation,
+    setPlantLocationItem,
+    openPlantLocation,
+  } = useUploadFormState();
 
   // Get the default values from database
   const defaultValues = JSON.parse(plant.description);
@@ -49,7 +46,7 @@ const UploadForm = ({plant, onSubmit}) => {
   // Condition to check for disable button
   let buttonStatus = false;
 
-  if (!lastWater || !notificationTime) {
+  if (!lastWater || !notificationTime || !plantLocation) {
     buttonStatus = true;
   }
 
@@ -80,33 +77,20 @@ const UploadForm = ({plant, onSubmit}) => {
   // Handler submit form
   const handlerSubmit = () => {
     // Set default values when submit the form
-    if (title.value === '') title.value = plant.title;
-
-    if (clean.value === '') clean.value = defaultValues.clean;
-
-    if (waterInterval.value === '')
-      waterInterval.value = defaultValues.waterInterval;
-
-    if (liquidFertilizing.value === '')
-      liquidFertilizing.value = defaultValues.liquidFertilizing;
-
-    if (waterInstruction.value === '')
-      waterInstruction.value = defaultValues.waterInstruction;
-
-    if (otherNames.value === '') otherNames.value = defaultValues.otherNames;
-    if (level.value === '') level.value = defaultValues.level;
+    if (title === '') setTitle(plant.title);
 
     const formData = {
-      title: title.value,
+      title: title,
       description: {
-        waterInterval: waterInterval.value,
+        waterInterval: defaultValues.waterInterval,
         lastWater: lastWater,
         notificationTime: notificationTime,
-        clean: clean.value,
-        level: level.value,
-        liquidFertilizing: liquidFertilizing.value,
-        otherNames: otherNames.value,
-        waterInstruction: waterInstruction.value,
+        plantLocation: plantLocation,
+        clean: defaultValues.clean,
+        level: defaultValues.level,
+        liquidFertilizing: defaultValues.liquidFertilizing,
+        otherNames: defaultValues.otherNames,
+        waterInstruction: defaultValues.waterInstruction,
       },
     };
 
@@ -114,55 +98,75 @@ const UploadForm = ({plant, onSubmit}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{uri: pickUri}} />
-      </View>
-      <Text style={styles.title}>{plant.title}</Text>
-      <Text style={styles.text} onPress={pickImage}>
-        Click here to choose your image
-      </Text>
-      <Input text="Name your plant (optional)" onChangeText={title.set} />
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={{uri: pickUri}} />
+        </View>
+        <Text style={styles.title}>{plant.title}</Text>
 
-      {!waterInterval.valid && (
-        <Text style={styles.text}>
-          Invalid input values - Please enter a number
+        <Text style={styles.text} onPress={pickImage}>
+          Click here to choose your image
         </Text>
-      )}
-      <DropDownPicker
-        zIndex={3000}
-        zIndexInverse={1000}
-        open={openLastWater}
-        onOpen={onLastWaterOpen}
-        value={lastWater}
-        items={lastWaterItem}
-        setOpen={setOpenLastWater}
-        setValue={setLastWater}
-        setItems={setLastWaterItem}
-        listMode="SCROLLVIEW"
-        placeholder="Last time the plant was watered?"
-        containerStyle={styles.picker}
-        textStyle={styles.textPicker}
-        selectedItemLabelStyle={{fontWeight: 'bold'}}
-      />
-      <DropDownPicker
-        zIndex={1000}
-        zIndexInverse={3000}
-        placeholder="Notification time preferences"
-        open={openNotificationTime}
-        value={notificationTime}
-        items={notificationTimeItem}
-        setItems={setNotificationTimeItem}
-        setOpen={setOpenNotificationTime}
-        setValue={setNotificationTime}
-        listMode="SCROLLVIEW"
-        onOpen={onNotificationTimeOpen}
-        containerStyle={styles.picker}
-        textStyle={styles.textPicker}
-        selectedItemLabelStyle={{fontWeight: 'bold'}}
-      />
-      <Button text="Save" onPress={handlerSubmit} disabled={buttonStatus} />
-    </View>
+
+        <Input text="Name your plant (optional)" onChangeText={setTitle} />
+
+        <DropDownPicker
+          zIndex={6000}
+          zIndexInverse={5000}
+          open={openPlantLocation}
+          onOpen={onPlantLocationOpen}
+          value={plantLocation}
+          items={plantLocationItem}
+          setOpen={setOpenPlantLocation}
+          setValue={setPlantLocation}
+          setItems={setPlantLocationItem}
+          listMode="SCROLLVIEW"
+          placeholder="Where is the plant located?"
+          containerStyle={styles.picker}
+          textStyle={styles.textPicker}
+          selectedItemLabelStyle={{fontWeight: 'bold'}}
+        />
+
+        <DropDownPicker
+          zIndex={6000}
+          zIndexInverse={3000}
+          open={openLastWater}
+          onOpen={onLastWaterOpen}
+          value={lastWater}
+          items={lastWaterItem}
+          setOpen={setOpenLastWater}
+          setValue={setLastWater}
+          setItems={setLastWaterItem}
+          listMode="SCROLLVIEW"
+          placeholder="Last time the plant was watered?"
+          containerStyle={styles.picker}
+          textStyle={styles.textPicker}
+          selectedItemLabelStyle={{fontWeight: 'bold'}}
+        />
+        <DropDownPicker
+          zIndex={3000}
+          zIndexInverse={6000}
+          placeholder="Notification time preferences"
+          open={openNotificationTime}
+          value={notificationTime}
+          items={notificationTimeItem}
+          setItems={setNotificationTimeItem}
+          setOpen={setOpenNotificationTime}
+          setValue={setNotificationTime}
+          listMode="SCROLLVIEW"
+          onOpen={onNotificationTimeOpen}
+          containerStyle={styles.picker}
+          textStyle={styles.textPicker}
+          selectedItemLabelStyle={{fontWeight: 'bold'}}
+        />
+
+        <View style={styles.buttonWrapper}>
+          <Button text="Save" onPress={handlerSubmit} disabled={buttonStatus} />
+          <Button text="Cancel" onPress={cancelSubmit} disabled={false} />
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -170,6 +174,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  buttonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   imageContainer: {
     width: '50%',
@@ -218,6 +226,8 @@ const styles = StyleSheet.create({
 UploadForm.propTypes = {
   plant: PropTypes.object,
   onSubmit: PropTypes.func,
+  cancelSubmit: PropTypes.func,
+  isModify: PropTypes.bool,
 };
 
 export default UploadForm;

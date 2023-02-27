@@ -97,20 +97,18 @@ const useUser = () => {
 };
 
 // PLANTS
-const useMedia = (myFilesOnly) => {
+const useMedia = (myFilesOnly, fileId = null) => {
   const [prefixArray, setPrefixArray] = useState([]);
   const [plantArray, setPlantArray] = useState([]);
+  const [photoArray, setPhotoArray] = useState([]);
   const {update, user} = useContext(MainContext);
   const [load, setLoad] = useState(false);
 
+  // Get the list of plant option for adding plant
   const loadPrefix = async () => {
     setLoad(true);
     try {
       const json = await useTag().getFileByTag(appTag);
-
-      // if (myFilesOnly) {
-      //   json = json.filter((file) => file.user_id === user.user_id);
-      // }
       const media = await Promise.all(
         json.map(async (item) => {
           const response = await fetch(baseUrl + 'media/' + item.file_id);
@@ -127,6 +125,7 @@ const useMedia = (myFilesOnly) => {
     }
   };
 
+  // Get the list of user plant
   const loadPlant = async () => {
     setLoad(true);
     try {
@@ -149,11 +148,34 @@ const useMedia = (myFilesOnly) => {
     }
   };
 
+  // Get the list of photos of user plant
+  const loadPhoto = async () => {
+    setLoad(true);
+    try {
+      const json = await useTag().getFileByTag(`${fileId}${userTag}`);
+      console.log(json);
+      const media = await Promise.all(
+        json.map(async (item) => {
+          const response = await fetch(baseUrl + 'media/' + item.file_id);
+          const mediaData = await response.json();
+          return mediaData;
+        })
+      );
+      console.log(media);
+      setPhotoArray(media);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoad(false);
+    }
+  };
+
   // Call loadMedia() only once when the component is loaded
   // Or when update state is changed
   useEffect(() => {
     loadPrefix();
     loadPlant();
+    loadPhoto();
   }, [update]);
 
   // Upload plant
@@ -168,11 +190,51 @@ const useMedia = (myFilesOnly) => {
     };
     return await doFetch(baseUrl + 'media', options);
   };
+
+  // Modify plant
+  const putMedia = async (id, data, token) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      return await doFetch(baseUrl + 'media/' + id, options);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoad(false);
+    }
+  };
+
+  // Delete plant
+  const deleteMedia = async (fileId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    try {
+      return await doFetch(baseUrl + 'media/' + fileId, options);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoad(false);
+    }
+  };
+
   return {
     prefixArray,
     plantArray,
+    photoArray,
     postMedia,
     load,
+    putMedia,
+    deleteMedia,
   };
 };
 

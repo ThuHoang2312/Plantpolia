@@ -7,15 +7,16 @@ import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
 import {MainContext} from '../../contexts/MainContext';
 
-const MyPlantListItem = ({plant, imageUrl, title, description, navigation}) => {
+const MyPlantListItem = ({plant, navigation}) => {
   // console.log('PLANT LIST ITEM:', plant);
-  // const imageUrl = uploadUrl + plant.thumbnails.w160;
+  const imageUrl = plant.thumbnails.w160;
+  const description = JSON.parse(plant.description);
   const {setImage, setUpload} = useContext(MainContext);
   // console.log('ITEM UPLOAD: ', upload);
-  const plantDescription = JSON.parse(description);
 
   return (
     <RNEListItem
+      style={{marginVertical: spacing.md}}
       onPress={() => {
         setImage(uploadUrl + imageUrl);
         setUpload(false);
@@ -28,17 +29,21 @@ const MyPlantListItem = ({plant, imageUrl, title, description, navigation}) => {
         avatarStyle={styles.avatar}
       />
       <RNEListItem.Content style={styles.content}>
-        <RNEListItem.Title style={styles.title}>{title}</RNEListItem.Title>
-        <RNEListItem.Title>{plantDescription.otherNames}</RNEListItem.Title>
+        <RNEListItem.Title style={styles.title}>
+          {plant.title}
+        </RNEListItem.Title>
+        <RNEListItem.Subtitle>{description.otherNames}</RNEListItem.Subtitle>
         <View style={styles.statusContainer}>
-          <View style={styles.levelContainer}>
-            <RNEListItem.Title style={styles.level}>
-              {plantDescription.level}
-            </RNEListItem.Title>
+          <View style={styles.locationContainer}>
+            <RNEListItem.Subtitle style={styles.location}>
+              {description.plantLocation}
+            </RNEListItem.Subtitle>
           </View>
           {/* TODO: Change style when have data */}
           <View style={styles.waterContainer}>
-            <RNEListItem.Title style={styles.level}>Water</RNEListItem.Title>
+            <RNEListItem.Subtitle style={styles.waterDone}>
+              Water
+            </RNEListItem.Subtitle>
           </View>
         </View>
       </RNEListItem.Content>
@@ -61,34 +66,37 @@ const styles = StyleSheet.create({
     marginVertical: spacing.sm,
   },
   statusContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
   },
   waterContainer: {
     backgroundColor: colors.primary700,
     borderRadius: spacing.sm,
-    marginVertical: spacing.sm,
+    // marginVertical: spacing.sm,
   },
 
-  levelContainer: {
+  locationContainer: {
     backgroundColor: colors.primary700,
     borderRadius: spacing.sm,
     marginVertical: spacing.sm,
     marginRight: spacing.sm,
   },
-  level: {
+  location: {
     color: colors.primary100,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.sm,
     paddingVertical: spacing.sm / 2,
+  },
+  waterDone: {
+    color: colors.primary100,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.sm / 2,
+    textAlign: 'center',
   },
 });
 
 MyPlantListItem.propTypes = {
   plant: PropTypes.object,
   navigation: PropTypes.object,
-  imageUrl: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
 };
 
 export default MyPlantListItem;

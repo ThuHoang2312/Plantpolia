@@ -50,13 +50,7 @@ const MyPlantList = ({navigation, myFilesOnly}) => {
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
             // console.log('ITEM:', item),
-            <MyPlantListItem
-              plant={item}
-              imageUrl={item.thumbnails.w160}
-              title={item.title}
-              description={item.description}
-              navigation={navigation}
-            />
+            <MyPlantListItem plant={item} navigation={navigation} />
           )}
         />
       ) : (

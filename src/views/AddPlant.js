@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PlantList from '../components/AddPlant/PlantList';
 
 const AddPlant = ({navigation}) => {
-  console.log('ADD PLANT');
+  // console.log('ADD PLANT');
   return (
     <>
       <PlantList navigation={navigation} myFilesOnly={true} />

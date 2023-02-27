@@ -18,7 +18,25 @@ const PlantList = ({navigation}) => {
   const searchResult = prefixArray.filter((obj) =>
     obj.title.toLowerCase().includes(search.value.toLowerCase())
   );
-  console.log(searchResult.length);
+
+  searchResult.sort((a, b) => {
+    const ta = a.title;
+    const tb = b.title;
+
+    if (ta < tb) {
+      return -1;
+    }
+    if (ta > tb) {
+      return 1;
+    }
+
+    return 0;
+  });
+
+  // searchResult.forEach((e) => {
+  //   console.log(`${e.title}`);
+  // });
+  // console.log(searchResult.length);
 
   if (load) {
     return <LoadingOverlay />;

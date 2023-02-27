@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
-import UserPlantDetail from '../components/Home/UserPlantDetail';
+import UserPlantDetail from '../components/UserPlant/UserPlantDetail';
 
 const PlantDetail = ({navigation, route}) => {
+  // console.log(route.params.plant);
   return <UserPlantDetail navigation={navigation} plant={route.params.plant} />;
 };
 
