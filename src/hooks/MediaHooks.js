@@ -2,6 +2,7 @@ import {useContext, useEffect, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
 import {
   baseUrl,
+  createPlantPhotoTagName,
   primaryPlantTagName,
   userPlantTagName,
 } from '../utils/variables';
@@ -56,7 +57,7 @@ export const useMedia = (myFilesOnly, fileId = null) => {
   // Get the list of photos of user plant
   const fetchUserPlantPhotoList = async () => {
     try {
-      const json = await getFileByTag(`${fileId}${userPlantTagName}`);
+      const json = await getFileByTag(createPlantPhotoTagName(fileId));
       const media = await Promise.all(
         json.map(async (item) => {
           const response = await fetch(baseUrl + 'media/' + item.file_id);

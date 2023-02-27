@@ -11,9 +11,9 @@ import {SearchBar} from '@rneui/themed';
 import PlantNotFound from '../shared/PlantNotFound';
 import {spacing} from '../../utils/sizes';
 
-const MyPlantList = ({navigation, myFilesOnly}) => {
+const MyPlantList = ({navigation}) => {
   const {user} = useContext(MainContext);
-  const {userPlantList} = useMedia(myFilesOnly, user.user_id);
+  const {userPlantList} = useMedia(true, user.user_id);
   const {search} = useSearch();
 
   let searchResult = [];
@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
 });
 MyPlantList.propTypes = {
   navigation: PropTypes.object.isRequired,
-  myFilesOnly: PropTypes.bool,
 };
 
 export default MyPlantList;

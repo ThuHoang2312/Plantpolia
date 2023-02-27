@@ -10,9 +10,9 @@ import {useApi} from '../../hooks/ApiHooks';
 import Button from './Button';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
-import {userPlantTagName} from '../../utils/variables';
+import {createPlantPhotoTagName} from '../../utils/variables';
 
-export const AddPlantForm = ({title, fileId, closeForm}) => {
+export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
   // console.log(`${fileId}${userTag}`);
 
   const {
@@ -76,7 +76,7 @@ export const AddPlantForm = ({title, fileId, closeForm}) => {
     try {
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: `${fileId}${userPlantTagName}`},
+        {file_id: response.file_id, tag: createPlantPhotoTagName(fileId)},
         token
       );
 
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
   },
 });
 
-AddPlantForm.propTypes = {
+AddPlantPhotoForm.propTypes = {
   title: PropTypes.string,
   fileId: PropTypes.number,
   closeForm: PropTypes.func,

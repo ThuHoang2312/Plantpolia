@@ -6,7 +6,7 @@ import {Overlay} from '@rneui/themed';
 import {useMedia} from '../../hooks/MediaHooks';
 import {colors} from '../../utils/colors';
 import {fontSizes, spacing} from '../../utils/sizes';
-import {AddPlantForm} from '../shared/AddPlantForm';
+import {AddPlantPhotoForm} from '../shared/AddPlantPhotoForm';
 import {PlantPhotoListItem} from './PlantPhotoListItem';
 
 const PlantPhotoList = ({title, fileId, navigation}) => {
@@ -38,7 +38,7 @@ const PlantPhotoList = ({title, fileId, navigation}) => {
             size={35}
             onPress={toggleOverlay}
           />
-          <AddPlantForm
+          <AddPlantPhotoForm
             title={title}
             fileId={fileId}
             closeForm={toggleOverlay}

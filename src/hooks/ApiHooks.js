@@ -149,7 +149,7 @@ export const useApi = () => {
     getUserByToken,
     putUser,
     postTag,
-    getFileByTag,
+    getFileByTag: getFileByTag,
     postMedia,
     deleteMedia,
     putMedia,
