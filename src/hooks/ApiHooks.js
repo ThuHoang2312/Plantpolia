@@ -22,7 +22,7 @@ const doFetch = async (url, options = {}) => {
     throw new Error(err.message);
   }
 };
-const useAuthentication = () => {
+export const useAuthentication = () => {
   const postLogin = async (userCredentials) => {
     // user credentials format: {username: 'someUsername', password: 'somePassword'}
     const options = {
@@ -42,7 +42,7 @@ const useAuthentication = () => {
   return {postLogin};
 };
 
-const useUser = () => {
+export const useUser = () => {
   const getUserByToken = async (token) => {
     const options = {
       method: 'GET',
@@ -101,7 +101,7 @@ const useUser = () => {
 };
 
 // PLANTS
-const useMedia = (myFilesOnly, fileId = null) => {
+export const useMedia = (myFilesOnly, fileId = null) => {
   const [primaryPlantList, setPrimaryPlantList] = useState([]);
   const [userPlantList, setUserPlantList] = useState([]);
   const [userPlantPhotoList, setUserPlantPhotoList] = useState([]);
@@ -243,7 +243,7 @@ const useMedia = (myFilesOnly, fileId = null) => {
 };
 
 // CREATE TAG
-const useTag = () => {
+export const useTag = () => {
   const postTag = async (tagData, token) => {
     const options = {
       method: 'POST',
@@ -259,5 +259,3 @@ const useTag = () => {
 
   return {postTag, getFileByTag};
 };
-
-export {useUser, useAuthentication, useTag, useMedia};
