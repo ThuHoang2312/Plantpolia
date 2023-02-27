@@ -17,6 +17,7 @@ import {WateringProcessFinished} from '../views/WateringProcessFinished';
 import {colors} from '../utils/colors';
 import SuggestPlant from '../views/SuggestPlant';
 import PlantDetail from '../views/PlantDetail';
+import EditProfile from '../views/EditProfile';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -26,6 +27,8 @@ const screenOptions = {
     backgroundColor: colors.primary50,
   },
 };
+
+// screenOptions={{headerShown: false}}
 
 const TabScreen = () => {
   return (
@@ -110,6 +113,7 @@ const StackScreen = () => {
           />
           <Stack.Screen name="SuggestPlant" component={SuggestPlant} />
           <Stack.Screen name="PlantDetail" component={PlantDetail} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
         </>
       ) : isExpired ? (
         <>
