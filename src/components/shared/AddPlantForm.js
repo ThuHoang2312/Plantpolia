@@ -7,7 +7,7 @@ import * as ImagePicker from 'expo-image-picker';
 import {Card, Icon} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {useTag} from '../../hooks/ApiHooks';
-import {useMedia} from '../../hooks/MediaHooks';
+import {usePostMedia} from '../../hooks/MediaHooks';
 import Button from './Button';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
@@ -27,7 +27,7 @@ export const AddPlantForm = ({title, fileId, closeForm}) => {
     update,
     setUpdate,
   } = useContext(MainContext);
-  const {postMedia} = useMedia();
+  const {postMedia} = usePostMedia();
   const {postTag} = useTag();
   const [pickUri, setPickUri] = useState('defaultPhoto');
   const {

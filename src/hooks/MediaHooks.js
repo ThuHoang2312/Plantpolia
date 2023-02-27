@@ -87,7 +87,14 @@ export const useMedia = (myFilesOnly, fileId = null) => {
     fetchUserPlantPhotoList();
   }, [update]);
 
-  // Upload plant
+  return {
+    primaryPlantList: primaryPlantList,
+    userPlantList: userPlantList,
+    userPlantPhotoList: userPlantPhotoList,
+    load,
+  };
+};
+export const usePostMedia = () => {
   const postMedia = async (formData, token) => {
     const options = {
       method: 'POST',
@@ -99,8 +106,29 @@ export const useMedia = (myFilesOnly, fileId = null) => {
     };
     return await doFetch(baseUrl + 'media', options);
   };
-
-  // Modify plant
+  return {
+    postMedia: postMedia,
+  };
+};
+export const useDeleteMedia = () => {
+  const deleteMedia = async (fileId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    try {
+      return await doFetch(baseUrl + 'media/' + fileId, options);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  return {
+    deleteMedia: deleteMedia,
+  };
+};
+export const usePutMedia = () => {
   const putMedia = async (id, data, token) => {
     const options = {
       method: 'PUT',
@@ -114,35 +142,9 @@ export const useMedia = (myFilesOnly, fileId = null) => {
       return await doFetch(baseUrl + 'media/' + id, options);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoad(false);
     }
   };
-
-  // Delete plant
-  const deleteMedia = async (fileId, token) => {
-    const options = {
-      method: 'DELETE',
-      headers: {
-        'x-access-token': token,
-      },
-    };
-    try {
-      return await doFetch(baseUrl + 'media/' + fileId, options);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoad(false);
-    }
-  };
-
   return {
-    primaryPlantList: primaryPlantList,
-    userPlantList: userPlantList,
-    userPlantPhotoList: userPlantPhotoList,
-    postMedia,
-    load,
-    putMedia,
-    deleteMedia,
+    putMedia: putMedia,
   };
 };

@@ -9,7 +9,7 @@ import {colors} from '../../utils/colors';
 import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
 import {useTag} from '../../hooks/ApiHooks';
-import {useMedia} from '../../hooks/MediaHooks';
+import {usePostMedia} from '../../hooks/MediaHooks';
 import {imageDefault, requestedPlantTagName} from '../../utils/variables';
 
 const PlantNotFound = ({navigation, isUserList}) => {
@@ -27,7 +27,7 @@ const PlantNotFound = ({navigation, isUserList}) => {
     update,
     setUpdate,
   } = useContext(MainContext);
-  const {postMedia} = useMedia();
+  const {postMedia} = usePostMedia();
   const {postTag} = useTag();
   const toggleOverlay = () => {
     setImageSelected(false);

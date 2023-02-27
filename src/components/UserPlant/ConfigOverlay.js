@@ -9,7 +9,7 @@ import Button from '../shared/Button';
 import {MainContext} from '../../contexts/MainContext';
 import {useUploadFormState} from '../../services/useUploadFormState';
 import {IconButton} from 'react-native-paper';
-import {useMedia} from '../../hooks/MediaHooks';
+import {useDeleteMedia, usePutMedia} from '../../hooks/MediaHooks';
 
 export const ConfigOverlay = ({
   name,
@@ -32,7 +32,8 @@ export const ConfigOverlay = ({
 
   const {image, update, setUpdate, token} = useContext(MainContext);
 
-  const {putMedia, deleteMedia} = useMedia(true, fileId);
+  const {putMedia} = usePutMedia();
+  const {deleteMedia} = useDeleteMedia();
   // Condition to check for disable button
   let buttonStatus = false;
   if (!plantLocation) {

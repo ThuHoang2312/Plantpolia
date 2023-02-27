@@ -5,14 +5,15 @@ import UploadForm from '../components/UploadForm';
 import {MainContext} from '../contexts/MainContext';
 import {userPlantTagName} from '../utils/variables';
 import {useTag} from '../hooks/ApiHooks';
-import {useMedia} from '../hooks/MediaHooks';
+import {useMedia, usePostMedia} from '../hooks/MediaHooks';
 import LoadingOverlay from '../components/shared/LoadingOverlay';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
 import {spacing} from '../utils/sizes';
 
 const Upload = ({navigation, route}) => {
   const [error, setError] = useState();
-  const {postMedia, load} = useMedia();
+  const {load} = useMedia();
+  const {postMedia} = usePostMedia();
   const {postTag} = useTag();
   const {
     image,
