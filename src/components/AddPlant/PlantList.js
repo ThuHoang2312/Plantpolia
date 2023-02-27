@@ -11,11 +11,11 @@ import LoadingOverlay from '../shared/LoadingOverlay';
 import {spacing} from '../../utils/sizes';
 
 const PlantList = ({navigation}) => {
-  const {prefixArray, load} = useMedia(false);
+  const {primaryPlantList, load} = useMedia(false);
 
   const {search} = useSearch();
 
-  const searchResult = prefixArray.filter((obj) =>
+  const searchResult = primaryPlantList.filter((obj) =>
     obj.title.toLowerCase().includes(search.value.toLowerCase())
   );
 

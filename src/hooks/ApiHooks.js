@@ -102,14 +102,14 @@ const useUser = () => {
 
 // PLANTS
 const useMedia = (myFilesOnly, fileId = null) => {
-  const [prefixArray, setPrefixArray] = useState([]);
-  const [plantArray, setPlantArray] = useState([]);
-  const [photoArray, setPhotoArray] = useState([]);
+  const [primaryPlantList, setPrimaryPlantList] = useState([]);
+  const [userPlantList, setUserPlantList] = useState([]);
+  const [userPlantPhotoList, setUserPlantPhotoList] = useState([]);
   const {update, user} = useContext(MainContext);
   const [load, setLoad] = useState(false);
 
   // Get the list of plant option for adding plant
-  const loadPrefix = async () => {
+  const fetchPrimaryPlantList = async () => {
     setLoad(true);
     try {
       const json = await useTag().getFileByTag(primaryPlantTagName);
@@ -121,7 +121,7 @@ const useMedia = (myFilesOnly, fileId = null) => {
         })
       );
 
-      setPrefixArray(media);
+      setPrimaryPlantList(media);
     } catch (error) {
       console.error(error);
     } finally {
@@ -130,7 +130,7 @@ const useMedia = (myFilesOnly, fileId = null) => {
   };
 
   // Get the list of user plant
-  const loadPlant = async () => {
+  const fetchUserPlantList = async () => {
     setLoad(true);
     try {
       let json = await useTag().getFileByTag(userPlantTagName);
@@ -144,7 +144,7 @@ const useMedia = (myFilesOnly, fileId = null) => {
           return mediaData;
         })
       );
-      setPlantArray(media);
+      setUserPlantList(media);
     } catch (error) {
       console.error(error);
     } finally {
@@ -153,7 +153,7 @@ const useMedia = (myFilesOnly, fileId = null) => {
   };
 
   // Get the list of photos of user plant
-  const loadPhoto = async () => {
+  const fetchUserPlantPhotoList = async () => {
     setLoad(true);
     try {
       const json = await useTag().getFileByTag(`${fileId}${userPlantTagName}`);
@@ -166,7 +166,7 @@ const useMedia = (myFilesOnly, fileId = null) => {
         })
       );
       console.log(media);
-      setPhotoArray(media);
+      setUserPlantPhotoList(media);
     } catch (error) {
       console.error(error);
     } finally {
@@ -177,9 +177,9 @@ const useMedia = (myFilesOnly, fileId = null) => {
   // Call loadMedia() only once when the component is loaded
   // Or when update state is changed
   useEffect(() => {
-    loadPrefix();
-    loadPlant();
-    loadPhoto();
+    fetchPrimaryPlantList();
+    fetchUserPlantList();
+    fetchUserPlantPhotoList();
   }, [update]);
 
   // Upload plant
@@ -232,9 +232,9 @@ const useMedia = (myFilesOnly, fileId = null) => {
   };
 
   return {
-    prefixArray,
-    plantArray,
-    photoArray,
+    primaryPlantList: primaryPlantList,
+    userPlantList: userPlantList,
+    userPlantPhotoList: userPlantPhotoList,
     postMedia,
     load,
     putMedia,

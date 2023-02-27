@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, View, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {useMedia} from '../../hooks/ApiHooks';
 import MyPlantListItem from './MyPlantListItem';
 import {MainContext} from '../../contexts/MainContext';
@@ -15,13 +15,13 @@ import {spacing} from '../../utils/sizes';
 const MyPlantList = ({navigation, myFilesOnly}) => {
   const {user} = useContext(MainContext);
   // console.log('USER : ', user);
-  const {plantArray, load} = useMedia(myFilesOnly, user.user_id);
+  const {userPlantList, load} = useMedia(myFilesOnly, user.user_id);
   // console.log('PLANT LIST: ', plantArray);
   const {search} = useSearch();
 
   let searchResult = [];
   if (search) {
-    searchResult = plantArray.filter((obj) =>
+    searchResult = userPlantList.filter((obj) =>
       obj.title.toLowerCase().includes(search.value.toLowerCase())
     );
     console.log(searchResult.length);
@@ -58,7 +58,7 @@ const MyPlantList = ({navigation, myFilesOnly}) => {
       )}
       {!search && (
         <FlatList
-          data={plantArray}
+          data={userPlantList}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
             // console.log('ITEM:', item),

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, StyleSheet, View, Text} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
 import {useMedia} from '../../hooks/ApiHooks';
@@ -10,7 +10,7 @@ import {AddPlantForm} from '../shared/AddPlantForm';
 import {PlantPhotoListItem} from './PlantPhotoListItem';
 
 const PlantPhotoList = ({title, fileId, navigation}) => {
-  const {photoArray} = useMedia(true, fileId);
+  const {userPlantPhotoList} = useMedia(true, fileId);
 
   // Overlay state and function for photos and note tab
   const [visible, setVisible] = useState(false);
@@ -46,13 +46,13 @@ const PlantPhotoList = ({title, fileId, navigation}) => {
         </Overlay>
       </View>
       <View style={styles.photoContainer}>
-        {photoArray.length === 0 ? (
+        {userPlantPhotoList.length === 0 ? (
           <Text style={styles.text}>You have not add any photos or notes</Text>
         ) : (
           <>
             <FlatList
               numColumns={2}
-              data={photoArray}
+              data={userPlantPhotoList}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => (
                 <PlantPhotoListItem
