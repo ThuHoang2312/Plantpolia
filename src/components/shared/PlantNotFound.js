@@ -8,8 +8,7 @@ import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
-import {useTag} from '../../hooks/ApiHooks';
-import {usePostMedia} from '../../hooks/MediaHooks';
+import {useApi} from '../../hooks/ApiHooks';
 import {imageDefault, requestedPlantTagName} from '../../utils/variables';
 
 const PlantNotFound = ({navigation, isUserList}) => {
@@ -27,8 +26,7 @@ const PlantNotFound = ({navigation, isUserList}) => {
     update,
     setUpdate,
   } = useContext(MainContext);
-  const {postMedia} = usePostMedia();
-  const {postTag} = useTag();
+  const {postTag, postMedia} = useApi();
   const toggleOverlay = () => {
     setImageSelected(false);
     setVisible(!visible);

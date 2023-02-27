@@ -1,5 +1,5 @@
 import React from 'react';
-import {useAuthentication} from '../hooks/ApiHooks';
+import {useApi} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import {Controller, useForm} from 'react-hook-form';
 import {Button, Card, Input, Text} from '@rneui/themed';
@@ -10,7 +10,7 @@ import {applicationPrefixId} from '../utils/variables';
 const LoginForm = (props) => {
   const {setUser, setToken, setExpirationDate, ACCESS_TOKEN_AGE_IN_MS} =
     React.useContext(MainContext);
-  const {postLogin} = useAuthentication();
+  const {postLogin} = useApi();
   const {
     control,
     handleSubmit,

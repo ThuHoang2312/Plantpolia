@@ -5,10 +5,11 @@ import {
   primaryPlantTagName,
   userPlantTagName,
 } from '../utils/variables';
-import {doFetch, useTag} from './ApiHooks';
+import {useApi} from './ApiHooks';
 
 // PLANTS
 export const useMedia = (myFilesOnly, fileId = null) => {
+  const {getFileByTag} = useApi();
   const [primaryPlantList, setPrimaryPlantList] = useState([]);
   const [userPlantList, setUserPlantList] = useState([]);
   const [userPlantPhotoList, setUserPlantPhotoList] = useState([]);
@@ -19,7 +20,7 @@ export const useMedia = (myFilesOnly, fileId = null) => {
   const fetchPrimaryPlantList = async () => {
     setLoad(true);
     try {
-      const json = await useTag().getFileByTag(primaryPlantTagName);
+      const json = await getFileByTag(primaryPlantTagName);
       const media = await Promise.all(
         json.map(async (item) => {
           const response = await fetch(baseUrl + 'media/' + item.file_id);
@@ -40,7 +41,7 @@ export const useMedia = (myFilesOnly, fileId = null) => {
   const fetchUserPlantList = async () => {
     setLoad(true);
     try {
-      let json = await useTag().getFileByTag(userPlantTagName);
+      let json = await getFileByTag(userPlantTagName);
       if (myFilesOnly) {
         json = json.filter((file) => file.user_id === user.user_id);
       }
@@ -63,7 +64,7 @@ export const useMedia = (myFilesOnly, fileId = null) => {
   const fetchUserPlantPhotoList = async () => {
     setLoad(true);
     try {
-      const json = await useTag().getFileByTag(`${fileId}${userPlantTagName}`);
+      const json = await getFileByTag(`${fileId}${userPlantTagName}`);
       const media = await Promise.all(
         json.map(async (item) => {
           const response = await fetch(baseUrl + 'media/' + item.file_id);
@@ -92,59 +93,5 @@ export const useMedia = (myFilesOnly, fileId = null) => {
     userPlantList: userPlantList,
     userPlantPhotoList: userPlantPhotoList,
     load,
-  };
-};
-export const usePostMedia = () => {
-  const postMedia = async (formData, token) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'x-access-token': token,
-      },
-      body: formData,
-    };
-    return await doFetch(baseUrl + 'media', options);
-  };
-  return {
-    postMedia: postMedia,
-  };
-};
-export const useDeleteMedia = () => {
-  const deleteMedia = async (fileId, token) => {
-    const options = {
-      method: 'DELETE',
-      headers: {
-        'x-access-token': token,
-      },
-    };
-    try {
-      return await doFetch(baseUrl + 'media/' + fileId, options);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  return {
-    deleteMedia: deleteMedia,
-  };
-};
-export const usePutMedia = () => {
-  const putMedia = async (id, data, token) => {
-    const options = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      },
-      body: JSON.stringify(data),
-    };
-    try {
-      return await doFetch(baseUrl + 'media/' + id, options);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  return {
-    putMedia: putMedia,
   };
 };

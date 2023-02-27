@@ -1,6 +1,6 @@
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {useAuthentication, useUser} from '../hooks/ApiHooks';
+import {useApi} from '../hooks/ApiHooks';
 import {Button, Card, Input, Text} from '@rneui/themed';
 import {Alert, StyleSheet} from 'react-native';
 import {colors} from '../utils/colors';
@@ -24,8 +24,7 @@ const RegisterForm = ({navigation}) => {
     },
     mode: 'onBlur',
   });
-  const {postUser, checkUsername} = useUser();
-  const {postLogin} = useAuthentication();
+  const {postLogin, postUser, checkUsername} = useApi();
   const {setUser, setToken, setExpirationDate, ACCESS_TOKEN_AGE_IN_MS} =
     React.useContext(MainContext);
 

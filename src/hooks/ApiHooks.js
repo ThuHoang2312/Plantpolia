@@ -16,7 +16,7 @@ export const doFetch = async (url, options = {}) => {
     throw new Error(err.message);
   }
 };
-export const useAuthentication = () => {
+export const useApi = () => {
   const postLogin = async (userCredentials) => {
     // user credentials format: {username: 'someUsername', password: 'somePassword'}
     const options = {
@@ -33,10 +33,6 @@ export const useAuthentication = () => {
     }
   };
 
-  return {postLogin};
-};
-
-export const useUser = () => {
   const getUserByToken = async (token) => {
     const options = {
       method: 'GET',
@@ -91,11 +87,6 @@ export const useUser = () => {
     }
   };
 
-  return {postUser, checkUsername, getUserByToken, putUser};
-};
-
-// CREATE TAG
-export const useTag = () => {
   const postTag = async (tagData, token) => {
     const options = {
       method: 'POST',
@@ -109,5 +100,58 @@ export const useTag = () => {
     return await doFetch(baseUrl + 'tags/' + tag);
   };
 
-  return {postTag, getFileByTag};
+  const postMedia = async (formData, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'x-access-token': token,
+      },
+      body: formData,
+    };
+    return await doFetch(baseUrl + 'media', options);
+  };
+
+  const deleteMedia = async (fileId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    try {
+      return await doFetch(baseUrl + 'media/' + fileId, options);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const putMedia = async (id, data, token) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      return await doFetch(baseUrl + 'media/' + id, options);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return {
+    postLogin,
+    postUser,
+    checkUsername,
+    getUserByToken,
+    putUser,
+    postTag,
+    getFileByTag,
+    postMedia,
+    deleteMedia,
+    putMedia,
+  };
 };

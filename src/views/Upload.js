@@ -4,8 +4,8 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {MainContext} from '../contexts/MainContext';
 import {userPlantTagName} from '../utils/variables';
-import {useTag} from '../hooks/ApiHooks';
-import {useMedia, usePostMedia} from '../hooks/MediaHooks';
+import {useApi} from '../hooks/ApiHooks';
+import {useMedia} from '../hooks/MediaHooks';
 import LoadingOverlay from '../components/shared/LoadingOverlay';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
 import {spacing} from '../utils/sizes';
@@ -13,8 +13,7 @@ import {spacing} from '../utils/sizes';
 const Upload = ({navigation, route}) => {
   const [error, setError] = useState();
   const {load} = useMedia();
-  const {postMedia} = usePostMedia();
-  const {postTag} = useTag();
+  const {postTag, postMedia} = useApi();
   const {
     image,
     token,

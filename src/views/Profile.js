@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Avatar, Button, Text} from '@rneui/themed';
 import {MainContext} from '../contexts/MainContext';
-import {useTag} from '../hooks/ApiHooks';
-import {usePostMedia} from '../hooks/MediaHooks';
+import {useApi} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import {Alert, Platform, ScrollView, StyleSheet, View} from 'react-native';
@@ -14,8 +13,7 @@ import {colors} from '../utils/colors';
 const Profile = ({navigation}) => {
   const {setUser, setExpirationDate, setToken, user} =
     React.useContext(MainContext);
-  const {getFileByTag, postTag} = useTag();
-  const {postMedia} = usePostMedia();
+  const {getFileByTag, postTag, postMedia} = useApi();
   const [avatar, setAvatar] = React.useState(
     'https://www.linkpicture.com/q/PngItem_998739.png'
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import {useUser} from '../hooks/ApiHooks';
+import {useApi} from '../hooks/ApiHooks';
 import {Button, Input, Text} from '@rneui/themed';
 import {Alert, ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../utils/colors';
@@ -10,7 +10,7 @@ import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditProfile = ({navigation}) => {
-  const {putUser, checkUsername} = useUser();
+  const {putUser, checkUsername} = useApi();
   const {setUser, user} = React.useContext(MainContext);
   const {
     control,
