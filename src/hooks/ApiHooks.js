@@ -1,6 +1,19 @@
 import {baseUrl} from '../utils/variables';
 
-export const doFetch = async (url, options = {}) => {
+const handleResponse = async (fetch) => {
+  try {
+    const response = await fetch();
+    if (response.ok) {
+      return [await response.json(), null, response.status, response];
+    } else {
+      return [null, await response.json(), response.status, response];
+    }
+  } catch (error) {
+    return [null, error, 0, null];
+  }
+};
+
+const doFetch = async (url, options = {}) => {
   try {
     const response = await fetch(url, options);
     const json = await response.json();
@@ -100,6 +113,30 @@ export const useApi = () => {
     return await doFetch(baseUrl + 'tags/' + tag);
   };
 
+  const getMediaById = async (mediaId) => {
+    return handleResponse(async () => {
+      const headers = new Headers();
+      headers.append('Accept', 'application/json');
+      headers.append('Content-Type', 'application/json');
+      return await fetch(baseUrl + `media/${mediaId}`, {
+        method: 'GET',
+        headers,
+      });
+    });
+  };
+
+  const getDetailedMediaByTagName = async (tagName) => {
+    const json = await getFileByTag(tagName);
+    const media = await Promise.all(
+      json.map(async (item) => {
+        const [mediaData, res] = await getMediaById(item.file_id);
+        console.log(res);
+        return mediaData;
+      })
+    );
+    return media;
+  };
+
   const postMedia = async (formData, token) => {
     const options = {
       method: 'POST',
@@ -150,6 +187,8 @@ export const useApi = () => {
     putUser,
     postTag,
     getFileByTag: getFileByTag,
+    getDetailedMediaByTagName: getDetailedMediaByTagName,
+    getMediaById: getMediaById,
     postMedia,
     deleteMedia,
     putMedia,

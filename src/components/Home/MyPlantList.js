@@ -1,9 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {FlatList, StyleSheet, View} from 'react-native';
-import {useMedia} from '../../hooks/MediaHooks';
+import {useUserPlantHooks} from '../../hooks/UserPlantHooks';
 import MyPlantListItem from './MyPlantListItem';
-import {MainContext} from '../../contexts/MainContext';
 import Welcome from './Welcome';
 import {colors} from '../../utils/colors';
 import {useSearch} from '../../services/useSearch';
@@ -12,8 +11,7 @@ import PlantNotFound from '../shared/PlantNotFound';
 import {spacing} from '../../utils/sizes';
 
 const MyPlantList = ({navigation}) => {
-  const {user} = useContext(MainContext);
-  const {userPlantList} = useMedia(true, user.user_id);
+  const {userPlantList} = useUserPlantHooks();
   const {search} = useSearch();
 
   let searchResult = [];

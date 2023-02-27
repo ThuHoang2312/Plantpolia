@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {FlatList, StyleSheet} from 'react-native';
 import {SearchBar} from '@rneui/themed';
-import {useMedia} from '../../hooks/MediaHooks';
 import PlantListItem from '../shared/PlantListItem';
 import {colors} from '../../utils/colors';
 import {useSearch} from '../../services/useSearch';
 import PlantNotFound from '../shared/PlantNotFound';
 import {spacing} from '../../utils/sizes';
+import {usePrimaryPlantHooks} from '../../hooks/PrimaryPlantHooks';
 
 const PlantList = ({navigation}) => {
-  const {primaryPlantList} = useMedia(false);
+  const {primaryPlantList} = usePrimaryPlantHooks();
 
   const {search} = useSearch();
 

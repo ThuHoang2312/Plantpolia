@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
-import {useMedia} from '../../hooks/MediaHooks';
 import {colors} from '../../utils/colors';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {AddPlantPhotoForm} from '../shared/AddPlantPhotoForm';
 import {PlantPhotoListItem} from './PlantPhotoListItem';
+import {useUserPlantPhotoHooks} from '../../hooks/UserPlantPhotoHooks';
 
 const PlantPhotoList = ({title, fileId, navigation}) => {
-  const {userPlantPhotoList} = useMedia(true, fileId);
+  const {userPlantPhotoList} = useUserPlantPhotoHooks(fileId);
 
   // Overlay state and function for photos and note tab
   const [visible, setVisible] = useState(false);
