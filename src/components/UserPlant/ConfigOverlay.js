@@ -1,15 +1,15 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, StyleSheet, Image, ScrollView, Alert} from 'react-native';
+import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {spacing, fontSizes} from '../../utils/sizes';
+import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import Input from '../shared/Input';
 import Button from '../shared/Button';
 import {MainContext} from '../../contexts/MainContext';
 import {useUploadFormState} from '../../services/useUploadFormState';
 import {IconButton} from 'react-native-paper';
-import {useMedia} from '../../hooks/ApiHooks';
+import {useMedia} from '../../hooks/MediaHooks';
 
 export const ConfigOverlay = ({
   name,

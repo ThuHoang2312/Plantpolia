@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {FlatList, StyleSheet, View} from 'react-native';
-import {useMedia} from '../../hooks/ApiHooks';
+import {useMedia} from '../../hooks/MediaHooks';
 import MyPlantListItem from './MyPlantListItem';
 import {MainContext} from '../../contexts/MainContext';
 import Welcome from './Welcome';

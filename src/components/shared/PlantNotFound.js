@@ -8,7 +8,8 @@ import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
-import {useMedia, useTag} from '../../hooks/ApiHooks';
+import {useTag} from '../../hooks/ApiHooks';
+import {useMedia} from '../../hooks/MediaHooks';
 import {imageDefault, requestedPlantTagName} from '../../utils/variables';
 
 const PlantNotFound = ({navigation, isUserList}) => {

@@ -6,7 +6,8 @@ import * as ImagePicker from 'expo-image-picker';
 
 import {Card, Icon} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
-import {useMedia, useTag} from '../../hooks/ApiHooks';
+import {useTag} from '../../hooks/ApiHooks';
+import {useMedia} from '../../hooks/MediaHooks';
 import Button from './Button';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';

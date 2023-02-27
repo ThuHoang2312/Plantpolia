@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
-import {useMedia} from '../../hooks/ApiHooks';
+import {useMedia} from '../../hooks/MediaHooks';
 import {colors} from '../../utils/colors';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {AddPlantForm} from '../shared/AddPlantForm';
