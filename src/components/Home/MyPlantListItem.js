@@ -7,17 +7,12 @@ import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
 import {MainContext} from '../../contexts/MainContext';
 
-const MyPlantListItem = ({plant, imageUrl, title, description, navigation}) => {
+const MyPlantListItem = ({plant, navigation}) => {
   // console.log('PLANT LIST ITEM:', plant);
-  // const imageUrl = uploadUrl + plant.thumbnails.w160;
+  const imageUrl = plant.thumbnails.w160;
+  const description = JSON.parse(plant.description);
   const {setImage, setUpload} = useContext(MainContext);
   // console.log('ITEM UPLOAD: ', upload);
-  const plantDescription = JSON.parse(description);
-  let plantLocation = plantDescription.plantLocation;
-  console.log('plantLocation', plantLocation);
-  if (plantLocation === undefined) {
-    plantLocation = 'Unknown';
-  }
 
   return (
     <RNEListItem
@@ -34,14 +29,14 @@ const MyPlantListItem = ({plant, imageUrl, title, description, navigation}) => {
         avatarStyle={styles.avatar}
       />
       <RNEListItem.Content style={styles.content}>
-        <RNEListItem.Title style={styles.title}>{title}</RNEListItem.Title>
-        <RNEListItem.Subtitle>
-          {plantDescription.otherNames}
-        </RNEListItem.Subtitle>
+        <RNEListItem.Title style={styles.title}>
+          {plant.title}
+        </RNEListItem.Title>
+        <RNEListItem.Subtitle>{description.otherNames}</RNEListItem.Subtitle>
         <View style={styles.statusContainer}>
           <View style={styles.locationContainer}>
             <RNEListItem.Subtitle style={styles.location}>
-              {plantLocation}
+              {description.plantLocation}
             </RNEListItem.Subtitle>
           </View>
           {/* TODO: Change style when have data */}
@@ -102,9 +97,6 @@ const styles = StyleSheet.create({
 MyPlantListItem.propTypes = {
   plant: PropTypes.object,
   navigation: PropTypes.object,
-  imageUrl: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
 };
 
 export default MyPlantListItem;
