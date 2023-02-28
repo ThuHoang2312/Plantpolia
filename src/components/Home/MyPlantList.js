@@ -44,7 +44,6 @@ const MyPlantList = ({navigation}) => {
           data={searchResult}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({item}) => (
-            // console.log('ITEM:', item),
             <MyPlantListItem plant={item} navigation={navigation} />
           )}
         />

@@ -1,29 +1,17 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View} from 'react-native';
 import {Avatar, ListItem as RNEListItem} from '@rneui/themed';
 import {spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
-import {MainContext} from '../../contexts/MainContext';
 
-const PlantListItem = ({plant, imageUrl, title, navigation}) => {
-  // console.log('PLANT LIST ITEM:', plant);
-  // const imageUrl = uploadUrl + plant.thumbnails.w160;
-  const {setImage, setUpload} = useContext(MainContext);
-  // console.log('ITEM UPLOAD: ', upload);
-  const description = JSON.parse(plant.description);
+const PlantListItem = ({plantDescription, imageUrl, title, onPress}) => {
+  const description = JSON.parse(plantDescription);
   const level = description.level;
-  // console.log(level);
 
   return (
-    <RNEListItem
-      onPress={() => {
-        setImage(uploadUrl + imageUrl);
-        setUpload(false);
-        navigation.navigate('Upload', {plant: plant});
-      }}
-    >
+    <RNEListItem onPress={onPress}>
       <Avatar rounded size="large" source={{uri: uploadUrl + imageUrl}} />
       <RNEListItem.Content>
         <RNEListItem.Title style={styles.title}>{title}</RNEListItem.Title>
@@ -58,8 +46,8 @@ const styles = StyleSheet.create({
 });
 
 PlantListItem.propTypes = {
-  plant: PropTypes.object,
-  navigation: PropTypes.object,
+  onPress: PropTypes.func,
+  plantDescription: PropTypes.string,
   imageUrl: PropTypes.string,
   title: PropTypes.string,
 };
