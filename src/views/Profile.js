@@ -6,7 +6,11 @@ import {useApi} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import {Alert, Platform, ScrollView, StyleSheet, View} from 'react-native';
-import {createUserAvatarTagName, uploadUrl} from '../utils/variables';
+import {
+  applicationPrefixId,
+  createUserAvatarTagName,
+  uploadUrl,
+} from '../utils/variables';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '../utils/colors';
 
@@ -118,8 +122,10 @@ const Profile = ({navigation}) => {
             containerStyle={styles.avatar}
           />
           {/* <Text>{user.full_name}</Text>  */}
-          <Text style={styles.fullname}>Thu Hoang</Text>
-          <Text style={styles.username}>{'@' + user.username.slice(11)}</Text>
+          <Text style={styles.fullname}>{user.full_name}</Text>
+          <Text style={styles.username}>
+            {'@' + user.username.split(applicationPrefixId)[1]}
+          </Text>
           <Button
             title={'Change avatar'}
             buttonStyle={styles.changeAvatarButton}

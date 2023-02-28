@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
 import {userPlantTagName} from '../utils/variables';
 import {useApi} from './ApiHooks';
+import {safeJsonParse} from '../utils/safeJsonParse';
 
-// PLANTS
-export const useUserPlantHooks = (defaultUserPlantList = [], userProfile) => {
+/** @type {import('../types/UserPlantModel').UseUserPlantHooks} */
+export const useUserPlantHooks = ({defaultUserPlantList, userProfile}) => {
   const {getDetailedMediaListByTagName} = useApi();
 
   const [userPlantList, setUserPlantList] = useState(defaultUserPlantList);
@@ -17,10 +18,15 @@ export const useUserPlantHooks = (defaultUserPlantList = [], userProfile) => {
     }
     (async () => {
       setUserPlantListLoading(true);
+
+      /** @type {import('../types/UserPlantModel').GetUserPlantList} */
       const items = await getDetailedMediaListByTagName(userPlantTagName);
-      const userItems = items.filter(
-        (file) => file && file.user_id === userProfile.user_id
-      );
+      const userItems = items
+        .filter((file) => file && file.user_id === userProfile.user_id)
+        .map((item) => {
+          item.description = safeJsonParse(item.description);
+          return item;
+        });
       setUserPlantList(userItems);
       setUserPlantListLoading(false);
       setUserPlantListNeedsHydration(false);

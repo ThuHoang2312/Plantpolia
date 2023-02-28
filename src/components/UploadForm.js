@@ -8,10 +8,11 @@ import {colors} from '../utils/colors';
 import Input from './shared/Input';
 import Button from './shared/Button';
 import {MainContext} from '../contexts/MainContext';
-import {useUploadFormState} from '../services/useUploadFormState';
 import {uploadUrl} from '../utils/variables';
+import {useNewUserPlantForm} from '../services/useNewUserPlantForm';
 
-const UploadForm = ({plant, onSubmit, cancelSubmit}) => {
+/** @type {import('../types/TypedComponents').UploadForm} */
+const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
   const {setImage, setImageSelected, setType} = useContext(MainContext);
   const {
     title,
@@ -37,10 +38,11 @@ const UploadForm = ({plant, onSubmit, cancelSubmit}) => {
     setOpenPlantLocation,
     setPlantLocationItem,
     openPlantLocation,
-  } = useUploadFormState();
+  } = useNewUserPlantForm({
+    primaryPlant,
+  });
 
   // Get the default values from database
-  const defaultValues = JSON.parse(plant.description);
   // console.log('UPLOAD FORM DEFAULT: ', defaultValues);
 
   // Condition to check for disable button
@@ -50,7 +52,7 @@ const UploadForm = ({plant, onSubmit, cancelSubmit}) => {
     buttonStatus = true;
   }
 
-  const imageUrl = uploadUrl + plant.thumbnails.w160;
+  const imageUrl = uploadUrl + primaryPlant.thumbnails.w160;
   const [pickUri, setPickUri] = useState(imageUrl);
 
   // pick image function
@@ -76,25 +78,16 @@ const UploadForm = ({plant, onSubmit, cancelSubmit}) => {
 
   // Handler submit form
   const handlerSubmit = () => {
-    // Set default values when submit the form
-    if (title === '') setTitle(plant.title);
-
-    const formData = {
-      title: title,
+    onSubmit({
+      title: primaryPlant.title ?? title,
       description: {
-        waterInterval: defaultValues.waterInterval,
-        lastWater: lastWater,
-        notificationTime: notificationTime,
-        plantLocation: plantLocation,
-        clean: defaultValues.clean,
-        level: defaultValues.level,
-        liquidFertilizing: defaultValues.liquidFertilizing,
-        otherNames: defaultValues.otherNames,
-        waterInstruction: defaultValues.waterInstruction,
+        waterInterval: primaryPlant.description.waterInterval,
+        otherNames: primaryPlant.description.otherNames,
+        cleaningInstruction: primaryPlant.description.cleaningInstruction,
+        waterInstruction: primaryPlant.description.waterInstruction,
+        fertilizerInstruction: primaryPlant.description.fertilizerInstruction,
       },
-    };
-
-    onSubmit(formData);
+    });
   };
 
   return (
@@ -102,7 +95,7 @@ const UploadForm = ({plant, onSubmit, cancelSubmit}) => {
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={{uri: pickUri}} />
       </View>
-      <Text style={styles.title}>{plant.title}</Text>
+      <Text style={styles.title}>{primaryPlant.title}</Text>
 
       <Text style={styles.text} onPress={pickImage}>
         Click here to choose your image
@@ -220,10 +213,9 @@ const styles = StyleSheet.create({
 });
 
 UploadForm.propTypes = {
-  plant: PropTypes.object,
+  primaryPlant: PropTypes.any,
   onSubmit: PropTypes.func,
   cancelSubmit: PropTypes.func,
-  isModify: PropTypes.bool,
 };
 
 export default UploadForm;

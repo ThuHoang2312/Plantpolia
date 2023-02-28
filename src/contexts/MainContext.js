@@ -24,9 +24,9 @@ export const MainProvider = ({
     primaryPlantList,
     primaryPlantListLoading,
     setPrimaryPlantListNeedsHydration,
-  } = usePrimaryPlantHooks(defaultPrimaryPlantList);
+  } = usePrimaryPlantHooks({defaultPrimaryPlantList});
   const {userPlantList, userPlantListLoading, setUserPlantListNeedsHydration} =
-    useUserPlantHooks(defaultUserPlantList, userProfile);
+    useUserPlantHooks({defaultUserPlantList, userProfile});
 
   const date = useClock();
   const [lastWater, setLastWater] = useState('');
@@ -76,9 +76,7 @@ export const MainProvider = ({
 };
 
 export const useMainContext = () => {
-  const context = useContext(MainContext);
-
-  return context;
+  return useContext(MainContext);
 };
 
 MainProvider.propTypes = {

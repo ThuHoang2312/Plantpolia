@@ -1,21 +1,19 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {ScrollView, StyleSheet, View, Text, Image} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
-import {spacing, fontSizes} from '../../utils/sizes';
+import {fontSizes, spacing} from '../../utils/sizes';
 import Button from '../shared/Button';
 import PlantOverview from './PlantOverview';
 import PlantPhotoList from './PlantPhotoList';
 import {ConfigOverlay} from './ConfigOverlay';
 
 const UserPlantDetail = ({plant, navigation}) => {
-  console.log('USER DETAIL PLANT:', plant);
   // Get plant's description and its file id
   const description = JSON.parse(plant.description);
-  console.log('TYPE:', typeof description);
   const plantId = plant.file_id;
   // console.log(plantId);
   const {image} = useContext(MainContext);

@@ -69,7 +69,7 @@ const AddPlant = ({navigation}) => {
               onPress={() => {
                 setImage(`${uploadUrl}${item.thumbnails.w160}`);
                 setUpload(false);
-                navigation.navigate('Upload', {plant: item});
+                navigation.navigate('Upload', {primaryPlant: item});
               }}
             />
           )}

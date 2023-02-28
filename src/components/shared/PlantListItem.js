@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 
 PlantListItem.propTypes = {
   onPress: PropTypes.func,
-  plantDescription: PropTypes.string,
+  plantDescription: PropTypes.object,
   imageUrl: PropTypes.string,
   title: PropTypes.string,
 };

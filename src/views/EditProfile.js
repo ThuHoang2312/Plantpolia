@@ -19,15 +19,14 @@ const EditProfile = ({navigation}) => {
     formState: {errors},
   } = useForm({
     defaultValues: {
-      username: user.username.slice(11),
+      username: user.username.split(applicationPrefixId)[1],
       password: '',
       confirmPassword: '',
-      email: user.email.slice(11),
+      email: user.email.split(applicationPrefixId)[1],
       full_name: user.full_name,
     },
     mode: 'onBlur',
   });
-
   const onSubmit = async (data) => {
     try {
       delete data.confirmPassword;
