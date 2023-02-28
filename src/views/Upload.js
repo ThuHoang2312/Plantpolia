@@ -22,7 +22,7 @@ const Upload = ({navigation, route}) => {
   } = useContext(MainContext);
   const [imageSelected, setImageSelected] = useState(false);
 
-  const plantData = route.params.plant;
+  const {primaryPlant} = route.params;
   // const prefixDescription = plantData.description;
 
   const handlerSubmit = async (data) => {
@@ -49,7 +49,6 @@ const Upload = ({navigation, route}) => {
         token
       );
       setUpload(!upload);
-      // console.log('AFTER REQUEST UPLOAD', upload);
       setUserPlantListNeedsHydration(true);
       setImageSelected(!imageSelected);
 
@@ -83,7 +82,7 @@ const Upload = ({navigation, route}) => {
     <ScrollView>
       <View style={styles.container}>
         <UploadForm
-          plant={plantData}
+          primaryPlant={primaryPlant}
           onSubmit={handlerSubmit}
           cancelSubmit={() => navigation.navigate('Home')}
         />

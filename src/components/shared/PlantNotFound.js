@@ -9,7 +9,7 @@ import {colors} from '../../utils/colors';
 import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
 import {useApi} from '../../hooks/ApiHooks';
-import {imageDefault, requestedPlantTagName} from '../../utils/variables';
+import {requestedPlantTagName} from '../../utils/variables';
 import {useRequestedPlantHooks} from '../../hooks/RequestedPlantHooks';
 
 const PlantNotFound = ({navigation, isUserList}) => {
@@ -84,7 +84,7 @@ const PlantNotFound = ({navigation, isUserList}) => {
       );
       setUpload(!upload);
       setRequestedPlantListNeedsHydration(true);
-      setImage(imageDefault);
+      // setImage(imageDefault);
       setImageSelected(!imageSelected);
 
       // // AFTer submit vaue:

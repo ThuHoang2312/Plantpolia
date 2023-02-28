@@ -1,5 +1,7 @@
 import React, {Context, Dispatch, PropsWithChildren} from 'react';
 import {IUserModel} from './UserModel';
+import {PrimaryPlantModel} from './PrimaryPlantModel';
+import {UserPlantModel} from './UserPlantModel';
 
 export interface MainContextProviderProps {
   userProfile: IUserModel | null;
@@ -88,11 +90,11 @@ export interface MainContextModel {
    */
   setToken: Dispatch<string | null>;
 
-  primaryPlantList: any[];
+  primaryPlantList: PrimaryPlantModel[];
   primaryPlantListLoading: boolean;
   setPrimaryPlantListNeedsHydration: Dispatch<boolean>;
 
-  userPlantList: any[];
+  userPlantList: UserPlantModel[];
   userPlantListLoading: boolean;
   setUserPlantListNeedsHydration: Dispatch<boolean>;
 }

@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react';
 import {primaryPlantTagName} from '../utils/variables';
 import {useApi} from './ApiHooks';
+import {safeJsonParse} from '../utils/safeJsonParse';
 
 // PLANTS
-export const usePrimaryPlantHooks = (defaultPrimaryPlantList = []) => {
+/** @type {import('../types/PrimaryPlantModel').UsePrimaryPlantHooks} */
+export const usePrimaryPlantHooks = ({defaultPrimaryPlantList}) => {
   const {getDetailedMediaListByTagName} = useApi();
   const [primaryPlantList, setPrimaryPlantList] = useState(
     defaultPrimaryPlantList
@@ -18,8 +20,16 @@ export const usePrimaryPlantHooks = (defaultPrimaryPlantList = []) => {
     }
     (async () => {
       setPrimaryPlantListLoading(true);
+
+      /** @type {import('../types/PrimaryPlantModel').GetPrimaryPlantList} */
       const items = await getDetailedMediaListByTagName(primaryPlantTagName);
-      setPrimaryPlantList(items);
+
+      const parsedItems = items.map((item) => {
+        item.description = safeJsonParse(item.description);
+        return item;
+      });
+
+      setPrimaryPlantList(parsedItems);
       setPrimaryPlantListLoading(false);
       setPrimaryPlantListNeedsHydration(false);
     })();

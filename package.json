@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "seed": "node seed-data/importPrimaryPlants.js",
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
+    "seed": "APP_VERSION=1 node seed-data/importPrimaryPlants.js",
+    "start": "APP_VERSION=1 EXPO_NO_TYPESCRIPT_SETUP=1 expo start",
+    "android": "APP_VERSION=1 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --android",
+    "ios": "APP_VERSION=1 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --ios",
+    "web": "APP_VERSION=1 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --web",
     "test": "npx eslint ."
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "eslint-plugin-react-native": "^4.0.0",
     "expo": "~47.0.12",
     "expo-asset": "~8.7.0",
+    "expo-constants": "~14.0.2",
     "expo-image-picker": "~14.0.2",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",

@@ -1,17 +1,22 @@
 import {useCallback, useEffect, useState} from 'react';
 import * as SplashScreen from 'expo-splash-screen';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 import {Text} from '@rneui/themed';
 import {MainProvider} from './src/contexts/MainContext';
 import Navigator from './src/navigators/Navigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useApi} from './src/hooks/ApiHooks';
-import {primaryPlantTagName, userPlantTagName} from './src/utils/variables';
+import {
+  applicationPrefixId,
+  primaryPlantTagName,
+  requestedPlantTagName,
+  userPlantTagName,
+} from './src/utils/variables';
 
-const USER_TOKEN_STORAGE_KEY = 'userToken';
-const USER_PROFILE_STORAGE_KEY = 'userProfile';
-const EXPIRATION_DATE_STORAGE_KEY = 'expirationDate';
+const USER_TOKEN_STORAGE_KEY = `${applicationPrefixId}.user.token`;
+const USER_PROFILE_STORAGE_KEY = `${applicationPrefixId}.user.profile`;
+const EXPIRATION_DATE_STORAGE_KEY = `${applicationPrefixId}.user.token.expiration`;
 
 const App = () => {
   const {getDetailedMediaListByTagName} = useApi();
@@ -72,7 +77,7 @@ const App = () => {
     //  Take minimum 1 second even if data was loaded faster. (Just for Hype :D)
     Promise.all([
       prepare(),
-      new Promise((resolve) => setTimeout(resolve, 1000)),
+      new Promise((resolve) => setTimeout(resolve, 2000)),
     ]).then(() => {
       setAppIsReady(true);
     });
@@ -147,6 +152,24 @@ const App = () => {
         onLayout={onLayoutRootView}
       >
         <Text>SplashScreen Demo! 👋</Text>
+        <View style={styles.container}>
+          <View style={styles.debugItem}>
+            <Text style={styles.itemTitle}>applicationPrefixId</Text>
+            <Text style={styles.item}>{applicationPrefixId}</Text>
+          </View>
+          <View style={styles.debugItem}>
+            <Text style={styles.itemTitle}>primaryPlantTagName</Text>
+            <Text style={styles.item}>{primaryPlantTagName}</Text>
+          </View>
+          <View style={styles.debugItem}>
+            <Text style={styles.itemTitle}>userPlantTagName</Text>
+            <Text style={styles.item}>{userPlantTagName}</Text>
+          </View>
+          <View style={styles.debugItem}>
+            <Text style={styles.itemTitle}>requestedPlantTagName</Text>
+            <Text style={styles.item}>{requestedPlantTagName}</Text>
+          </View>
+        </View>
       </View>
     );
   }
@@ -173,5 +196,21 @@ const App = () => {
     </MainProvider>
   );
 };
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+  },
+  debugItem: {
+    width: '100%',
+    paddingVertical: 10,
+  },
+  itemTitle: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  item: {
+    textAlign: 'center',
+  },
+});
 
 export default App;

@@ -8,5 +8,10 @@ export interface MediaModel {
   media_type: string;
   mime_type: string;
   time_added: string;
+  thumbnails: {
+    w640: string;
+    w320: string;
+    w160: string;
+  };
 }
 export type MediaModelList = MediaModel[];
