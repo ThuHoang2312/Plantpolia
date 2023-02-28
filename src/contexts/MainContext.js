@@ -26,7 +26,7 @@ export const MainProvider = ({
     setPrimaryPlantListNeedsHydration,
   } = usePrimaryPlantHooks(defaultPrimaryPlantList);
   const {userPlantList, userPlantListLoading, setUserPlantListNeedsHydration} =
-    useUserPlantHooks(defaultUserPlantList);
+    useUserPlantHooks(defaultUserPlantList, userProfile);
 
   const date = useClock();
   const [lastWater, setLastWater] = useState('');

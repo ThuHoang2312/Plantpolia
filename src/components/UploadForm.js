@@ -1,9 +1,9 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {spacing, fontSizes} from '../utils/sizes';
+import {fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
 import Input from './shared/Input';
 import Button from './shared/Button';
@@ -98,75 +98,70 @@ const UploadForm = ({plant, onSubmit, cancelSubmit}) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{uri: pickUri}} />
-        </View>
-        <Text style={styles.title}>{plant.title}</Text>
-
-        <Text style={styles.text} onPress={pickImage}>
-          Click here to choose your image
-        </Text>
-
-        <Input text="Name your plant (optional)" onChangeText={setTitle} />
-
-        <DropDownPicker
-          zIndex={6000}
-          zIndexInverse={5000}
-          open={openPlantLocation}
-          onOpen={onPlantLocationOpen}
-          value={plantLocation}
-          items={plantLocationItem}
-          setOpen={setOpenPlantLocation}
-          setValue={setPlantLocation}
-          setItems={setPlantLocationItem}
-          listMode="SCROLLVIEW"
-          placeholder="Where is the plant located?"
-          containerStyle={styles.picker}
-          textStyle={styles.textPicker}
-          selectedItemLabelStyle={{fontWeight: 'bold'}}
-        />
-
-        <DropDownPicker
-          zIndex={6000}
-          zIndexInverse={3000}
-          open={openLastWater}
-          onOpen={onLastWaterOpen}
-          value={lastWater}
-          items={lastWaterItem}
-          setOpen={setOpenLastWater}
-          setValue={setLastWater}
-          setItems={setLastWaterItem}
-          listMode="SCROLLVIEW"
-          placeholder="Last time the plant was watered?"
-          containerStyle={styles.picker}
-          textStyle={styles.textPicker}
-          selectedItemLabelStyle={{fontWeight: 'bold'}}
-        />
-        <DropDownPicker
-          zIndex={3000}
-          zIndexInverse={6000}
-          placeholder="Notification time preferences"
-          open={openNotificationTime}
-          value={notificationTime}
-          items={notificationTimeItem}
-          setItems={setNotificationTimeItem}
-          setOpen={setOpenNotificationTime}
-          setValue={setNotificationTime}
-          listMode="SCROLLVIEW"
-          onOpen={onNotificationTimeOpen}
-          containerStyle={styles.picker}
-          textStyle={styles.textPicker}
-          selectedItemLabelStyle={{fontWeight: 'bold'}}
-        />
-
-        <View style={styles.buttonWrapper}>
-          <Button text="Save" onPress={handlerSubmit} disabled={buttonStatus} />
-          <Button text="Cancel" onPress={cancelSubmit} disabled={false} />
-        </View>
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={{uri: pickUri}} />
       </View>
-    </ScrollView>
+      <Text style={styles.title}>{plant.title}</Text>
+
+      <Text style={styles.text} onPress={pickImage}>
+        Click here to choose your image
+      </Text>
+
+      <Input text="Name your plant (optional)" onChangeText={setTitle} />
+
+      <DropDownPicker
+        zIndex={4}
+        open={openPlantLocation}
+        onOpen={onPlantLocationOpen}
+        value={plantLocation}
+        items={plantLocationItem}
+        setOpen={setOpenPlantLocation}
+        setValue={setPlantLocation}
+        setItems={setPlantLocationItem}
+        listMode="SCROLLVIEW"
+        placeholder="Where is the plant located?"
+        containerStyle={styles.picker}
+        textStyle={styles.textPicker}
+        selectedItemLabelStyle={{fontWeight: 'bold'}}
+      />
+
+      <DropDownPicker
+        zIndex={3}
+        open={openLastWater}
+        onOpen={onLastWaterOpen}
+        value={lastWater}
+        items={lastWaterItem}
+        setOpen={setOpenLastWater}
+        setValue={setLastWater}
+        setItems={setLastWaterItem}
+        listMode="SCROLLVIEW"
+        placeholder="Last time the plant was watered?"
+        containerStyle={styles.picker}
+        textStyle={styles.textPicker}
+        selectedItemLabelStyle={{fontWeight: 'bold'}}
+      />
+      <DropDownPicker
+        zIndex={2}
+        placeholder="Notification time preferences"
+        open={openNotificationTime}
+        value={notificationTime}
+        items={notificationTimeItem}
+        setItems={setNotificationTimeItem}
+        setOpen={setOpenNotificationTime}
+        setValue={setNotificationTime}
+        listMode="SCROLLVIEW"
+        onOpen={onNotificationTimeOpen}
+        containerStyle={styles.picker}
+        textStyle={styles.textPicker}
+        selectedItemLabelStyle={{fontWeight: 'bold'}}
+      />
+
+      <View style={styles.buttonWrapper}>
+        <Button text="Save" onPress={handlerSubmit} disabled={buttonStatus} />
+        <Button text="Cancel" onPress={cancelSubmit} disabled={false} />
+      </View>
+    </View>
   );
 };
 
@@ -174,6 +169,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+    paddingBottom: 100,
   },
   buttonWrapper: {
     flexDirection: 'row',
