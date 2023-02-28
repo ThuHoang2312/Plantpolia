@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "seed": "node seed-data/importPrimaryPlants.js",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -23,6 +24,8 @@
     "expo-image-picker": "~14.0.2",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
+    "form-data": "^4.0.0",
+    "node-fetch": "^3.3.0",
     "prop-types": "^15.8.1",
     "react": "18.1.0",
     "react-hook-form": "^7.43.1",
