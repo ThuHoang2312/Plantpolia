@@ -65,7 +65,7 @@ const Upload = ({navigation, route}) => {
     // Clear picker choices
     setLastWater('');
     setNotificationTime('');
-    setPlantLocation('');
+    // setPlantLocation('');
   };
 
   const errorHandler = () => {
