@@ -5,6 +5,8 @@ export interface MainContextProviderProps {
   userProfile: IUserModel | null;
   accessToken: string | null;
   expirationDate: number | null;
+  defaultPrimaryPlantList: any[];
+  defaultUserPlantList: any[];
   setUserProfile: (userModel: IUserModel | null) => void;
   setAccessToken: (accessToken: string) => void;
   setExpirationDate: (expirationDate: number) => void;
@@ -44,14 +46,6 @@ export interface MainContextModel {
    */
   setExpirationDate: Dispatch<number | null>;
   /**
-   * When true means data needs to be updated.
-   */
-  update: boolean;
-  /**
-   * TODO: Write description.
-   */
-  setUpdate: Dispatch<boolean>;
-  /**
    * TODO: Write description.
    */
   lastWater: any;
@@ -64,12 +58,6 @@ export interface MainContextModel {
    */
   notificationTime: any;
   setNotificationTime: Dispatch<any>;
-  /**
-   *
-   *  * TODO: Write description.
-   */
-  plantLocation: any;
-  setPlantLocation: Dispatch<any>;
   /**
    * TODO: Write description.
    */
@@ -92,14 +80,6 @@ export interface MainContextModel {
    */
   setType: Dispatch<any>;
   /**
-   * TODO: Write description.
-   */
-  imageSelected: boolean;
-  /**
-   * TODO: Write description.
-   */
-  setImageSelected: Dispatch<boolean>;
-  /**
    * Access token of the user.
    */
   token: string | null;
@@ -107,21 +87,14 @@ export interface MainContextModel {
    * TODO: Write description.
    */
   setToken: Dispatch<string | null>;
+
+  primaryPlantList: any[];
+  primaryPlantListLoading: boolean;
+  setPrimaryPlantListNeedsHydration: Dispatch<boolean>;
+
+  userPlantList: any[];
+  userPlantListLoading: boolean;
+  setUserPlantListNeedsHydration: Dispatch<boolean>;
 }
-
-type UseStateModel<VarName extends keyof MainContextModel> = [
-  MainContextModel[VarName],
-  Dispatch<MainContextModel[VarName]>
-];
-
-export type IsLoggedInUseStateModel = UseStateModel<'isLoggedIn'>;
-export type UpdateUseStateModel = UseStateModel<'update'>;
-export type LastWaterUseStateModel = UseStateModel<'lastWater'>;
-export type NotificationTimeUseStateModel = UseStateModel<'notificationTime'>;
-export type ImageUseStateModel = UseStateModel<'image'>;
-export type ImageSelectedUseStateModel = UseStateModel<'imageSelected'>;
-export type TypeUseStateModel = UseStateModel<'type'>;
-export type UploadUseStateModel = UseStateModel<'upload'>;
-export type PlantLocationUseStateModel = UseStateModel<'plantLocation'>;
 
 export type MainContextReactContext = Context<MainContextModel>;

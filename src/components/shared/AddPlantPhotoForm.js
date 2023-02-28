@@ -6,29 +6,20 @@ import * as ImagePicker from 'expo-image-picker';
 
 import {Card, Icon} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
-import {useMedia, useTag} from '../../hooks/ApiHooks';
+import {useApi} from '../../hooks/ApiHooks';
 import Button from './Button';
-import {spacing, fontSizes} from '../../utils/sizes';
+import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
-import {userTag} from '../../utils/variables';
+import {createPlantPhotoTagName} from '../../utils/variables';
 
-export const AddPlantForm = ({title, fileId, closeForm}) => {
+export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
   // console.log(`${fileId}${userTag}`);
 
-  const {
-    token,
-    setImageSelected,
-    type,
-    setType,
-    setUpload,
-    upload,
-    imageSelected,
-    update,
-    setUpdate,
-  } = useContext(MainContext);
-  const {postMedia} = useMedia();
-  const {postTag} = useTag();
+  const {token, type, setType, setUpload, upload} = useContext(MainContext);
+  const {postTag, postMedia} = useApi();
   const [pickUri, setPickUri] = useState('defaultPhoto');
+  const [imageSelected, setImageSelected] = useState(false);
+
   const {
     control,
     reset,
@@ -77,7 +68,7 @@ export const AddPlantForm = ({title, fileId, closeForm}) => {
     try {
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: `${fileId}${userTag}`},
+        {file_id: response.file_id, tag: createPlantPhotoTagName(fileId)},
         token
       );
 
@@ -88,12 +79,10 @@ export const AddPlantForm = ({title, fileId, closeForm}) => {
               text: 'OK',
               onPress: () => {
                 setUpload(!upload);
-                //  TODO: fix: boolean + number ?
-                setUpdate(update + 1);
                 // setImage(imageDefault);
                 setImageSelected(!imageSelected);
                 reset();
-                closeForm();
+                closeForm(true);
               },
             },
           ]);
@@ -195,7 +184,7 @@ const styles = StyleSheet.create({
   },
 });
 
-AddPlantForm.propTypes = {
+AddPlantPhotoForm.propTypes = {
   title: PropTypes.string,
   fileId: PropTypes.number,
   closeForm: PropTypes.func,

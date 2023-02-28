@@ -128,19 +128,6 @@ const StackScreen = () => {
             options={{headerShown: false}}
           />
         </>
-      ) : isExpired ? (
-        <>
-          <Stack.Screen
-            name="ExpiredToken"
-            component={ExpiredToken}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{headerShown: false}}
-          />
-        </>
       ) : (
         <Stack.Screen
           name="Login"

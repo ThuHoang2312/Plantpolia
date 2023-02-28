@@ -14,7 +14,7 @@ const Home = ({navigation}) => {
         minHeight: height - bottomTabBarHeight,
       }}
     >
-      <MyPlantList navigation={navigation} myFilesOnly={true} />
+      <MyPlantList navigation={navigation} />
       <FloatingButtons
         onHomeIconPress={() => {}}
         onWateringCanIconPress={() => {

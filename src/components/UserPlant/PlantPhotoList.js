@@ -1,21 +1,25 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, StyleSheet, View, Text} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
-import {useMedia} from '../../hooks/ApiHooks';
 import {colors} from '../../utils/colors';
 import {fontSizes, spacing} from '../../utils/sizes';
-import {AddPlantForm} from '../shared/AddPlantForm';
+import {AddPlantPhotoForm} from '../shared/AddPlantPhotoForm';
 import {PlantPhotoListItem} from './PlantPhotoListItem';
+import {useUserPlantPhotoHooks} from '../../hooks/UserPlantPhotoHooks';
 
 const PlantPhotoList = ({title, fileId, navigation}) => {
-  const {photoArray} = useMedia(true, fileId);
+  const {userPlantPhotoList, setUserPlantPhotoListNeedsHydration} =
+    useUserPlantPhotoHooks(fileId);
 
   // Overlay state and function for photos and note tab
   const [visible, setVisible] = useState(false);
-  const toggleOverlay = () => {
+  const toggleOverlay = (needsHydration = false) => {
     setVisible(!visible);
+    if (needsHydration) {
+      setUserPlantPhotoListNeedsHydration(true);
+    }
   };
 
   return (
@@ -25,34 +29,34 @@ const PlantPhotoList = ({title, fileId, navigation}) => {
           icon="image-plus"
           iconColor={colors.primary700}
           size={35}
-          onPress={toggleOverlay}
+          onPress={() => toggleOverlay(false)}
         />
         <Overlay
           overlayStyle={styles.overlay}
           isVisible={visible}
-          onBackdropPress={toggleOverlay}
+          onBackdropPress={() => toggleOverlay(false)}
         >
           <IconButton
             icon="close"
             iconColor={colors.primary700}
             size={35}
-            onPress={toggleOverlay}
+            onPress={() => toggleOverlay(false)}
           />
-          <AddPlantForm
+          <AddPlantPhotoForm
             title={title}
             fileId={fileId}
-            closeForm={toggleOverlay}
+            closeForm={() => toggleOverlay(true)}
           />
         </Overlay>
       </View>
       <View style={styles.photoContainer}>
-        {photoArray.length === 0 ? (
+        {userPlantPhotoList.length === 0 ? (
           <Text style={styles.text}>You have not add any photos or notes</Text>
         ) : (
           <>
             <FlatList
               numColumns={2}
-              data={photoArray}
+              data={userPlantPhotoList}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item}) => (
                 <PlantPhotoListItem

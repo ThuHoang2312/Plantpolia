@@ -1,6 +1,17 @@
-import {useContext, useEffect, useState} from 'react';
-import {MainContext} from '../contexts/MainContext';
-import {userTag, appTag, baseUrl} from '../utils/variables';
+import {baseUrl} from '../utils/variables';
+
+const handleResponse = async (fetch) => {
+  try {
+    const response = await fetch();
+    if (response.ok) {
+      return [await response.json(), null, response.status, response];
+    } else {
+      return [null, await response.json(), response.status, response];
+    }
+  } catch (error) {
+    return [null, error, 0, null];
+  }
+};
 
 const doFetch = async (url, options = {}) => {
   try {
@@ -18,7 +29,7 @@ const doFetch = async (url, options = {}) => {
     throw new Error(err.message);
   }
 };
-const useAuthentication = () => {
+export const useApi = () => {
   const postLogin = async (userCredentials) => {
     // user credentials format: {username: 'someUsername', password: 'somePassword'}
     const options = {
@@ -35,10 +46,6 @@ const useAuthentication = () => {
     }
   };
 
-  return {postLogin};
-};
-
-const useUser = () => {
   const getUserByToken = async (token) => {
     const options = {
       method: 'GET',
@@ -93,153 +100,6 @@ const useUser = () => {
     }
   };
 
-  return {postUser, checkUsername, getUserByToken, putUser};
-};
-
-// PLANTS
-const useMedia = (myFilesOnly, fileId = null) => {
-  const [prefixArray, setPrefixArray] = useState([]);
-  const [plantArray, setPlantArray] = useState([]);
-  const [photoArray, setPhotoArray] = useState([]);
-  const {update, user} = useContext(MainContext);
-  const [load, setLoad] = useState(false);
-
-  // Get the list of plant option for adding plant
-  const loadPrefix = async () => {
-    setLoad(true);
-    try {
-      const json = await useTag().getFileByTag(appTag);
-      const media = await Promise.all(
-        json.map(async (item) => {
-          const response = await fetch(baseUrl + 'media/' + item.file_id);
-          const mediaData = await response.json();
-          return mediaData;
-        })
-      );
-
-      setPrefixArray(media);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoad(false);
-    }
-  };
-
-  // Get the list of user plant
-  const loadPlant = async () => {
-    setLoad(true);
-    try {
-      let json = await useTag().getFileByTag(userTag);
-      if (myFilesOnly) {
-        json = json.filter((file) => file.user_id === user.user_id);
-      }
-      const media = await Promise.all(
-        json.map(async (item) => {
-          const response = await fetch(baseUrl + 'media/' + item.file_id);
-          const mediaData = await response.json();
-          return mediaData;
-        })
-      );
-      setPlantArray(media);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoad(false);
-    }
-  };
-
-  // Get the list of photos of user plant
-  const loadPhoto = async () => {
-    setLoad(true);
-    try {
-      const json = await useTag().getFileByTag(`${fileId}${userTag}`);
-      console.log(json);
-      const media = await Promise.all(
-        json.map(async (item) => {
-          const response = await fetch(baseUrl + 'media/' + item.file_id);
-          const mediaData = await response.json();
-          return mediaData;
-        })
-      );
-      console.log(media);
-      setPhotoArray(media);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoad(false);
-    }
-  };
-
-  // Call loadMedia() only once when the component is loaded
-  // Or when update state is changed
-  useEffect(() => {
-    loadPrefix();
-    loadPlant();
-    loadPhoto();
-  }, [update]);
-
-  // Upload plant
-  const postMedia = async (formData, token) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'x-access-token': token,
-      },
-      body: formData,
-    };
-    return await doFetch(baseUrl + 'media', options);
-  };
-
-  // Modify plant
-  const putMedia = async (id, data, token) => {
-    const options = {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-token': token,
-      },
-      body: JSON.stringify(data),
-    };
-    try {
-      return await doFetch(baseUrl + 'media/' + id, options);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoad(false);
-    }
-  };
-
-  // Delete plant
-  const deleteMedia = async (fileId, token) => {
-    const options = {
-      method: 'DELETE',
-      headers: {
-        'x-access-token': token,
-      },
-    };
-    try {
-      return await doFetch(baseUrl + 'media/' + fileId, options);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoad(false);
-    }
-  };
-
-  return {
-    prefixArray,
-    plantArray,
-    photoArray,
-    postMedia,
-    load,
-    putMedia,
-    deleteMedia,
-  };
-};
-
-// CREATE TAG
-const useTag = () => {
   const postTag = async (tagData, token) => {
     const options = {
       method: 'POST',
@@ -253,7 +113,83 @@ const useTag = () => {
     return await doFetch(baseUrl + 'tags/' + tag);
   };
 
-  return {postTag, getFileByTag};
-};
+  const getMediaById = async (mediaId) => {
+    return handleResponse(async () => {
+      const headers = new Headers();
+      headers.append('Accept', 'application/json');
+      headers.append('Content-Type', 'application/json');
+      return await fetch(baseUrl + `media/${mediaId}`, {
+        method: 'GET',
+        headers,
+      });
+    });
+  };
 
-export {useUser, useAuthentication, useTag, useMedia};
+  const getDetailedMediaListByTagName = async (tagName) => {
+    const json = await getFileByTag(tagName);
+    const media = await Promise.all(
+      json.map(async (item) => {
+        const [mediaData] = await getMediaById(item.file_id);
+        return mediaData;
+      })
+    );
+    return media;
+  };
+
+  const postMedia = async (formData, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'x-access-token': token,
+      },
+      body: formData,
+    };
+    return await doFetch(baseUrl + 'media', options);
+  };
+
+  const deleteMedia = async (fileId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    try {
+      return await doFetch(baseUrl + 'media/' + fileId, options);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const putMedia = async (id, data, token) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      return await doFetch(baseUrl + 'media/' + id, options);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return {
+    postLogin,
+    postUser,
+    checkUsername,
+    getUserByToken,
+    putUser,
+    postTag,
+    getFileByTag: getFileByTag,
+    getDetailedMediaListByTagName: getDetailedMediaListByTagName,
+    getMediaById: getMediaById,
+    postMedia,
+    deleteMedia,
+    putMedia,
+  };
+};

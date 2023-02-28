@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
-import {useUser} from '../hooks/ApiHooks';
+import {useApi} from '../hooks/ApiHooks';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import {Button} from '@rneui/themed';
@@ -19,7 +19,7 @@ import {colors} from '../utils/colors';
 const Login = ({navigation}) => {
   // props is needed for navigation
   const {setUser, token} = React.useContext(MainContext);
-  const {getUserByToken} = useUser();
+  const {getUserByToken} = useApi();
 
   const [toggleForm, setToggleForm] = React.useState(true);
 

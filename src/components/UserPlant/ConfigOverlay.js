@@ -1,15 +1,15 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, StyleSheet, Image, ScrollView, Alert} from 'react-native';
+import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {spacing, fontSizes} from '../../utils/sizes';
+import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import Input from '../shared/Input';
 import Button from '../shared/Button';
 import {MainContext} from '../../contexts/MainContext';
 import {useUploadFormState} from '../../services/useUploadFormState';
 import {IconButton} from 'react-native-paper';
-import {useMedia} from '../../hooks/ApiHooks';
+import {useApi} from '../../hooks/ApiHooks';
 
 export const ConfigOverlay = ({
   name,
@@ -30,9 +30,10 @@ export const ConfigOverlay = ({
     openPlantLocation,
   } = useUploadFormState();
 
-  const {image, update, setUpdate, token} = useContext(MainContext);
+  const {image, token, setUserPlantListNeedsHydration} =
+    useContext(MainContext);
 
-  const {putMedia, deleteMedia} = useMedia(true, fileId);
+  const {deleteMedia, putMedia} = useApi();
   // Condition to check for disable button
   let buttonStatus = false;
   if (!plantLocation) {
@@ -68,15 +69,13 @@ export const ConfigOverlay = ({
 
     try {
       const response = await putMedia(fileId, editData, token);
-
       setTimeout(() => {
         response &&
           Alert.alert('Success', 'Update information successful', [
             {
               text: 'OK',
               onPress: () => {
-                //  TODO: fix: boolean + number ?
-                setUpdate(update + 1);
+                setUserPlantListNeedsHydration(true);
                 navigation.navigate('Home');
               },
             },
@@ -106,7 +105,7 @@ export const ConfigOverlay = ({
               const response = await deleteMedia(fileId, token);
               if (response) {
                 console.log('plant delete');
-                setUpdate(update + 1);
+                setUserPlantListNeedsHydration(true);
                 navigation.navigate('Home');
               }
             } catch (error) {

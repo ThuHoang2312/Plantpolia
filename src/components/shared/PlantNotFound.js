@@ -8,26 +8,20 @@ import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
-import {useMedia, useTag} from '../../hooks/ApiHooks';
-import {imageDefault, requestTag} from '../../utils/variables';
+import {useApi} from '../../hooks/ApiHooks';
+import {imageDefault, requestedPlantTagName} from '../../utils/variables';
+import {useRequestedPlantHooks} from '../../hooks/RequestedPlantHooks';
 
 const PlantNotFound = ({navigation, isUserList}) => {
   const [visible, setVisible] = useState(false);
-  const {
-    token,
-    image,
-    setImage,
-    setImageSelected,
-    type,
-    setType,
-    setUpload,
-    upload,
-    imageSelected,
-    update,
-    setUpdate,
-  } = useContext(MainContext);
-  const {postMedia} = useMedia();
-  const {postTag} = useTag();
+  const [imageSelected, setImageSelected] = useState(false);
+
+  const {token, image, setImage, type, setType, setUpload, upload} =
+    useContext(MainContext);
+
+  const {postTag, postMedia} = useApi();
+
+  const {setRequestedPlantListNeedsHydration} = useRequestedPlantHooks();
   const toggleOverlay = () => {
     setImageSelected(false);
     setVisible(!visible);
@@ -85,12 +79,11 @@ const PlantNotFound = ({navigation, isUserList}) => {
     try {
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: requestTag},
+        {file_id: response.file_id, tag: requestedPlantTagName},
         token
       );
       setUpload(!upload);
-      //  TODO: fix: boolean + number ?
-      setUpdate(update + 1);
+      setRequestedPlantListNeedsHydration(true);
       setImage(imageDefault);
       setImageSelected(!imageSelected);
 

@@ -2,19 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Avatar, Button, Text} from '@rneui/themed';
 import {MainContext} from '../contexts/MainContext';
-import {useMedia, useTag} from '../hooks/ApiHooks';
+import {useApi} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import {Alert, Platform, ScrollView, StyleSheet, View} from 'react-native';
-import {uploadUrl} from '../utils/variables';
+import {createUserAvatarTagName, uploadUrl} from '../utils/variables';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '../utils/colors';
 
 const Profile = ({navigation}) => {
   const {setUser, setExpirationDate, setToken, user} =
     React.useContext(MainContext);
-  const {getFileByTag, postTag} = useTag();
-  const {postMedia} = useMedia();
+  const {getFileByTag, postTag, postMedia} = useApi();
   const [avatar, setAvatar] = React.useState(
     'https://www.linkpicture.com/q/PngItem_998739.png'
   );
@@ -22,7 +21,9 @@ const Profile = ({navigation}) => {
 
   const loadAvatar = async () => {
     try {
-      const avatarArray = await getFileByTag('avatar_' + user.user_id);
+      const avatarArray = await getFileByTag(
+        createUserAvatarTagName(user.user_id)
+      );
       if (avatarArray.length == 0) {
         setAvatar('https://www.linkpicture.com/q/PngItem_998739.png');
       } else {
@@ -35,7 +36,7 @@ const Profile = ({navigation}) => {
 
   const changeAvatar = async () => {
     try {
-      await getFileByTag('avatar_' + user.user_id);
+      await getFileByTag(createUserAvatarTagName(user.user_id));
       uploadAvatar();
     } catch (error) {
       console.error('changeAvatar', error);
@@ -76,9 +77,12 @@ const Profile = ({navigation}) => {
 
     try {
       const token = await AsyncStorage.getItem('userToken');
-      // const avatarArray = await getFileByTag('avatar_' + user.user_id);
+      // const avatarArray = await getFileByTag(createUserAvatarTagName(user.user_id));
       const result = await postMedia(formData, token);
-      const appTag = {file_id: result.file_id, tag: 'avatar_' + user.user_id};
+      const appTag = {
+        file_id: result.file_id,
+        tag: createUserAvatarTagName(user.user_id),
+      };
       await postTag(appTag, token);
       Alert.alert('Successful', "You've changed your avatar!", [
         {

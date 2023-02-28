@@ -3,31 +3,25 @@ import PropTypes from 'prop-types';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {MainContext} from '../contexts/MainContext';
-import {userTag} from '../utils/variables';
-import {useMedia, useTag} from '../hooks/ApiHooks';
-import LoadingOverlay from '../components/shared/LoadingOverlay';
+import {userPlantTagName} from '../utils/variables';
+import {useApi} from '../hooks/ApiHooks';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
 import {spacing} from '../utils/sizes';
 
 const Upload = ({navigation, route}) => {
   const [error, setError] = useState();
-  const {postMedia, load} = useMedia();
-  const {postTag} = useTag();
+  const {postTag, postMedia} = useApi();
   const {
     image,
     token,
     type,
-    update,
     upload,
     setUpload,
-    setUpdate,
     setLastWater,
     setNotificationTime,
-    imageSelected,
-    setImageSelected,
-    setPlantLocation,
+    setUserPlantListNeedsHydration,
   } = useContext(MainContext);
-  // console.log('UPLOAD upload', upload);
+  const [imageSelected, setImageSelected] = useState(false);
 
   const plantData = route.params.plant;
   // const prefixDescription = plantData.description;
@@ -52,13 +46,14 @@ const Upload = ({navigation, route}) => {
       // console.log('token', token);
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(
-        {file_id: response.file_id, tag: userTag},
+        {file_id: response.file_id, tag: userPlantTagName},
         token
       );
       setUpload(!upload);
       // console.log('AFTER REQUEST UPLOAD', upload);
-      setUpdate(update + 1);
+      setUserPlantListNeedsHydration(true);
       setImageSelected(!imageSelected);
+
       setTimeout(() => {
         tagResponse && navigation.navigate('UploadCompleted');
       }, 1000);
@@ -70,18 +65,19 @@ const Upload = ({navigation, route}) => {
     // Clear picker choices
     setLastWater('');
     setNotificationTime('');
-    setPlantLocation('');
+    // setPlantLocation('');
   };
 
   const errorHandler = () => {
     setError(null);
   };
 
-  if (error && !load) {
+  // if (load) {
+  //   return <LoadingOverlay />;
+  // }
+
+  if (error) {
     return <ErrorOverlay message={error} onConfirm={errorHandler} />;
-  }
-  if (load) {
-    return <LoadingOverlay />;
   }
 
   return (
