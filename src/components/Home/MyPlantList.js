@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {FlatList, StyleSheet, View} from 'react-native';
-import {useUserPlantHooks} from '../../hooks/UserPlantHooks';
 import MyPlantListItem from './MyPlantListItem';
 import Welcome from './Welcome';
 import {colors} from '../../utils/colors';
@@ -9,9 +8,10 @@ import {useSearch} from '../../services/useSearch';
 import {SearchBar} from '@rneui/themed';
 import PlantNotFound from '../shared/PlantNotFound';
 import {spacing} from '../../utils/sizes';
+import {useMainContext} from '../../contexts/MainContext';
 
 const MyPlantList = ({navigation}) => {
-  const {userPlantList} = useUserPlantHooks();
+  const {userPlantList} = useMainContext();
   const {search} = useSearch();
 
   let searchResult = [];

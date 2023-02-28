@@ -125,12 +125,11 @@ export const useApi = () => {
     });
   };
 
-  const getDetailedMediaByTagName = async (tagName) => {
+  const getDetailedMediaListByTagName = async (tagName) => {
     const json = await getFileByTag(tagName);
     const media = await Promise.all(
       json.map(async (item) => {
-        const [mediaData, res] = await getMediaById(item.file_id);
-        console.log(res);
+        const [mediaData] = await getMediaById(item.file_id);
         return mediaData;
       })
     );
@@ -187,7 +186,7 @@ export const useApi = () => {
     putUser,
     postTag,
     getFileByTag: getFileByTag,
-    getDetailedMediaByTagName: getDetailedMediaByTagName,
+    getDetailedMediaListByTagName: getDetailedMediaListByTagName,
     getMediaById: getMediaById,
     postMedia,
     deleteMedia,

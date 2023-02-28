@@ -92,7 +92,7 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
                 // setImage(imageDefault);
                 setImageSelected(!imageSelected);
                 reset();
-                closeForm();
+                closeForm(true);
               },
             },
           ]);

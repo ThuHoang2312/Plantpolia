@@ -6,16 +6,21 @@ import {Text} from '@rneui/themed';
 import {MainProvider} from './src/contexts/MainContext';
 import Navigator from './src/navigators/Navigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useApi} from './src/hooks/ApiHooks';
+import {primaryPlantTagName, userPlantTagName} from './src/utils/variables';
 
 const USER_TOKEN_STORAGE_KEY = 'userToken';
 const USER_PROFILE_STORAGE_KEY = 'userProfile';
 const EXPIRATION_DATE_STORAGE_KEY = 'expirationDate';
 
 const App = () => {
+  const {getDetailedMediaListByTagName} = useApi();
   const [appIsReady, setAppIsReady] = useState(false);
   const [storageUserProfile, setStorageUserProfile] = useState(null);
   const [storageAccessToken, setStorageAccessToken] = useState(null);
   const [storageExpirationDate, setStorageExpirationDate] = useState(null);
+  const [defaultPrimaryPlantList, setDefaultPrimaryPlantList] = useState([]);
+  const [defaultUserPlantList, setDefaultUserPlantList] = useState([]);
 
   useEffect(() => {
     async function prepare() {
@@ -25,12 +30,12 @@ const App = () => {
           setStorageAccessToken(userToken ?? null);
         }
 
-        {
-          const userProfile = await AsyncStorage.getItem(
-            USER_PROFILE_STORAGE_KEY
-          );
-          setStorageUserProfile(userProfile ? JSON.parse(userProfile) : null);
-        }
+        const userProfile = await AsyncStorage.getItem(
+          USER_PROFILE_STORAGE_KEY
+        );
+
+        const parsedUserProfile = userProfile ? JSON.parse(userProfile) : null;
+        setStorageUserProfile(parsedUserProfile);
 
         {
           const expirationDate = await AsyncStorage.getItem(
@@ -44,15 +49,30 @@ const App = () => {
               : null
           );
         }
+        {
+          const items = await getDetailedMediaListByTagName(
+            primaryPlantTagName
+          );
+          setDefaultPrimaryPlantList(items);
+        }
+        {
+          if (parsedUserProfile) {
+            const items = await getDetailedMediaListByTagName(userPlantTagName);
+            const media = items.filter(
+              (file) => file && file.user_id === parsedUserProfile.user_id
+            );
+            setDefaultUserPlantList(media);
+          }
+        }
       } catch (e) {
         console.warn(e);
       }
     }
 
-    //  Take minimum 2 seconds even if data was loaded faster. (Just for Hype :D)
+    //  Take minimum 1 second even if data was loaded faster. (Just for Hype :D)
     Promise.all([
       prepare(),
-      new Promise((resolve) => setTimeout(resolve, 2000)),
+      new Promise((resolve) => setTimeout(resolve, 1000)),
     ]).then(() => {
       setAppIsReady(true);
     });
@@ -136,6 +156,8 @@ const App = () => {
       userProfile={storageUserProfile}
       accessToken={storageAccessToken}
       expirationDate={storageExpirationDate}
+      defaultPrimaryPlantList={defaultPrimaryPlantList}
+      defaultUserPlantList={defaultUserPlantList}
       setUserProfile={(userModel) => {
         setStorageUserProfile(userModel);
       }}

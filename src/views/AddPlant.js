@@ -6,7 +6,7 @@ const AddPlant = ({navigation}) => {
   // console.log('ADD PLANT');
   return (
     <>
-      <PlantList navigation={navigation} myFilesOnly={true} />
+      <PlantList navigation={navigation} />
     </>
   );
 };

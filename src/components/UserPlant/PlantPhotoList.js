@@ -10,12 +10,16 @@ import {PlantPhotoListItem} from './PlantPhotoListItem';
 import {useUserPlantPhotoHooks} from '../../hooks/UserPlantPhotoHooks';
 
 const PlantPhotoList = ({title, fileId, navigation}) => {
-  const {userPlantPhotoList} = useUserPlantPhotoHooks(fileId);
+  const {userPlantPhotoList, setUserPlantPhotoListNeedsHydration} =
+    useUserPlantPhotoHooks(fileId);
 
   // Overlay state and function for photos and note tab
   const [visible, setVisible] = useState(false);
-  const toggleOverlay = () => {
+  const toggleOverlay = (needsHydration = false) => {
     setVisible(!visible);
+    if (needsHydration) {
+      setUserPlantPhotoListNeedsHydration(true);
+    }
   };
 
   return (
@@ -25,23 +29,23 @@ const PlantPhotoList = ({title, fileId, navigation}) => {
           icon="image-plus"
           iconColor={colors.primary700}
           size={35}
-          onPress={toggleOverlay}
+          onPress={() => toggleOverlay(false)}
         />
         <Overlay
           overlayStyle={styles.overlay}
           isVisible={visible}
-          onBackdropPress={toggleOverlay}
+          onBackdropPress={() => toggleOverlay(false)}
         >
           <IconButton
             icon="close"
             iconColor={colors.primary700}
             size={35}
-            onPress={toggleOverlay}
+            onPress={() => toggleOverlay(false)}
           />
           <AddPlantPhotoForm
             title={title}
             fileId={fileId}
-            closeForm={toggleOverlay}
+            closeForm={() => toggleOverlay(true)}
           />
         </Overlay>
       </View>

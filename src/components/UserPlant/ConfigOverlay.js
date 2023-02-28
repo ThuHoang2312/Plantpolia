@@ -30,7 +30,8 @@ export const ConfigOverlay = ({
     openPlantLocation,
   } = useUploadFormState();
 
-  const {image, update, setUpdate, token} = useContext(MainContext);
+  const {image, update, setUpdate, token, setUserPlantListNeedsHydration} =
+    useContext(MainContext);
 
   const {deleteMedia, putMedia} = useApi();
   // Condition to check for disable button
@@ -68,15 +69,13 @@ export const ConfigOverlay = ({
 
     try {
       const response = await putMedia(fileId, editData, token);
-
       setTimeout(() => {
         response &&
           Alert.alert('Success', 'Update information successful', [
             {
               text: 'OK',
               onPress: () => {
-                //  TODO: fix: boolean + number ?
-                setUpdate(update + 1);
+                setUserPlantListNeedsHydration(true);
                 navigation.navigate('Home');
               },
             },
@@ -106,7 +105,7 @@ export const ConfigOverlay = ({
               const response = await deleteMedia(fileId, token);
               if (response) {
                 console.log('plant delete');
-                setUpdate(update + 1);
+                setUserPlantListNeedsHydration(true);
                 navigation.navigate('Home');
               }
             } catch (error) {

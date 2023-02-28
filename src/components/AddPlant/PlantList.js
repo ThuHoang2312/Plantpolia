@@ -7,10 +7,10 @@ import {colors} from '../../utils/colors';
 import {useSearch} from '../../services/useSearch';
 import PlantNotFound from '../shared/PlantNotFound';
 import {spacing} from '../../utils/sizes';
-import {usePrimaryPlantHooks} from '../../hooks/PrimaryPlantHooks';
+import {useMainContext} from '../../contexts/MainContext';
 
 const PlantList = ({navigation}) => {
-  const {primaryPlantList} = usePrimaryPlantHooks();
+  const {primaryPlantList} = useMainContext();
 
   const {search} = useSearch();
 

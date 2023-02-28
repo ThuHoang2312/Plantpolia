@@ -24,6 +24,7 @@ const Upload = ({navigation, route}) => {
     imageSelected,
     setImageSelected,
     setPlantLocation,
+    setUserPlantListNeedsHydration,
   } = useContext(MainContext);
   // console.log('UPLOAD upload', upload);
 
@@ -56,6 +57,7 @@ const Upload = ({navigation, route}) => {
       setUpload(!upload);
       // console.log('AFTER REQUEST UPLOAD', upload);
       setUpdate(update + 1);
+      setUserPlantListNeedsHydration(true);
       setImageSelected(!imageSelected);
       setTimeout(() => {
         tagResponse && navigation.navigate('UploadCompleted');
