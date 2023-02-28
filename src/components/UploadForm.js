@@ -1,19 +1,21 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
 import Input from './shared/Input';
 import Button from './shared/Button';
-import {MainContext} from '../contexts/MainContext';
-import {uploadUrl} from '../utils/variables';
 import {useNewUserPlantForm} from '../services/useNewUserPlantForm';
+import {useAppImagePicker} from './useAppImagePicker';
+import {uploadUrl} from '../utils/variables';
 
 /** @type {import('../types/TypedComponents').UploadForm} */
 const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
-  const {setImage, setImageSelected, setType} = useContext(MainContext);
+  const {pickImage, selectedImage} = useAppImagePicker({
+    uri: uploadUrl + primaryPlant.thumbnails.w640,
+  });
+
   const {
     title,
     setTitle,
@@ -52,31 +54,6 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
     buttonStatus = true;
   }
 
-  const imageUrl = uploadUrl + primaryPlant.thumbnails.w160;
-  const [pickUri, setPickUri] = useState(imageUrl);
-
-  // pick image function
-  const pickImage = async (id) => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        quality: 0.5,
-      });
-      setPickUri(result.uri);
-
-      if (!result.canceled) {
-        setImage(result.uri);
-        // console.log('SET IMAGE IF PICK', result.uri);
-        setImageSelected(true);
-        setType(result.type);
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
-  // Handler submit form
   const handlerSubmit = () => {
     onSubmit({
       title: primaryPlant.title ?? title,
@@ -93,7 +70,7 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{uri: pickUri}} />
+        <Image style={styles.image} source={{uri: selectedImage?.uri}} />
       </View>
       <Text style={styles.title}>{primaryPlant.title}</Text>
 

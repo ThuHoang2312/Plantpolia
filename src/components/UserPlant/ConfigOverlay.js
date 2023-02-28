@@ -41,7 +41,7 @@ export const ConfigOverlay = ({
   }
 
   // Default data
-  const description = JSON.parse(plant.description);
+  const description = plant.description;
 
   // Handler submit form
   const handleSubmit = async () => {

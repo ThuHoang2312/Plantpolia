@@ -13,6 +13,7 @@ import {
   requestedPlantTagName,
   userPlantTagName,
 } from './src/utils/variables';
+import {safeJsonParse} from './src/utils/safeJsonParse';
 
 const USER_TOKEN_STORAGE_KEY = `${applicationPrefixId}.user.token`;
 const USER_PROFILE_STORAGE_KEY = `${applicationPrefixId}.user.profile`;
@@ -39,7 +40,7 @@ const App = () => {
           USER_PROFILE_STORAGE_KEY
         );
 
-        const parsedUserProfile = userProfile ? JSON.parse(userProfile) : null;
+        const parsedUserProfile = safeJsonParse(userProfile);
         setStorageUserProfile(parsedUserProfile);
 
         {
@@ -58,15 +59,24 @@ const App = () => {
           const items = await getDetailedMediaListByTagName(
             primaryPlantTagName
           );
-          setDefaultPrimaryPlantList(items);
+          const parsedItems = items.map((item) => {
+            item.description = safeJsonParse(item.description);
+            return item;
+          });
+          setDefaultPrimaryPlantList(parsedItems);
         }
         {
           if (parsedUserProfile) {
             const items = await getDetailedMediaListByTagName(userPlantTagName);
-            const media = items.filter(
-              (file) => file && file.user_id === parsedUserProfile.user_id
-            );
-            setDefaultUserPlantList(media);
+            const parsedItems = items
+              .filter(
+                (file) => file && file.user_id === parsedUserProfile.user_id
+              )
+              .map((item) => {
+                item.description = safeJsonParse(item.description);
+                return item;
+              });
+            setDefaultUserPlantList(parsedItems);
           }
         }
       } catch (e) {
