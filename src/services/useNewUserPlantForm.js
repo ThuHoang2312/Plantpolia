@@ -1,7 +1,6 @@
 import {useCallback, useContext, useState} from 'react';
 import {MainContext} from '../contexts/MainContext';
 
-/** @type {import('../types/TypedHooks').UseNewUserPlantForm} */
 export const useNewUserPlantForm = ({primaryPlant}) => {
   // Name of plant
   const [title, setTitle] = useState(primaryPlant.title);
