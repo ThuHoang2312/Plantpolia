@@ -6,7 +6,6 @@ import {MainContext} from '../contexts/MainContext';
 import {userPlantTagName} from '../utils/variables';
 import {useApi} from '../hooks/ApiHooks';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
-import {spacing} from '../utils/sizes';
 
 const Upload = ({navigation, route}) => {
   const [error, setError] = useState();
@@ -96,8 +95,6 @@ const Upload = ({navigation, route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: spacing.md,
-    marginVertical: spacing.md,
   },
 });
 
