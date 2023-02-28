@@ -29,12 +29,9 @@ export const MainProvider = ({
     useUserPlantHooks(defaultUserPlantList);
 
   const date = useClock();
-  const [update, setUpdate] = useState(true);
   const [lastWater, setLastWater] = useState('');
   const [notificationTime, setNotificationTime] = useState('');
-  const [plantLocation, setPlantLocation] = useState('');
   const [image, setImage] = useState('');
-  const [imageSelected, setImageSelected] = useState(false);
   const [type, setType] = useState('image');
   const [upload, setUpload] = useState(false);
 
@@ -49,8 +46,6 @@ export const MainProvider = ({
         isExpired,
         user: userProfile,
         setUser: setUserProfile,
-        update,
-        setUpdate,
         lastWater,
         setLastWater,
         notificationTime,
@@ -61,14 +56,10 @@ export const MainProvider = ({
         setUpload,
         type,
         setType,
-        imageSelected,
-        setImageSelected,
         token: accessToken,
         setToken: setAccessToken,
         expirationDate,
         setExpirationDate,
-        plantLocation,
-        setPlantLocation,
 
         primaryPlantList,
         primaryPlantListLoading,

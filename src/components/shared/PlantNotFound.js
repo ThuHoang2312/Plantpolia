@@ -10,23 +10,18 @@ import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
 import {useApi} from '../../hooks/ApiHooks';
 import {imageDefault, requestedPlantTagName} from '../../utils/variables';
+import {useRequestedPlantHooks} from '../../hooks/RequestedPlantHooks';
 
 const PlantNotFound = ({navigation, isUserList}) => {
   const [visible, setVisible] = useState(false);
-  const {
-    token,
-    image,
-    setImage,
-    setImageSelected,
-    type,
-    setType,
-    setUpload,
-    upload,
-    imageSelected,
-    update,
-    setUpdate,
-  } = useContext(MainContext);
+  const [imageSelected, setImageSelected] = useState(false);
+
+  const {token, image, setImage, type, setType, setUpload, upload} =
+    useContext(MainContext);
+
   const {postTag, postMedia} = useApi();
+
+  const {setRequestedPlantListNeedsHydration} = useRequestedPlantHooks();
   const toggleOverlay = () => {
     setImageSelected(false);
     setVisible(!visible);
@@ -88,8 +83,7 @@ const PlantNotFound = ({navigation, isUserList}) => {
         token
       );
       setUpload(!upload);
-      //  TODO: fix: boolean + number ?
-      setUpdate(update + 1);
+      setRequestedPlantListNeedsHydration(true);
       setImage(imageDefault);
       setImageSelected(!imageSelected);
 

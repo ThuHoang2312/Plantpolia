@@ -15,19 +15,11 @@ import {createPlantPhotoTagName} from '../../utils/variables';
 export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
   // console.log(`${fileId}${userTag}`);
 
-  const {
-    token,
-    setImageSelected,
-    type,
-    setType,
-    setUpload,
-    upload,
-    imageSelected,
-    update,
-    setUpdate,
-  } = useContext(MainContext);
+  const {token, type, setType, setUpload, upload} = useContext(MainContext);
   const {postTag, postMedia} = useApi();
   const [pickUri, setPickUri] = useState('defaultPhoto');
+  const [imageSelected, setImageSelected] = useState(false);
+
   const {
     control,
     reset,
@@ -87,8 +79,6 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
               text: 'OK',
               onPress: () => {
                 setUpload(!upload);
-                //  TODO: fix: boolean + number ?
-                setUpdate(update + 1);
                 // setImage(imageDefault);
                 setImageSelected(!imageSelected);
                 reset();

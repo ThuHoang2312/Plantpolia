@@ -30,7 +30,7 @@ export const ConfigOverlay = ({
     openPlantLocation,
   } = useUploadFormState();
 
-  const {image, update, setUpdate, token, setUserPlantListNeedsHydration} =
+  const {image, token, setUserPlantListNeedsHydration} =
     useContext(MainContext);
 
   const {deleteMedia, putMedia} = useApi();

@@ -9,16 +9,11 @@ export const useUploadFormState = () => {
   const [openLastWater, setOpenLastWater] = useState(false);
   const [openNotificationTime, setOpenNotificationTime] = useState(false);
   const [openPlantLocation, setOpenPlantLocation] = useState(false);
+  const [plantLocation, setPlantLocation] = useState('');
 
   // Picker value states
-  const {
-    lastWater,
-    setLastWater,
-    notificationTime,
-    setNotificationTime,
-    plantLocation,
-    setPlantLocation,
-  } = useContext(MainContext);
+  const {lastWater, setLastWater, notificationTime, setNotificationTime} =
+    useContext(MainContext);
 
   // Picker items
   const [lastWaterItem, setLastWaterItem] = useState([
@@ -68,12 +63,10 @@ export const useUploadFormState = () => {
     lastWaterItem,
     notificationTime,
     notificationTimeItem,
-    plantLocation,
     plantLocationItem,
     onPlantLocationOpen,
     onLastWaterOpen,
     onNotificationTimeOpen,
-    setPlantLocation,
     setPlantLocationItem,
     setLastWater,
     setLastWaterItem,
@@ -85,5 +78,7 @@ export const useUploadFormState = () => {
     setOpenNotificationTime,
     openPlantLocation,
     setOpenPlantLocation,
+    plantLocation,
+    setPlantLocation,
   };
 };

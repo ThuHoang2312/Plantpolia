@@ -15,18 +15,13 @@ const Upload = ({navigation, route}) => {
     image,
     token,
     type,
-    update,
     upload,
     setUpload,
-    setUpdate,
     setLastWater,
     setNotificationTime,
-    imageSelected,
-    setImageSelected,
-    setPlantLocation,
     setUserPlantListNeedsHydration,
   } = useContext(MainContext);
-  // console.log('UPLOAD upload', upload);
+  const [imageSelected, setImageSelected] = useState(false);
 
   const plantData = route.params.plant;
   // const prefixDescription = plantData.description;
@@ -56,9 +51,9 @@ const Upload = ({navigation, route}) => {
       );
       setUpload(!upload);
       // console.log('AFTER REQUEST UPLOAD', upload);
-      setUpdate(update + 1);
       setUserPlantListNeedsHydration(true);
       setImageSelected(!imageSelected);
+
       setTimeout(() => {
         tagResponse && navigation.navigate('UploadCompleted');
       }, 1000);

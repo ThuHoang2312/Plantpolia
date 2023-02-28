@@ -46,14 +46,6 @@ export interface MainContextModel {
    */
   setExpirationDate: Dispatch<number | null>;
   /**
-   * When true means data needs to be updated.
-   */
-  update: boolean;
-  /**
-   * TODO: Write description.
-   */
-  setUpdate: Dispatch<boolean>;
-  /**
    * TODO: Write description.
    */
   lastWater: any;
@@ -66,12 +58,6 @@ export interface MainContextModel {
    */
   notificationTime: any;
   setNotificationTime: Dispatch<any>;
-  /**
-   *
-   *  * TODO: Write description.
-   */
-  plantLocation: any;
-  setPlantLocation: Dispatch<any>;
   /**
    * TODO: Write description.
    */
@@ -93,14 +79,6 @@ export interface MainContextModel {
    * TODO: Write description.
    */
   setType: Dispatch<any>;
-  /**
-   * TODO: Write description.
-   */
-  imageSelected: boolean;
-  /**
-   * TODO: Write description.
-   */
-  setImageSelected: Dispatch<boolean>;
   /**
    * Access token of the user.
    */
