@@ -78,7 +78,11 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         Click here to choose your image
       </Text>
 
-      <Input text="Name your plant (optional)" onChangeText={setTitle} />
+      <Input
+        defaultValue={title}
+        text="Name your plant (optional)"
+        onChangeText={setTitle}
+      />
 
       <DropDownPicker
         zIndex={4}

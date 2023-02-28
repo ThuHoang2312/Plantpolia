@@ -20,10 +20,8 @@ const Upload = ({navigation, route}) => {
     setNotificationTime,
     setUserPlantListNeedsHydration,
   } = useContext(MainContext);
-  const [imageSelected, setImageSelected] = useState(false);
 
   const {primaryPlant} = route.params;
-  // const prefixDescription = plantData.description;
 
   const handlerSubmit = async (data) => {
     const addData = JSON.stringify(data.description);
@@ -50,7 +48,6 @@ const Upload = ({navigation, route}) => {
       );
       setUpload(!upload);
       setUserPlantListNeedsHydration(true);
-      setImageSelected(!imageSelected);
 
       setTimeout(() => {
         tagResponse && navigation.navigate('UploadCompleted');

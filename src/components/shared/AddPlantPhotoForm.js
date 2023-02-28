@@ -1,10 +1,9 @@
 import React, {useContext, useState} from 'react';
-import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import PropTypes from 'prop-types';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
-
-import {Card, Icon} from '@rneui/themed';
+import {Card, Icon, Input} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {useApi} from '../../hooks/ApiHooks';
 import Button from './Button';
@@ -13,18 +12,12 @@ import {colors} from '../../utils/colors';
 import {createPlantPhotoTagName} from '../../utils/variables';
 
 export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
-  // console.log(`${fileId}${userTag}`);
-
   const {token, type, setType, setUpload, upload} = useContext(MainContext);
   const {postTag, postMedia} = useApi();
   const [pickUri, setPickUri] = useState('defaultPhoto');
   const [imageSelected, setImageSelected] = useState(false);
 
-  const {
-    control,
-    reset,
-    formState: {errors},
-  } = useForm({
+  const {control, reset} = useForm({
     defaultValues: {
       title: title,
       description: '',
@@ -61,6 +54,7 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
     let fileExtension = filename.split('.').pop();
     fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
     formData.append('file', {
+      // @ts-ignore
       uri: pickUri,
       name: filename,
       type: type + '/' + fileExtension,
@@ -119,12 +113,11 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
       <Controller
         control={control}
         render={({field: {onChange, onBlur, value}}) => (
-          <TextInput
+          <Input
             style={styles.input}
             onChangeText={onChange}
             value={value}
             autoCapitalize="none"
-            errorMessage={errors.description}
           />
         )}
         name="description"
