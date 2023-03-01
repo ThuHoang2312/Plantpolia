@@ -1,6 +1,8 @@
 import {useCallback, useState} from 'react';
 
 export const useNewUserPlantForm = ({primaryPlant}) => {
+  /** @type {import('../types/PrimaryPlantModel').PrimaryPlantModel} */
+  const {description} = primaryPlant;
   // Name of plant
   const [title, setTitle] = useState(primaryPlant.title);
 
@@ -15,11 +17,11 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
     useState(false);
 
   const [lastTimeWateredDropdownOptions] = useState([
-    {label: 'Today', value: 'Today'},
-    {label: 'Yesterday', value: 'Yesterday'},
-    {label: 'About one week ago', value: 'About one week ago'},
-    {label: 'About two week ago', value: 'About two week ago'},
-    {label: 'Not sure/ Never water', value: 'Not sure/ Never water'},
+    {label: 'Today', value: 0},
+    {label: 'Yesterday', value: 1},
+    {label: 'About one week ago', value: 7},
+    {label: 'About two week ago', value: 14},
+    {label: 'Not sure/ Never water', value: -1},
   ]);
   const [
     selectedLastTimeWateredDropdownOption,
@@ -44,9 +46,11 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
     {value: 5, label: 'Every five days'},
     {value: 6, label: 'Every six days'},
     {value: 7, label: 'Every week'},
+    {value: 10, label: 'Every ten days'},
+    {value: 14, label: 'Every two week'},
   ]);
   const [selectedWateringIntervalOption, setSelectedWateringIntervalOption] =
-    useState(null);
+    useState(description.waterInterval);
 
   // Close other picker when one is in used
   const onLastTimeWateredDropdownOpen = useCallback(() => {

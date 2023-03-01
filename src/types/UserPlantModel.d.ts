@@ -9,7 +9,7 @@ export interface UserPlantModel extends Omit<PlantModel, 'description'> {
     waterInstruction: string;
     cleaningInstruction: string;
     fertilizerInstruction: string;
-    waterInterval: string | number;
+    waterInterval: number;
   } | null;
 }
 export interface NewUserPlantModel

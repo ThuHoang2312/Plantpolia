@@ -9,6 +9,7 @@ import {useNewUserPlantForm} from '../services/useNewUserPlantForm';
 import {useAppImagePicker} from './useAppImagePicker';
 import {uploadUrl} from '../utils/variables';
 import {Button, CheckBox} from '@rneui/themed';
+import {safeIntegerParse} from '../utils/safeIntegerParse';
 
 /** @type {import('../types/TypedComponents').UploadForm} */
 const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
@@ -49,7 +50,7 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
       selectedImage: selectedImage,
       title: title,
       description: {
-        waterInterval: primaryPlant.description.waterInterval,
+        waterInterval: safeIntegerParse(selectedWateringIntervalOption),
         otherNames: primaryPlant.description.otherNames,
         cleaningInstruction: primaryPlant.description.cleaningInstruction,
         waterInstruction: primaryPlant.description.waterInstruction,

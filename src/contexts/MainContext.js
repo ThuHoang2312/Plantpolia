@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {useClock} from '../utils/useClock';
 import {usePrimaryPlantHooks} from '../hooks/PrimaryPlantHooks';
 import {useUserPlantHooks} from '../hooks/UserPlantHooks';
+import {useNotification} from '../services/useNotification';
 
 /** @type {import('../types/MainContextModel').MainContextReactContext} */
 export const MainContext = createContext(null);
@@ -25,8 +26,11 @@ export const MainProvider = ({
     primaryPlantListLoading,
     setPrimaryPlantListNeedsHydration,
   } = usePrimaryPlantHooks({defaultPrimaryPlantList});
+
   const {userPlantList, userPlantListLoading, setUserPlantListNeedsHydration} =
     useUserPlantHooks({defaultUserPlantList, userProfile});
+
+  useNotification({userPlantList});
 
   const date = useClock();
   const [lastWater, setLastWater] = useState('');
