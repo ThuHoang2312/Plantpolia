@@ -2,6 +2,8 @@ import {useCallback, useEffect, useState} from 'react';
 import {getPermissionsAsync, requestPermissionsAsync} from 'expo-notifications';
 
 export const useNotificationStatus = () => {
+  const [notificationStatusLoaded, setNotificationStatusLoaded] =
+    useState(false);
   const [currentStatus, setCurrentStatus] = useState('undetermined');
 
   const requestNotificationPermissions = useCallback(() => {
@@ -15,6 +17,7 @@ export const useNotificationStatus = () => {
     (async () => {
       const {status} = await getPermissionsAsync();
       setCurrentStatus(status);
+      setNotificationStatusLoaded(true);
     })();
   }, []);
 
@@ -22,5 +25,6 @@ export const useNotificationStatus = () => {
     isNotificationsGranted: currentStatus === 'granted',
     canAskForNotificationPermission: currentStatus !== 'denied',
     requestNotificationPermissions,
+    notificationStatusLoaded,
   };
 };

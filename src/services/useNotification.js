@@ -13,10 +13,11 @@ import {useNotificationStatus} from './useNotificationStatus';
 /** @type {import('../types/TypedHooks').UseNotification} */
 export const useNotification = ({userPlantList}) => {
   const {log} = useLogger('useNotification');
-  const {isNotificationsGranted} = useNotificationStatus();
+  const {isNotificationsGranted, notificationStatusLoaded} =
+    useNotificationStatus();
 
-  const {isDevelopment, isDevice} = useEnv();
-  const DAY_IN_SECONDS = isDevelopment ? 600 : 86_400; // 10 minutes in dev
+  const {isDevice} = useEnv();
+  const DAY_IN_SECONDS = 86_400;
 
   const generateNotificationTitle = useCallback((plantName) => {
     return `Your plant "${plantName}" is feeling thirsty. Don't forget to water it to keep it healthy and happy!`;
@@ -36,6 +37,11 @@ export const useNotification = ({userPlantList}) => {
     (async () => {
       if (!isDevice) {
         log(`Emulator found. Skipping notification scheduling.`);
+        return;
+      }
+
+      if (!notificationStatusLoaded) {
+        log(`Waiting for notification status to load.`);
         return;
       }
 
@@ -122,6 +128,6 @@ export const useNotification = ({userPlantList}) => {
         );
       }
     })();
-  }, [userPlantList]);
+  }, [userPlantList, isNotificationsGranted, notificationStatusLoaded]);
   return {};
 };

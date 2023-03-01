@@ -54,9 +54,9 @@ export interface UserPlantModelDescription {
   waterInstruction: string;
   cleaningInstruction: string;
   fertilizerInstruction: string;
-  waterInterval: string | number;
+  waterInterval: number;
 
-  waterAmount: string | number;
+  waterAmount: number;
 }
 
 export interface UserPlantModel extends Omit<PlantModel, 'description'> {
