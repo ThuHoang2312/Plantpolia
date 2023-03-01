@@ -1,6 +1,7 @@
 import {PlantModel} from './PlantModel';
 import {Dispatch} from 'react';
 import {IUserModel} from './UserModel';
+import {ImagePickerAsset} from 'expo-image-picker/src/ImagePicker.types';
 
 export interface UserPlantModel extends Omit<PlantModel, 'description'> {
   description: {
@@ -12,7 +13,9 @@ export interface UserPlantModel extends Omit<PlantModel, 'description'> {
   } | null;
 }
 export interface NewUserPlantModel
-  extends Pick<UserPlantModel, 'title' | 'description'> {}
+  extends Pick<UserPlantModel, 'title' | 'description'> {
+  selectedImage: ImagePickerAsset;
+}
 
 export type UserPlantModelList = UserPlantModel[];
 export type GetUserPlantList = UserPlantModel[];

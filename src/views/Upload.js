@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
-import {ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {MainContext} from '../contexts/MainContext';
 import {userPlantTagName} from '../utils/variables';
@@ -10,19 +10,11 @@ import ErrorOverlay from '../components/shared/ErrorOverlay';
 const Upload = ({navigation, route}) => {
   const [error, setError] = useState();
   const {postTag, postMedia} = useApi();
-  const {
-    image,
-    token,
-    type,
-    upload,
-    setUpload,
-    setLastWater,
-    setNotificationTime,
-    setUserPlantListNeedsHydration,
-  } = useContext(MainContext);
+  const {token, setUserPlantListNeedsHydration} = useContext(MainContext);
 
   const {primaryPlant} = route.params;
 
+  /** @type {import('../types/TypedComponents').UploadFormSubmit} */
   const handlerSubmit = async (data) => {
     const addData = JSON.stringify(data.description);
 
@@ -30,13 +22,11 @@ const Upload = ({navigation, route}) => {
     formData.append('title', data.title);
     formData.append('description', addData);
 
-    const filename = image.split('/').pop();
-    let fileExtension = filename.split('.').pop();
-    fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
     formData.append('file', {
-      uri: image,
-      name: filename,
-      type: type + '/' + fileExtension,
+      // @ts-ignore
+      name: data.selectedImage.fileName ?? 'image.jpg',
+      uri: data.selectedImage.uri,
+      type: data.selectedImage.type ?? 'image',
     });
 
     try {
@@ -46,7 +36,6 @@ const Upload = ({navigation, route}) => {
         {file_id: response.file_id, tag: userPlantTagName},
         token
       );
-      setUpload(!upload);
       setUserPlantListNeedsHydration(true);
 
       setTimeout(() => {
@@ -56,11 +45,6 @@ const Upload = ({navigation, route}) => {
       setError(error.message);
       // console.log('error', error);
     }
-
-    // Clear picker choices
-    setLastWater('');
-    setNotificationTime('');
-    // setPlantLocation('');
   };
 
   const errorHandler = () => {
@@ -77,22 +61,14 @@ const Upload = ({navigation, route}) => {
 
   return (
     <ScrollView>
-      <View style={styles.container}>
-        <UploadForm
-          primaryPlant={primaryPlant}
-          onSubmit={handlerSubmit}
-          cancelSubmit={() => navigation.navigate('Home')}
-        />
-      </View>
+      <UploadForm
+        primaryPlant={primaryPlant}
+        onSubmit={handlerSubmit}
+        cancelSubmit={() => navigation.navigate('Home')}
+      />
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 Upload.propTypes = {
   route: PropTypes.object,
