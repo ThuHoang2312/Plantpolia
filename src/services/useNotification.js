@@ -12,7 +12,7 @@ import {useLogger} from './useLogger';
 export const useNotification = ({userPlantList}) => {
   const {log} = useLogger('useNotification');
 
-  const {isDevelopment} = useEnv();
+  const {isDevelopment, isDevice} = useEnv();
   const DAY_IN_SECONDS = isDevelopment ? 60 : 86_400;
 
   const generateNotificationTitle = useCallback((plantName) => {
@@ -21,6 +21,10 @@ export const useNotification = ({userPlantList}) => {
 
   useEffect(() => {
     (async () => {
+      if (!isDevice) {
+        log(`Emulator found. Skipping notification scheduling.`);
+        return;
+      }
       {
         const allNotifications = await getAllScheduledNotificationsAsync();
         //  Delete notifications that plant does not exist anymore or has changed.
