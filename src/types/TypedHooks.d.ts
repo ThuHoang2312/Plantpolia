@@ -1,5 +1,6 @@
 import {PrimaryPlantModel} from './PrimaryPlantModel';
 import {Dispatch} from 'react';
+import {UserPlantModel} from './UserPlantModel';
 
 export type UseNewUserPlantForm = (props: {
   primaryPlant: PrimaryPlantModel;
@@ -9,3 +10,5 @@ export type UseNewUserPlantForm = (props: {
   lastWater: {label: string; value: string};
   setLastWater: Dispatch<{label: string; value: string}>;
 };
+
+export type UseNotification = (props: {userPlantList: UserPlantModel[]}) => {};

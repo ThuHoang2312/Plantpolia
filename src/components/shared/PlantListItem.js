@@ -7,9 +7,6 @@ import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
 
 const PlantListItem = ({plantDescription, imageUrl, title, onPress}) => {
-  const description = JSON.parse(plantDescription);
-  const level = description.level;
-
   return (
     <RNEListItem onPress={onPress}>
       <Avatar rounded size="large" source={{uri: uploadUrl + imageUrl}} />
@@ -17,7 +14,7 @@ const PlantListItem = ({plantDescription, imageUrl, title, onPress}) => {
         <RNEListItem.Title style={styles.title}>{title}</RNEListItem.Title>
         <View style={styles.levelContainer}>
           <RNEListItem.Subtitle style={styles.subtitle}>
-            {level}
+            {plantDescription.level}
           </RNEListItem.Subtitle>
         </View>
       </RNEListItem.Content>

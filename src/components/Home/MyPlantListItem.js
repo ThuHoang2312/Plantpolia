@@ -10,7 +10,7 @@ import {MainContext} from '../../contexts/MainContext';
 const MyPlantListItem = ({plant, navigation}) => {
   // console.log('PLANT LIST ITEM:', plant);
   const imageUrl = plant.thumbnails.w160;
-  const description = JSON.parse(plant.description);
+  const description = plant.description;
   const {setImage, setUpload} = useContext(MainContext);
   // console.log('ITEM UPLOAD: ', upload);
 

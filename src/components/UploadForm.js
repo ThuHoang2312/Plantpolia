@@ -1,87 +1,56 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
 import Input from './shared/Input';
-import Button from './shared/Button';
-import {MainContext} from '../contexts/MainContext';
-import {uploadUrl} from '../utils/variables';
 import {useNewUserPlantForm} from '../services/useNewUserPlantForm';
+import {useAppImagePicker} from './useAppImagePicker';
+import {uploadUrl} from '../utils/variables';
+import {Button, CheckBox} from '@rneui/themed';
+import {safeIntegerParse} from '../utils/safeIntegerParse';
 
 /** @type {import('../types/TypedComponents').UploadForm} */
 const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
-  const {setImage, setImageSelected, setType} = useContext(MainContext);
+  const {pickImage, selectedImage} = useAppImagePicker({
+    uri: uploadUrl + primaryPlant.thumbnails.w640,
+  });
+
   const {
     title,
     setTitle,
-    lastWater,
-    lastWaterItem,
-    notificationTime,
-    notificationTimeItem,
-    onLastWaterOpen,
-    onNotificationTimeOpen,
-    setLastWater,
-    setLastWaterItem,
-    setNotificationTime,
-    setNotificationTimeItem,
-    openLastWater,
-    openNotificationTime,
-    setOpenLastWater,
-    setOpenNotificationTime,
-    plantLocation,
-    plantLocationItem,
-    onPlantLocationOpen,
-    setPlantLocation,
-    setOpenPlantLocation,
-    setPlantLocationItem,
-    openPlantLocation,
+
+    lastTimeWateredDropdownOptions,
+    selectedLastTimeWateredDropdownOption,
+    setSelectedLastTimeWateredDropdownOption,
+    openLastTimeWateredDropdown,
+    onLastTimeWateredDropdownOpen,
+    setOpenLastTimeWateredDropdown,
+
+    preferredNotificationTimeDropdownOptions,
+    openPreferredNotificationTimeDropdown,
+    selectedPreferredNotificationTimeDropdownOption,
+    onPreferredNotificationTimDropdownOpen,
+    setSelectedPreferredNotificationTimeDropdownOption,
+    setOpenPreferredNotificationTimeDropdown,
+
+    wateringIntervalOptions,
+    openWateringIntervalDropdown,
+    selectedWateringIntervalOption,
+    onWateringIntervalDropdownOpen,
+    setSelectedWateringIntervalOption,
+    setOpenWateringIntervalDropdown,
   } = useNewUserPlantForm({
     primaryPlant,
   });
 
-  // Get the default values from database
-  // console.log('UPLOAD FORM DEFAULT: ', defaultValues);
-
-  // Condition to check for disable button
-  let buttonStatus = false;
-
-  if (!lastWater || !notificationTime || !plantLocation) {
-    buttonStatus = true;
-  }
-
-  const imageUrl = uploadUrl + primaryPlant.thumbnails.w160;
-  const [pickUri, setPickUri] = useState(imageUrl);
-
-  // pick image function
-  const pickImage = async (id) => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        quality: 0.5,
-      });
-      setPickUri(result.uri);
-
-      if (!result.canceled) {
-        setImage(result.uri);
-        // console.log('SET IMAGE IF PICK', result.uri);
-        setImageSelected(true);
-        setType(result.type);
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
-  // Handler submit form
   const handlerSubmit = () => {
     onSubmit({
-      title: primaryPlant.title ?? title,
+      selectedImage: selectedImage,
+      title: title,
       description: {
-        waterInterval: primaryPlant.description.waterInterval,
+        waterInterval: safeIntegerParse(selectedWateringIntervalOption),
         otherNames: primaryPlant.description.otherNames,
         cleaningInstruction: primaryPlant.description.cleaningInstruction,
         waterInstruction: primaryPlant.description.waterInstruction,
@@ -93,7 +62,7 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{uri: pickUri}} />
+        <Image style={styles.image} source={{uri: selectedImage?.uri}} />
       </View>
       <Text style={styles.title}>{primaryPlant.title}</Text>
 
@@ -101,33 +70,20 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         Click here to choose your image
       </Text>
 
-      <Input text="Name your plant (optional)" onChangeText={setTitle} />
-
-      <DropDownPicker
-        zIndex={4}
-        open={openPlantLocation}
-        onOpen={onPlantLocationOpen}
-        value={plantLocation}
-        items={plantLocationItem}
-        setOpen={setOpenPlantLocation}
-        setValue={setPlantLocation}
-        setItems={setPlantLocationItem}
-        listMode="SCROLLVIEW"
-        placeholder="Where is the plant located?"
-        containerStyle={styles.picker}
-        textStyle={styles.textPicker}
-        selectedItemLabelStyle={{fontWeight: 'bold'}}
+      <Input
+        defaultValue={title}
+        text="Name your plant (optional)"
+        onChangeText={setTitle}
       />
 
       <DropDownPicker
-        zIndex={3}
-        open={openLastWater}
-        onOpen={onLastWaterOpen}
-        value={lastWater}
-        items={lastWaterItem}
-        setOpen={setOpenLastWater}
-        setValue={setLastWater}
-        setItems={setLastWaterItem}
+        zIndex={4}
+        open={openLastTimeWateredDropdown}
+        onOpen={onLastTimeWateredDropdownOpen}
+        value={selectedLastTimeWateredDropdownOption}
+        items={lastTimeWateredDropdownOptions}
+        setOpen={setOpenLastTimeWateredDropdown}
+        setValue={setSelectedLastTimeWateredDropdownOption}
         listMode="SCROLLVIEW"
         placeholder="Last time the plant was watered?"
         containerStyle={styles.picker}
@@ -135,24 +91,54 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         selectedItemLabelStyle={{fontWeight: 'bold'}}
       />
       <DropDownPicker
-        zIndex={2}
-        placeholder="Notification time preferences"
-        open={openNotificationTime}
-        value={notificationTime}
-        items={notificationTimeItem}
-        setItems={setNotificationTimeItem}
-        setOpen={setOpenNotificationTime}
-        setValue={setNotificationTime}
+        zIndex={3}
+        placeholder="Watering preferences"
+        open={openWateringIntervalDropdown}
+        value={selectedWateringIntervalOption}
+        items={wateringIntervalOptions}
+        setOpen={setOpenWateringIntervalDropdown}
+        setValue={setSelectedWateringIntervalOption}
         listMode="SCROLLVIEW"
-        onOpen={onNotificationTimeOpen}
+        onOpen={onWateringIntervalDropdownOpen}
         containerStyle={styles.picker}
         textStyle={styles.textPicker}
         selectedItemLabelStyle={{fontWeight: 'bold'}}
       />
-
+      <DropDownPicker
+        zIndex={2}
+        placeholder="Notification time preferences"
+        open={openPreferredNotificationTimeDropdown}
+        value={selectedPreferredNotificationTimeDropdownOption}
+        items={preferredNotificationTimeDropdownOptions}
+        setOpen={setOpenPreferredNotificationTimeDropdown}
+        setValue={setSelectedPreferredNotificationTimeDropdownOption}
+        listMode="SCROLLVIEW"
+        onOpen={onPreferredNotificationTimDropdownOpen}
+        containerStyle={styles.picker}
+        textStyle={styles.textPicker}
+        selectedItemLabelStyle={{fontWeight: 'bold'}}
+      />
+      <CheckBox
+        title="Send the notification as groups"
+        onPress={() => {}}
+        checked
+      />
       <View style={styles.buttonWrapper}>
-        <Button text="Save" onPress={handlerSubmit} disabled={buttonStatus} />
-        <Button text="Cancel" onPress={cancelSubmit} disabled={false} />
+        <Button
+          style={styles.actionButton}
+          title="Save"
+          onPress={handlerSubmit}
+          disabled={
+            !selectedLastTimeWateredDropdownOption ||
+            !selectedPreferredNotificationTimeDropdownOption ||
+            !selectedWateringIntervalOption
+          }
+        />
+        <Button
+          style={styles.actionButton}
+          title="Cancel"
+          onPress={cancelSubmit}
+        />
       </View>
     </View>
   );
@@ -160,13 +146,15 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.background,
     paddingBottom: 100,
   },
   buttonWrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  actionButton: {
+    marginHorizontal: 10,
   },
   imageContainer: {
     width: '50%',

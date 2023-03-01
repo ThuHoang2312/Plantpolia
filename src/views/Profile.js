@@ -13,11 +13,17 @@ import {
 } from '../utils/variables';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '../utils/colors';
+import {useNotificationStatus} from '../services/useNotificationStatus';
 
 const Profile = ({navigation}) => {
   const {setUser, setExpirationDate, setToken, user} =
     React.useContext(MainContext);
   const {getFileByTag, postTag, postMedia} = useApi();
+  const {
+    canAskForNotificationPermission,
+    isNotificationsGranted,
+    requestNotificationPermissions,
+  } = useNotificationStatus();
   const [avatar, setAvatar] = React.useState(
     'https://www.linkpicture.com/q/PngItem_998739.png'
   );
@@ -56,6 +62,7 @@ const Profile = ({navigation}) => {
     });
 
     if (!result.canceled) {
+      // @ts-ignore
       setAvatar(result.assets[0]);
       setType(result.assets[0].type);
     }
@@ -69,6 +76,7 @@ const Profile = ({navigation}) => {
     const mimeType = result.assets[0].type + '/' + fileExt;
 
     formData.append('file', {
+      // @ts-ignore
       uri: result.assets[0].uri,
       name: filename,
       type: mimeType,
@@ -140,6 +148,16 @@ const Profile = ({navigation}) => {
               navigation.navigate('EditProfile');
             }}
           />
+          {canAskForNotificationPermission && !isNotificationsGranted && (
+            <Button
+              title="Allow notifications"
+              buttonStyle={styles.editButton}
+              titleStyle={{color: colors.primary700, fontWeight: 'bold'}}
+              onPress={() => {
+                requestNotificationPermissions();
+              }}
+            />
+          )}
         </View>
         <Button
           title="Logout!"

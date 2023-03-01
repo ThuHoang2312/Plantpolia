@@ -4,11 +4,12 @@ import {StyleSheet, TextInput, View} from 'react-native';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 
-const Input = ({text, ...inputConfig}) => {
+const Input = ({text, defaultValue = '', ...inputConfig}) => {
   return (
     <View style={styles.inputContainer}>
       <TextInput
         autoCapitalize="none"
+        defaultValue={defaultValue}
         placeholderStyle={styles.placeholder}
         style={styles.input}
         {...inputConfig}
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
 
 Input.propTypes = {
   text: PropTypes.string,
+  defaultValue: PropTypes.string,
   inputConfig: PropTypes.object,
 };
 

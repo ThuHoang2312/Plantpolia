@@ -13,7 +13,7 @@ import {ConfigOverlay} from './ConfigOverlay';
 
 const UserPlantDetail = ({plant, navigation}) => {
   // Get plant's description and its file id
-  const description = JSON.parse(plant.description);
+  const description = plant.description;
   const plantId = plant.file_id;
   // console.log(plantId);
   const {image} = useContext(MainContext);
