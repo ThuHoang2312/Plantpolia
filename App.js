@@ -14,21 +14,32 @@ import {
   userPlantTagName,
 } from './src/utils/variables';
 import {safeJsonParse} from './src/utils/safeJsonParse';
+import {fetchMediaListComments} from './src/hooks/useUserPlantWateringEvent';
+import {useLogger} from './src/services/useLogger';
+import {fetchUserPlantList} from './src/hooks/useUserPlantHooks';
+import {fetchPrimaryPlantList} from './src/hooks/usePrimaryPlantHooks';
+import {showToast} from './src/utils/Toast';
 
 const USER_TOKEN_STORAGE_KEY = `${applicationPrefixId}.user.token`;
 const USER_PROFILE_STORAGE_KEY = `${applicationPrefixId}.user.profile`;
 const EXPIRATION_DATE_STORAGE_KEY = `${applicationPrefixId}.user.token.expiration`;
 
 const App = () => {
-  const {getDetailedMediaListByTagName} = useApi();
+  const {log} = useLogger('App');
+  const {getDetailedMediaListByTagName, getMediaCommentsById} = useApi();
   const [appIsReady, setAppIsReady] = useState(false);
   const [storageUserProfile, setStorageUserProfile] = useState(null);
   const [storageAccessToken, setStorageAccessToken] = useState(null);
   const [storageExpirationDate, setStorageExpirationDate] = useState(null);
   const [defaultPrimaryPlantList, setDefaultPrimaryPlantList] = useState([]);
   const [defaultUserPlantList, setDefaultUserPlantList] = useState([]);
+  const [defaultWateringEventList, setDefaultWateringEventList] = useState([]);
 
   useEffect(() => {
+    if (appIsReady) {
+      return;
+    }
+
     async function prepare() {
       try {
         {
@@ -56,28 +67,30 @@ const App = () => {
           );
         }
         {
-          const items = await getDetailedMediaListByTagName(
-            primaryPlantTagName
-          );
-          const parsedItems = items.map((item) => {
-            item.description = safeJsonParse(item.description);
-            return item;
+          const items = await fetchPrimaryPlantList({
+            getDetailedMediaListByTagName,
+            log,
           });
-          setDefaultPrimaryPlantList(parsedItems);
+          setDefaultPrimaryPlantList(items);
         }
         {
           if (parsedUserProfile) {
-            const items = await getDetailedMediaListByTagName(userPlantTagName);
-            const parsedItems = items
-              .filter(
-                (file) => file && file.user_id === parsedUserProfile.user_id
-              )
-              .map((item) => {
-                item.description = safeJsonParse(item.description);
-                return item;
-              });
-            setDefaultUserPlantList(parsedItems);
+            const list = await fetchUserPlantList({
+              getDetailedMediaListByTagName,
+              log,
+              userId: parsedUserProfile.user_id.toString(),
+            });
+            setDefaultUserPlantList(list);
           }
+        }
+        {
+          const list = await fetchMediaListComments({
+            userPlantList: defaultUserPlantList,
+            log,
+            getMediaCommentsById,
+          });
+
+          setDefaultWateringEventList(list);
         }
       } catch (e) {
         console.warn(e);
@@ -88,10 +101,18 @@ const App = () => {
     Promise.all([
       prepare(),
       new Promise((resolve) => setTimeout(resolve, 2000)),
-    ]).then(() => {
-      setAppIsReady(true);
-    });
-  }, []);
+    ])
+      .then(() => {
+        setAppIsReady(true);
+      })
+      .catch((err) => {
+        showToast(
+          `Data loading failed. Please check your internet connection and try again. ${err?.message}`,
+          'Startup error'
+        );
+        setAppIsReady(true);
+      });
+  }, [appIsReady]);
 
   /**
    * This tells the splash screen to hide immediately! If we call this after
@@ -191,6 +212,7 @@ const App = () => {
       expirationDate={storageExpirationDate}
       defaultPrimaryPlantList={defaultPrimaryPlantList}
       defaultUserPlantList={defaultUserPlantList}
+      defaultWateringEventList={defaultWateringEventList}
       setUserProfile={(userModel) => {
         setStorageUserProfile(userModel);
       }}

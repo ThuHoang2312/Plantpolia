@@ -1,4 +1,4 @@
-import {Avatar, ListItem as RNEListItem} from '@rneui/themed';
+import {Avatar, ListItem as RNEListItem, Text} from '@rneui/themed';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
 
@@ -28,9 +28,11 @@ export const WateringProcessListItem = ({
         />
         <RNEListItem.Content>
           <RNEListItem.Title>{name} </RNEListItem.Title>
-          <RNEListItem.Subtitle style={{paddingVertical: 5}}>
-            💧{waterAmount}ml
-          </RNEListItem.Subtitle>
+          {!!waterAmount && (
+            <RNEListItem.Subtitle style={{paddingVertical: 5}}>
+              <Text>💧{waterAmount}ml</Text>
+            </RNEListItem.Subtitle>
+          )}
         </RNEListItem.Content>
 
         {!hideUpEnable && (
@@ -71,7 +73,7 @@ export const WateringProcessListItem = ({
 WateringProcessListItem.propTypes = {
   name: PropTypes.string,
   imageUrl: PropTypes.string,
-  waterAmount: PropTypes.number,
+  waterAmount: PropTypes.string,
   moveUpEnable: PropTypes.bool,
   moveDownEnable: PropTypes.bool,
   hideBottomDivider: PropTypes.bool,

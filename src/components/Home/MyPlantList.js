@@ -8,11 +8,12 @@ import {spacing} from '../../utils/sizes';
 import {useMainContext} from '../../contexts/MainContext';
 import MyPlantListHeader from './MyPlantListHeader';
 import EmptyPlantList from '../shared/EmptyPlantList';
+import {checkPlantWaterNeed} from '../../hooks/useUserPlantWateringEvent';
+import {safeIntegerParse} from '../../utils/safeIntegerParse';
 
 const MyPlantList = ({navigation}) => {
   const [searchTextValue, setSearchTextValue] = useState('');
-  const {userPlantList} = useMainContext();
-
+  const {userPlantList, wateringEventList} = useMainContext();
   const userTypedInSearchBar = searchTextValue !== '';
 
   const filteredUserPlantList = userPlantList.filter((obj) =>
@@ -44,9 +45,26 @@ const MyPlantList = ({navigation}) => {
         ListHeaderComponent={ListHeaderComponent}
         ListEmptyComponent={ListEmptyComponent}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({item}) => (
-          <MyPlantListItem plant={item} navigation={navigation} />
-        )}
+        renderItem={({item}) => {
+          const plantWateringEvents = wateringEventList.filter(
+            (x) => x.file_id === item.file_id
+          );
+
+          const needsWater = checkPlantWaterNeed({
+            plantWateringEvents,
+            waterInterval: safeIntegerParse(item.description.waterInterval),
+          });
+
+          return (
+            <MyPlantListItem
+              plant={item}
+              navigation={navigation}
+              needsWater={needsWater}
+              needsNutrients={false}
+              needsLight={false}
+            />
+          );
+        }}
       />
     </View>
   );

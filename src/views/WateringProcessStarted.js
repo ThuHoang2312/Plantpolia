@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 import {WateringProcessTotalWaterNeeded} from '../components/WateringProcess/WateringProcessTotalWaterNeeded';
 import {WateringProcessListItem} from '../components/WateringProcess/WateringProcessListItem';
 import {Button, Icon, Text} from '@rneui/themed';
+import {safeIntegerParse} from '../utils/safeIntegerParse';
+import {uploadUrl, userPlantWateringEventName} from '../utils/variables';
+import {useApi} from '../hooks/ApiHooks';
+import {useMainContext} from '../contexts/MainContext';
+import {showToast} from '../utils/Toast';
+import {useLogger} from '../services/useLogger';
 
 /**
  * Here we get an array of plants from route.params
@@ -15,9 +21,13 @@ import {Button, Icon, Text} from '@rneui/themed';
  * @return {JSX.Element}
  */
 export const WateringProcessStarted = ({navigation, route}) => {
+  const {log} = useLogger('WateringProcessStarted');
+  const {postCommentByMediaId} = useApi();
+  const {token} = useMainContext();
   const [plantIndex, setPlantIndex] = useState(0);
   // data is array
-  const {data} = route.params;
+  /** @type {import('../types/TypedComponents').WateringProcessStartedParams} */
+  const {userPlantListThatNeedsWater} = route.params;
 
   //  Output text based on waterAmount
   const generateOutputText = useCallback((waterAmount) => {
@@ -35,18 +45,34 @@ export const WateringProcessStarted = ({navigation, route}) => {
   }, []);
 
   const onWateredPlantPress = useCallback(
-    (currentPlantIndex, isLastOne, skip = false) => {
-      if (isLastOne) {
-        if (!skip) {
-          //  TODO: Call required API
-        }
+    async (currentPlantIndex, isLastOne, skip = false) => {
+      if (skip && isLastOne) {
         navigation.navigate('WateringProcessFinished');
-      } else {
-        if (!skip) {
-          //  TODO: Call required API
-        }
-        setPlantIndex(currentPlantIndex + 1);
       }
+      if (skip) {
+        setPlantIndex(currentPlantIndex + 1);
+        return;
+      }
+
+      const plant = userPlantListThatNeedsWater[currentPlantIndex];
+      const [result, error] = await postCommentByMediaId(
+        plant.file_id,
+        userPlantWateringEventName,
+        token
+      );
+
+      log(result);
+
+      if (error) {
+        showToast(error.message);
+      }
+
+      if (isLastOne) {
+        navigation.navigate('WateringProcessFinished');
+        return;
+      }
+
+      setPlantIndex(currentPlantIndex + 1);
     },
     []
   );
@@ -54,9 +80,9 @@ export const WateringProcessStarted = ({navigation, route}) => {
   return (
     <View>
       <WateringProcessTotalWaterNeeded
-        waterAmount={data
+        waterAmount={userPlantListThatNeedsWater
           .slice(plantIndex)
-          .map((x) => x.waterAmount)
+          .map((x) => safeIntegerParse(x.description.waterAmount) ?? 0)
           .reduce((x, y) => x + y, 0)}
         generateOutputText={generateOutputText}
       />
@@ -75,13 +101,21 @@ export const WateringProcessStarted = ({navigation, route}) => {
             paddingHorizontal: 10,
           }}
         >
-          {generateRemainingText(plantIndex, data.length)}
+          {generateRemainingText(
+            plantIndex,
+            userPlantListThatNeedsWater.length
+          )}
         </Text>
 
         <WateringProcessListItem
-          waterAmount={data[plantIndex].waterAmount}
-          imageUrl={data[plantIndex].url}
-          name={data[plantIndex].name}
+          waterAmount={String(
+            userPlantListThatNeedsWater[plantIndex].description.waterAmount ??
+              ''
+          )}
+          imageUrl={
+            uploadUrl + userPlantListThatNeedsWater[plantIndex].thumbnails.w160
+          }
+          name={userPlantListThatNeedsWater[plantIndex].title}
           hideDownEnable
           hideUpEnable
           hideBottomDivider
@@ -91,7 +125,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
           onPress={() => {
             onWateredPlantPress(
               plantIndex,
-              isLastItem(plantIndex, data.length)
+              isLastItem(plantIndex, userPlantListThatNeedsWater.length)
             );
           }}
           buttonStyle={{paddingVertical: 40}}
@@ -106,7 +140,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
           onPress={() => {
             onWateredPlantPress(
               plantIndex,
-              isLastItem(plantIndex, data.length),
+              isLastItem(plantIndex, userPlantListThatNeedsWater.length),
               true
             );
           }}

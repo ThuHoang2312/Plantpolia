@@ -4,14 +4,17 @@ import {WateringProcessListItem} from './WateringProcessListItem';
 import React from 'react';
 import {Text} from '@rneui/themed';
 import {WateringProcessTotalWaterNeeded} from './WateringProcessTotalWaterNeeded';
+import {safeIntegerParse} from '../../utils/safeIntegerParse';
+import {uploadUrl} from '../../utils/variables';
 
+/** @type {import('../../types/TypedComponents').WateringProcessList} */
 export const WateringProcessList = ({
   items,
   onMoveUpPress,
   onMoveDownPress,
 }) => {
   const sumWaterAmount = items
-    .map((item) => item.waterAmount)
+    .map((item) => safeIntegerParse(item?.description?.waterAmount ?? 0) ?? 0)
     .reduce((x, y) => x + y, 0);
 
   return (
@@ -20,14 +23,14 @@ export const WateringProcessList = ({
 
       <Text style={{padding: 10, fontWeight: 'bold'}}>Plant list</Text>
 
-      {(items ?? []).map(({url, waterAmount, name}, index) => (
+      {(items ?? []).map(({description, title, thumbnails}, index) => (
         <WateringProcessListItem
-          key={[url, waterAmount, name, index, Date.now()].join()}
+          key={[description, title, thumbnails, index, Date.now()].join()}
           moveUpEnable={index !== 0}
           moveDownEnable={index !== items.length - 1}
-          name={name}
-          imageUrl={url}
-          waterAmount={waterAmount}
+          name={title}
+          imageUrl={uploadUrl + thumbnails.w160}
+          waterAmount={`${description.waterAmount ?? ''}`}
           onMoveUpPress={() => onMoveUpPress(index)}
           onMoveDownPress={() => onMoveDownPress(index)}
         />

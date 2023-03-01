@@ -1,15 +1,19 @@
 import React, {Context, Dispatch, PropsWithChildren} from 'react';
-import {IUserModel} from './UserModel';
-import {PrimaryPlantModel} from './PrimaryPlantModel';
-import {UserPlantModel} from './UserPlantModel';
+import {
+  CommentModel,
+  PrimaryPlantModel,
+  UserModel,
+  UserPlantModel,
+} from './BaseModels';
 
 export interface MainContextProviderProps {
-  userProfile: IUserModel | null;
+  userProfile: UserModel | null;
   accessToken: string | null;
   expirationDate: number | null;
-  defaultPrimaryPlantList: any[];
-  defaultUserPlantList: any[];
-  setUserProfile: (userModel: IUserModel | null) => void;
+  defaultPrimaryPlantList: PrimaryPlantModel[];
+  defaultUserPlantList: UserPlantModel[];
+  defaultWateringEventList: CommentModel[];
+  setUserProfile: (userModel: UserModel | null) => void;
   setAccessToken: (accessToken: string) => void;
   setExpirationDate: (expirationDate: number) => void;
 }
@@ -34,11 +38,11 @@ export interface MainContextModel {
   /**
    * Logged in user's UserProfile.
    */
-  user: IUserModel | null;
+  user: UserModel | null;
   /**
    * TODO: Write description.
    */
-  setUser: Dispatch<IUserModel | null>;
+  setUser: Dispatch<UserModel | null>;
   /**
    * Logged in user's UserProfile.
    */
@@ -97,6 +101,10 @@ export interface MainContextModel {
   userPlantList: UserPlantModel[];
   userPlantListLoading: boolean;
   setUserPlantListNeedsHydration: Dispatch<boolean>;
+
+  wateringEventList: CommentModel[];
+  wateringEventListLoading: boolean;
+  setWateringEventListNeedsHydration: Dispatch<boolean>;
 }
 
 export type MainContextReactContext = Context<MainContextModel>;

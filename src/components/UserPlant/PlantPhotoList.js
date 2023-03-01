@@ -7,7 +7,7 @@ import {colors} from '../../utils/colors';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {AddPlantPhotoForm} from '../shared/AddPlantPhotoForm';
 import {PlantPhotoListItem} from './PlantPhotoListItem';
-import {useUserPlantPhotoHooks} from '../../hooks/UserPlantPhotoHooks';
+import {useUserPlantPhotoHooks} from '../../hooks/useUserPlantPhotoHooks';
 
 const PlantPhotoList = ({title, fileId, navigation}) => {
   const {userPlantPhotoList, setUserPlantPhotoListNeedsHydration} =

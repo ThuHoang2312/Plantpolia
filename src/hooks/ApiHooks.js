@@ -1,5 +1,6 @@
 import {baseUrl} from '../utils/variables';
 
+/** @type {import('../types/ApiHooks').HandleResponseFunc} */
 const handleResponse = async (fetch) => {
   try {
     const response = await fetch();
@@ -125,6 +126,34 @@ export const useApi = () => {
     });
   };
 
+  /** @type {import('../types/ApiHooks').GetMediaCommentsById} */
+  const getMediaCommentsById = async (mediaId) => {
+    return handleResponse(async () => {
+      const headers = new Headers();
+      headers.append('Accept', 'application/json');
+      headers.append('Content-Type', 'application/json');
+      return await fetch(baseUrl + `comments/file/${mediaId}`, {
+        method: 'GET',
+        headers,
+      });
+    });
+  };
+
+  const postCommentByMediaId = async (mediaId, commentValue, token) => {
+    return handleResponse(async () => {
+      const headers = new Headers();
+      headers.append('Accept', 'application/json');
+      headers.append('Content-Type', 'application/json');
+      headers.append('x-access-token', token);
+      return await fetch(baseUrl + 'comments', {
+        method: 'POST',
+        body: JSON.stringify({file_id: mediaId, comment: commentValue}),
+        headers,
+      });
+    });
+  };
+
+  /** @type {import('../types/ApiHooks').GetDetailedMediaListByTagName} */
   const getDetailedMediaListByTagName = async (tagName) => {
     const json = await getFileByTag(tagName);
     const media = await Promise.all(
@@ -191,5 +220,7 @@ export const useApi = () => {
     postMedia,
     deleteMedia,
     putMedia,
+    getMediaCommentsById: getMediaCommentsById,
+    postCommentByMediaId: postCommentByMediaId,
   };
 };

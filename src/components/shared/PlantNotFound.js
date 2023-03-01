@@ -10,7 +10,7 @@ import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
 import {useApi} from '../../hooks/ApiHooks';
 import {requestedPlantTagName} from '../../utils/variables';
-import {useRequestedPlantHooks} from '../../hooks/RequestedPlantHooks';
+import {useRequestedPlantHooks} from '../../hooks/useRequestedPlantHooks';
 
 const PlantNotFound = ({navigation, isUserList}) => {
   const [visible, setVisible] = useState(false);

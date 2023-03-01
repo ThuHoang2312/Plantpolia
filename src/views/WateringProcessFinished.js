@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Image, Text} from '@rneui/themed';
 import {useAssets} from 'expo-asset';
+import {useMainContext} from '../contexts/MainContext';
 
 /**
  * Success page shown after all the plants are watered.
@@ -13,6 +14,7 @@ import {useAssets} from 'expo-asset';
  */
 export const WateringProcessFinished = ({navigation, route}) => {
   const {width} = useWindowDimensions();
+  const {setWateringEventListNeedsHydration} = useMainContext();
 
   const [assets] = useAssets([require('../../assets/happy-face.png')]);
 
@@ -47,6 +49,7 @@ export const WateringProcessFinished = ({navigation, route}) => {
       </Text>
       <Button
         onPress={() => {
+          setWateringEventListNeedsHydration(true);
           navigation.navigate('Home');
         }}
         buttonStyle={{paddingVertical: 40}}

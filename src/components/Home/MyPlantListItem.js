@@ -1,18 +1,43 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View} from 'react-native';
-import {Avatar, ListItem as RNEListItem} from '@rneui/themed';
+import {Avatar, Chip, ListItem as RNEListItem} from '@rneui/themed';
 import {spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
 import {MainContext} from '../../contexts/MainContext';
 
-const MyPlantListItem = ({plant, navigation}) => {
+/** @type {import('../../types/TypedComponents').MyPlantListItem} */
+export const MyPlantListItem = ({
+  plant,
+  navigation,
+  needsWater,
+  needsNutrients,
+  needsLight,
+}) => {
   // console.log('PLANT LIST ITEM:', plant);
   const imageUrl = plant.thumbnails.w160;
   const description = plant.description;
   const {setImage, setUpload} = useContext(MainContext);
-  // console.log('ITEM UPLOAD: ', upload);
+
+  /** @type {import('../../types/BaseModels').ChipModelList} */
+  const chips = [
+    {
+      title: needsWater ? 'dehydrated' : 'watered',
+      status: needsWater ? 'alert' : 'normal',
+      disabled: false,
+    },
+    {
+      title: needsLight ? 'Needs Sunlight' : 'Enough light',
+      status: needsLight ? 'info' : 'normal',
+      disabled: true,
+    },
+    {
+      title: needsNutrients ? 'Needs Nutrients' : 'HEALTHY SOIL',
+      status: needsNutrients ? 'info' : 'normal',
+      disabled: true,
+    },
+  ];
 
   return (
     <RNEListItem
@@ -24,7 +49,7 @@ const MyPlantListItem = ({plant, navigation}) => {
       }}
     >
       <Avatar
-        size="xlarge"
+        size="large"
         source={{uri: uploadUrl + imageUrl}}
         avatarStyle={styles.avatar}
       />
@@ -34,17 +59,22 @@ const MyPlantListItem = ({plant, navigation}) => {
         </RNEListItem.Title>
         <RNEListItem.Subtitle>{description.otherNames}</RNEListItem.Subtitle>
         <View style={styles.statusContainer}>
-          <View style={styles.locationContainer}>
-            <RNEListItem.Subtitle style={styles.location}>
-              {description.plantLocation}
-            </RNEListItem.Subtitle>
-          </View>
-          {/* TODO: Change style when have data */}
-          <View style={styles.waterContainer}>
-            <RNEListItem.Subtitle style={styles.waterDone}>
-              Water
-            </RNEListItem.Subtitle>
-          </View>
+          {(chips ?? []).map(({title, status, disabled}, index) => (
+            <Chip
+              disabled={disabled}
+              key={[title, status, index].join()}
+              buttonStyle={{
+                ...styles.statusChipButton,
+                ...(status === 'info' ? styles.statusChipInfoButton : {}),
+                ...(status === 'normal' ? styles.statusChipNormalButton : {}),
+                ...(status === 'alert' ? styles.statusChipAlertButton : {}),
+              }}
+              containerStyle={styles.statusChipContainer}
+              titleStyle={styles.statusChipTitle}
+              style={styles.statusChip}
+              title={String(title).toUpperCase()}
+            />
+          ))}
         </View>
       </RNEListItem.Content>
       <RNEListItem.Chevron />
@@ -66,36 +96,49 @@ const styles = StyleSheet.create({
     marginVertical: spacing.sm,
   },
   statusContainer: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
-  waterContainer: {
-    backgroundColor: colors.primary700,
-    borderRadius: spacing.sm,
-    // marginVertical: spacing.sm,
+  statusChipContainer: {
+    borderRadius: 0,
+    margin: spacing.sm / 4,
   },
-
+  statusChipTitle: {
+    fontWeight: '400',
+    fontSize: 12,
+  },
+  statusChipButton: {
+    padding: spacing.sm / 4,
+    borderRadius: spacing.sm / 2,
+  },
+  statusChipAlertButton: {
+    backgroundColor: '#DC2626',
+  },
+  statusChipNormalButton: {
+    backgroundColor: '#059669',
+  },
+  statusChipInfoButton: {
+    backgroundColor: '#0284C7',
+  },
+  statusChip: {},
   locationContainer: {
     backgroundColor: colors.primary700,
     borderRadius: spacing.sm,
-    marginVertical: spacing.sm,
-    marginRight: spacing.sm,
   },
   location: {
     color: colors.primary100,
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.sm / 2,
   },
-  waterDone: {
-    color: colors.primary100,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.sm / 2,
-    textAlign: 'center',
-  },
 });
 
 MyPlantListItem.propTypes = {
+  // @ts-ignore
   plant: PropTypes.object,
+  needsWater: PropTypes.bool,
+  needsNutrients: PropTypes.bool,
+  needsLight: PropTypes.bool,
   navigation: PropTypes.object,
 };
 
