@@ -1,26 +1,30 @@
 import React, {createContext, useContext, useState} from 'react';
 import PropTypes from 'prop-types';
 import {useClock} from '../utils/useClock';
-import {usePrimaryPlantHooks} from '../hooks/PrimaryPlantHooks';
-import {useUserPlantHooks} from '../hooks/UserPlantHooks';
+import {usePrimaryPlantHooks} from '../hooks/usePrimaryPlantHooks';
+import {useUserPlantHooks} from '../hooks/useUserPlantHooks';
 import {useNotification} from '../services/useNotification';
+import {useUserPlantWateringEvent} from '../hooks/useUserPlantWateringEvent';
 
-/** @type {import('../types/MainContextModel').MainContextReactContext} */
+/** @type {import('../types/TypedMainContext').MainContextReactContext} */
 export const MainContext = createContext(null);
 
 // eslint-disable-next-line valid-jsdoc
-/** @type {import('../types/MainContextModel').MainContextProviderFC} */
+/** @type {import('../types/TypedMainContext').MainContextProviderFC} */
 export const MainProvider = ({
   accessToken,
   expirationDate,
   userProfile,
   defaultPrimaryPlantList,
   defaultUserPlantList,
+  defaultWateringEventList,
   setAccessToken,
   setExpirationDate,
   setUserProfile,
   children,
 }) => {
+  const date = useClock();
+
   const {
     primaryPlantList,
     primaryPlantListLoading,
@@ -32,7 +36,15 @@ export const MainProvider = ({
 
   useNotification({userPlantList});
 
-  const date = useClock();
+  const {
+    wateringEventList,
+    setWateringEventListNeedsHydration,
+    wateringEventListLoading,
+  } = useUserPlantWateringEvent({
+    userPlantList,
+    defaultWateringEventList,
+  });
+
   const [lastWater, setLastWater] = useState('');
   const [notificationTime, setNotificationTime] = useState('');
   const [image, setImage] = useState('');
@@ -72,6 +84,10 @@ export const MainProvider = ({
         userPlantList,
         userPlantListLoading,
         setUserPlantListNeedsHydration,
+
+        wateringEventList,
+        setWateringEventListNeedsHydration,
+        wateringEventListLoading,
       }}
     >
       {children}
@@ -91,6 +107,7 @@ MainProvider.propTypes = {
   userProfile: PropTypes.any,
   defaultPrimaryPlantList: PropTypes.array,
   defaultUserPlantList: PropTypes.array,
+  defaultWateringEventList: PropTypes.array,
   expirationDate: PropTypes.number,
   accessToken: PropTypes.string,
 };

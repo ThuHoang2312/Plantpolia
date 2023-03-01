@@ -11,6 +11,7 @@ export const applicationPrefixId = `plantpolia.v${APP_VERSION}.`;
 export const userPlantTagName = `${applicationPrefixId}user.plant`;
 export const primaryPlantTagName = `${applicationPrefixId}primary.plant`;
 export const requestedPlantTagName = `${applicationPrefixId}requested.primary.plant`;
+export const userPlantWateringEventName = `${applicationPrefixId}user.plant.watered`;
 
 export const createPlantPhotoTagName = (fileId) => {
   return `${applicationPrefixId}plant.id.${fileId}.photo`;

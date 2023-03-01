@@ -2,11 +2,13 @@ import {useEffect, useState} from 'react';
 import {primaryPlantTagName} from '../utils/variables';
 import {useApi} from './ApiHooks';
 import {safeJsonParse} from '../utils/safeJsonParse';
+import {useLogger} from '../services/useLogger';
 
 // PLANTS
-/** @type {import('../types/PrimaryPlantModel').UsePrimaryPlantHooks} */
+/** @type {import('../types/TypedHooks').UsePrimaryPlantHooks} */
 export const usePrimaryPlantHooks = ({defaultPrimaryPlantList}) => {
   const {getDetailedMediaListByTagName} = useApi();
+  const {log} = useLogger('usePrimaryPlantHooks');
   const [primaryPlantList, setPrimaryPlantList] = useState(
     defaultPrimaryPlantList
   );
@@ -21,15 +23,11 @@ export const usePrimaryPlantHooks = ({defaultPrimaryPlantList}) => {
     (async () => {
       setPrimaryPlantListLoading(true);
 
-      /** @type {import('../types/PrimaryPlantModel').GetPrimaryPlantList} */
-      const items = await getDetailedMediaListByTagName(primaryPlantTagName);
-
-      const parsedItems = items.map((item) => {
-        item.description = safeJsonParse(item.description);
-        return item;
+      const items = await fetchPrimaryPlantList({
+        getDetailedMediaListByTagName,
+        log,
       });
-
-      setPrimaryPlantList(parsedItems);
+      setPrimaryPlantList(items);
       setPrimaryPlantListLoading(false);
       setPrimaryPlantListNeedsHydration(false);
     })();
@@ -40,4 +38,18 @@ export const usePrimaryPlantHooks = ({defaultPrimaryPlantList}) => {
     primaryPlantListLoading: primaryPlantListLoading,
     setPrimaryPlantListNeedsHydration: setPrimaryPlantListNeedsHydration,
   };
+};
+
+/** @type {import('../types/TypedFunctions').FetchPrimaryPlantList} */
+export const fetchPrimaryPlantList = async ({
+  log,
+  getDetailedMediaListByTagName,
+}) => {
+  const items = await getDetailedMediaListByTagName(primaryPlantTagName);
+  return items.map((item) => {
+    return {
+      ...item,
+      description: safeJsonParse(item.description),
+    };
+  });
 };

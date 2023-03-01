@@ -10,7 +10,7 @@ export const safeIntegerParse = (
     if (Number.isNaN(parsed)) {
       return null;
     }
-    if (onlyPositiveNumbers && parsed <= 0) {
+    if (onlyPositiveNumbers && parsed < 0) {
       return null;
     }
     return parsed;

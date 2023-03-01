@@ -1,7 +1,7 @@
 import {useCallback, useState} from 'react';
 
 export const useNewUserPlantForm = ({primaryPlant}) => {
-  /** @type {import('../types/PrimaryPlantModel').PrimaryPlantModel} */
+  /** @type {import('../types/BaseModels').PrimaryPlantModel} */
   const {description} = primaryPlant;
   // Name of plant
   const [title, setTitle] = useState(primaryPlant.title);
