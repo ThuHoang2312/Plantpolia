@@ -3,20 +3,33 @@ import {
   cancelScheduledNotificationAsync,
   getAllScheduledNotificationsAsync,
   scheduleNotificationAsync,
+  setNotificationHandler,
 } from 'expo-notifications';
 import {safeIntegerParse} from '../utils/safeIntegerParse';
 import {useEnv} from './useEnv';
 import {useLogger} from './useLogger';
+import {useNotificationStatus} from './useNotificationStatus';
 
 /** @type {import('../types/TypedHooks').UseNotification} */
 export const useNotification = ({userPlantList}) => {
   const {log} = useLogger('useNotification');
+  const {isNotificationsGranted} = useNotificationStatus();
 
   const {isDevelopment, isDevice} = useEnv();
-  const DAY_IN_SECONDS = isDevelopment ? 60 : 86_400;
+  const DAY_IN_SECONDS = isDevelopment ? 600 : 86_400; // 10 minutes in dev
 
   const generateNotificationTitle = useCallback((plantName) => {
     return `Your plant "${plantName}" is feeling thirsty. Don't forget to water it to keep it healthy and happy!`;
+  }, []);
+
+  useEffect(() => {
+    setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+      }),
+    });
   }, []);
 
   useEffect(() => {
@@ -25,6 +38,12 @@ export const useNotification = ({userPlantList}) => {
         log(`Emulator found. Skipping notification scheduling.`);
         return;
       }
+
+      if (!isNotificationsGranted) {
+        log(`Notification is not permitted. Skipping notification scheduling.`);
+        return;
+      }
+
       {
         const allNotifications = await getAllScheduledNotificationsAsync();
         //  Delete notifications that plant does not exist anymore or has changed.

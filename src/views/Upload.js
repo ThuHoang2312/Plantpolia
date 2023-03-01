@@ -6,12 +6,17 @@ import {MainContext} from '../contexts/MainContext';
 import {userPlantTagName} from '../utils/variables';
 import {useApi} from '../hooks/ApiHooks';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
+import {useNotificationStatus} from '../services/useNotificationStatus';
 
 const Upload = ({navigation, route}) => {
   const [error, setError] = useState();
   const {postTag, postMedia} = useApi();
   const {token, setUserPlantListNeedsHydration} = useContext(MainContext);
-
+  const {
+    canAskForNotificationPermission,
+    isNotificationsGranted,
+    requestNotificationPermissions,
+  } = useNotificationStatus();
   const {primaryPlant} = route.params;
 
   /** @type {import('../types/TypedComponents').UploadFormSubmit} */
@@ -39,6 +44,9 @@ const Upload = ({navigation, route}) => {
       setUserPlantListNeedsHydration(true);
 
       setTimeout(() => {
+        if (canAskForNotificationPermission && !isNotificationsGranted) {
+          requestNotificationPermissions();
+        }
         tagResponse && navigation.navigate('UploadCompleted');
       }, 1000);
     } catch (error) {
