@@ -4,8 +4,8 @@ import {View} from 'react-native';
 
 export const WateringProcessListItem = ({
   name,
+  location,
   imageUrl,
-  waterAmount,
   hideUpEnable,
   hideDownEnable,
   moveUpEnable,
@@ -28,9 +28,9 @@ export const WateringProcessListItem = ({
         />
         <RNEListItem.Content>
           <RNEListItem.Title>{name} </RNEListItem.Title>
-          {!!waterAmount && (
+          {!!location && (
             <RNEListItem.Subtitle style={{paddingVertical: 5}}>
-              <Text>💧{waterAmount}ml</Text>
+              <Text>{location}</Text>
             </RNEListItem.Subtitle>
           )}
         </RNEListItem.Content>
@@ -72,8 +72,8 @@ export const WateringProcessListItem = ({
 
 WateringProcessListItem.propTypes = {
   name: PropTypes.string,
+  location: PropTypes.string,
   imageUrl: PropTypes.string,
-  waterAmount: PropTypes.string,
   moveUpEnable: PropTypes.bool,
   moveDownEnable: PropTypes.bool,
   hideBottomDivider: PropTypes.bool,

@@ -42,7 +42,7 @@ export interface PrimaryPlantModelDescription {
   waterInstruction: string;
   cleaningInstruction: string;
   fertilizerInstruction: string;
-  waterInterval: string | number;
+  waterInterval: number;
 }
 export interface PrimaryPlantModel extends Omit<PlantModel, 'description'> {
   description: PrimaryPlantModelDescription | null;
@@ -51,12 +51,20 @@ export interface PrimaryPlantModel extends Omit<PlantModel, 'description'> {
 export interface UserPlantModelDescription {
   otherNames: string;
   difficulty: string;
+  /**
+   * Preferred receiving notification time
+   * values: Morning | Afternoon | ...
+   */
+  notificationTime: string;
+
   waterInstruction: string;
   cleaningInstruction: string;
   fertilizerInstruction: string;
   waterInterval: number;
-
-  waterAmount: number;
+  /**
+   * Location of plant
+   */
+  location: string;
 }
 
 export interface UserPlantModel extends Omit<PlantModel, 'description'> {
@@ -66,6 +74,8 @@ export interface NewUserPlantModel
   extends Pick<UserPlantModel, 'title' | 'description'> {
   selectedImage: ImagePickerAsset;
 }
+export interface EditUserPlantModel
+  extends Pick<UserPlantModel, 'title' | 'description'> {}
 
 export interface ChipModel {
   disabled: boolean;

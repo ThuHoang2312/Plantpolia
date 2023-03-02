@@ -1,10 +1,9 @@
 import {View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import PropTypes from 'prop-types';
-import {WateringProcessTotalWaterNeeded} from '../components/WateringProcess/WateringProcessTotalWaterNeeded';
+import {WateringProcessInstruction} from '../components/WateringProcess/WateringProcessInstruction';
 import {WateringProcessListItem} from '../components/WateringProcess/WateringProcessListItem';
 import {Button, Icon, Text} from '@rneui/themed';
-import {safeIntegerParse} from '../utils/safeIntegerParse';
 import {uploadUrl, userPlantWateringEventName} from '../utils/variables';
 import {useApi} from '../hooks/ApiHooks';
 import {useMainContext} from '../contexts/MainContext';
@@ -28,11 +27,6 @@ export const WateringProcessStarted = ({navigation, route}) => {
   // data is array
   /** @type {import('../types/TypedComponents').WateringProcessStartedParams} */
   const {userPlantListThatNeedsWater} = route.params;
-
-  //  Output text based on waterAmount
-  const generateOutputText = useCallback((waterAmount) => {
-    return `Total of ${waterAmount} ml water is needed to water the rest of the plants.`;
-  }, []);
 
   const generateRemainingText = useCallback((currentPlantIndex, totalCount) => {
     return `Go ahead and water the following plant. (${
@@ -80,12 +74,10 @@ export const WateringProcessStarted = ({navigation, route}) => {
 
   return (
     <View>
-      <WateringProcessTotalWaterNeeded
-        waterAmount={userPlantListThatNeedsWater
-          .slice(plantIndex)
-          .map((x) => safeIntegerParse(x.description.waterAmount) ?? 0)
-          .reduce((x, y) => x + y, 0)}
-        generateOutputText={generateOutputText}
+      <WateringProcessInstruction
+        waterInstruction={
+          userPlantListThatNeedsWater[plantIndex].description.waterInstruction
+        }
       />
       <View
         style={{
@@ -109,10 +101,9 @@ export const WateringProcessStarted = ({navigation, route}) => {
         </Text>
 
         <WateringProcessListItem
-          waterAmount={String(
-            userPlantListThatNeedsWater[plantIndex].description.waterAmount ??
-              ''
-          )}
+          location={
+            userPlantListThatNeedsWater[plantIndex].description.location
+          }
           imageUrl={
             uploadUrl + userPlantListThatNeedsWater[plantIndex].thumbnails.w160
           }

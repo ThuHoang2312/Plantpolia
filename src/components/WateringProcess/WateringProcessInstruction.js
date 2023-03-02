@@ -3,19 +3,10 @@ import {View} from 'react-native';
 import React from 'react';
 import {Avatar, ListItem as RNEListItem} from '@rneui/themed';
 import {useAssets} from 'expo-asset';
+import {fontFamily} from '../../utils/sizes';
 
-export const WateringProcessTotalWaterNeeded = ({
-  waterAmount,
-  generateOutputText,
-}) => {
+export const WateringProcessInstruction = ({waterInstruction}) => {
   const [assets] = useAssets([require('../../../assets/WaterDrop.png')]);
-
-  waterAmount = waterAmount ?? 0;
-
-  generateOutputText =
-    generateOutputText ??
-    ((waterAmount) =>
-      `Total of ${waterAmount} ml water is needed to water all the plants.`);
 
   return (
     <View>
@@ -30,8 +21,8 @@ export const WateringProcessTotalWaterNeeded = ({
           />
         )}
         <RNEListItem.Content style={{paddingVertical: 30}}>
-          <RNEListItem.Title style={{fontSize: 20}}>
-            {generateOutputText(waterAmount)}
+          <RNEListItem.Title style={{fontFamily: fontFamily.regular}}>
+            {waterInstruction}
           </RNEListItem.Title>
         </RNEListItem.Content>
       </RNEListItem>
@@ -39,7 +30,6 @@ export const WateringProcessTotalWaterNeeded = ({
   );
 };
 
-WateringProcessTotalWaterNeeded.propTypes = {
-  waterAmount: PropTypes.number,
-  generateOutputText: PropTypes.func,
+WateringProcessInstruction.propTypes = {
+  waterInstruction: PropTypes.string,
 };
