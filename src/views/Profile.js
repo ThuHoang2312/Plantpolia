@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import {Avatar, Button, Text} from '@rneui/themed';
 import {MainContext} from '../contexts/MainContext';
 import {useApi} from '../hooks/ApiHooks';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 import {Alert, Platform, ScrollView, StyleSheet, View} from 'react-native';
 import {
@@ -16,7 +15,7 @@ import {colors} from '../utils/colors';
 import {useNotificationStatus} from '../services/useNotificationStatus';
 
 const Profile = ({navigation}) => {
-  const {setUser, setExpirationDate, setToken, user} =
+  const {setUser, setExpirationDate, setToken, user, token} =
     React.useContext(MainContext);
   const {getFileByTag, postTag, postMedia} = useApi();
   const {
@@ -28,15 +27,19 @@ const Profile = ({navigation}) => {
     'https://www.linkpicture.com/q/PngItem_998739.png'
   );
   const [type, setType] = React.useState('image');
+  const [isAvatarAvailable, setIsAvatarAvailable] = React.useState(true);
 
   const loadAvatar = async () => {
     try {
       const avatarArray = await getFileByTag(
         createUserAvatarTagName(user.user_id)
       );
+      console.log('avatar tag', createUserAvatarTagName(user.user_id));
       if (avatarArray.length == 0) {
-        setAvatar('https://www.linkpicture.com/q/PngItem_998739.png');
+        setIsAvatarAvailable(false);
       } else {
+        setIsAvatarAvailable(true);
+        console.log(avatarArray);
         setAvatar(avatarArray.pop().filename);
       }
     } catch (error) {
@@ -88,8 +91,6 @@ const Profile = ({navigation}) => {
     }
 
     try {
-      const token = await AsyncStorage.getItem('userToken');
-      // const avatarArray = await getFileByTag(createUserAvatarTagName(user.user_id));
       const result = await postMedia(formData, token);
       const appTag = {
         file_id: result.file_id,
@@ -118,18 +119,21 @@ const Profile = ({navigation}) => {
   return (
     <SafeAreaView style={styles.wrapper}>
       <ScrollView>
-        <View style={{position: 'relative', alignItems: 'center'}}>
+        <View
+          style={{
+            alignItems: 'center',
+          }}
+        >
           <Avatar
             source={{
-              uri:
-                uploadUrl + avatar ||
-                'https://www.linkpicture.com/q/PngItem_998739.png',
+              uri: isAvatarAvailable
+                ? uploadUrl + avatar
+                : 'https://www.linkpicture.com/q/PngItem_998739.png',
             }}
             rounded
             size={250}
             containerStyle={styles.avatar}
           />
-          {/* <Text>{user.full_name}</Text>  */}
           <Text style={styles.fullname}>{user.full_name}</Text>
           <Text style={styles.username}>
             {'@' + user.username.split(applicationPrefixId)[1]}
@@ -182,8 +186,10 @@ Profile.propTypes = {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     paddingTop: Platform.OS === 'android' ? 30 : 0,
+    paddingVertical: 0,
+    marginVertical: 0,
   },
   avatar: {
     borderColor: colors.primary100,

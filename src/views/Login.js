@@ -40,16 +40,16 @@ const Login = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.wrapper}>
-      <ScrollView>
-        <TouchableOpacity
-          onPress={() => Keyboard.dismiss()}
-          style={{flex: 1}}
-          activeOpacity={1}
+      <TouchableOpacity
+        onPress={() => Keyboard.dismiss()}
+        style={{flex: 1}}
+        activeOpacity={1}
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.container}
         >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.container}
-          >
+          <ScrollView>
             {toggleForm ? <LoginForm /> : <RegisterForm />}
             <Button
               title={
@@ -72,9 +72,9 @@ const Login = ({navigation}) => {
                 titleStyle={{color: colors.primary700}}
               />
             )}
-          </KeyboardAvoidingView>
-        </TouchableOpacity>
-      </ScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -82,14 +82,12 @@ const Login = ({navigation}) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#fff',
     paddingTop: Platform.OS === 'android' ? 30 : 0,
+    backgroundColor: colors.background,
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: colors.background,
   },
   button: {
     alignSelf: 'stretch',

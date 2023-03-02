@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     shadowOpacity: 0,
     elevation: 0,
-    backgroundColor: '#fff',
+    margin: 0,
   },
   header: {
     fontWeight: 'medium',
