@@ -15,3 +15,9 @@ export const spacing = {
   xxl: 40,
   xxxl: 80,
 };
+
+export const fontFamily = {
+  thin: 'Lato_100Thin',
+  regular: 'Lato_400Regular',
+  bold: 'Lato_700Bold',
+};

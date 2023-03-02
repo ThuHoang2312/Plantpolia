@@ -48,6 +48,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
     async (currentPlantIndex, isLastOne, skip = false) => {
       if (skip && isLastOne) {
         navigation.navigate('WateringProcessFinished');
+        return;
       }
       if (skip) {
         setPlantIndex(currentPlantIndex + 1);

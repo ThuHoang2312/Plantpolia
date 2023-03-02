@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View} from 'react-native';
 import {Avatar, Chip, ListItem as RNEListItem} from '@rneui/themed';
-import {spacing} from '../../utils/sizes';
+import {fontFamily, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
 import {MainContext} from '../../contexts/MainContext';
@@ -57,7 +57,9 @@ export const MyPlantListItem = ({
         <RNEListItem.Title style={styles.title}>
           {plant.title}
         </RNEListItem.Title>
-        <RNEListItem.Subtitle>{description.otherNames}</RNEListItem.Subtitle>
+        <RNEListItem.Subtitle style={styles.comment}>
+          {description.otherNames}
+        </RNEListItem.Subtitle>
         <View style={styles.statusContainer}>
           {(chips ?? []).map(({title, status, disabled}, index) => (
             <Chip
@@ -91,9 +93,13 @@ const styles = StyleSheet.create({
     borderRadius: spacing.md,
   },
   title: {
+    fontFamily: fontFamily.bold,
     color: colors.primary700,
     fontWeight: 'bold',
     marginVertical: spacing.sm,
+  },
+  comment: {
+    fontFamily: fontFamily.regular,
   },
   statusContainer: {
     display: 'flex',
@@ -105,7 +111,7 @@ const styles = StyleSheet.create({
     margin: spacing.sm / 4,
   },
   statusChipTitle: {
-    fontWeight: '400',
+    fontFamily: fontFamily.regular,
     fontSize: 12,
   },
   statusChipButton: {

@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 
 const Welcome = () => {
   const {user} = useContext(MainContext);
@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   title: {
+    fontFamily: fontFamily.regular,
     color: colors.primary800,
     fontSize: fontSizes.lg,
-    fontWeight: '500',
   },
 });
 export default Welcome;
