@@ -41,6 +41,8 @@ const Upload = ({navigation, route}) => {
         {file_id: response.file_id, tag: userPlantTagName},
         token
       );
+      //  TODO: Check if lastWater value is more than interval then it means that plant is thirsty.
+      //  TODO: If plant is not thirsty then create watering event (comment).
       setUserPlantListNeedsHydration(true);
 
       setTimeout(() => {

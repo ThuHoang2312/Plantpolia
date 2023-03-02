@@ -55,6 +55,9 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         cleaningInstruction: primaryPlant.description.cleaningInstruction,
         waterInstruction: primaryPlant.description.waterInstruction,
         fertilizerInstruction: primaryPlant.description.fertilizerInstruction,
+        location: '', //  TODO: Implement
+        difficulty: '', //  TODO: Implement
+        notificationTime: '', //  TODO: Implement
       },
     });
   };

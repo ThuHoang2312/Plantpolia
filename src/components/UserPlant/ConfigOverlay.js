@@ -41,22 +41,23 @@ export const ConfigOverlay = ({
   }
 
   // Default data
+  /** @type {import('../../types/BaseModels').UserPlantModelDescription} */
   const description = plant.description;
 
   // Handler submit form
   const handleSubmit = async () => {
+    /** @type {import('../../types/BaseModels').EditUserPlantModel} */
     const data = {
       title: title,
       description: {
-        waterInterval: description.waterInterval,
-        lastWater: description.lastWater,
-        notificationTime: description.notificationTime,
-        plantLocation: plantLocation,
-        clean: description.clean,
-        level: description.level,
-        liquidFertilizing: description.liquidFertilizing,
         otherNames: description.otherNames,
+        difficulty: description.difficulty,
+        waterInterval: description.waterInterval,
+        notificationTime: description.notificationTime,
+        location: plantLocation,
         waterInstruction: description.waterInstruction,
+        cleaningInstruction: description.cleaningInstruction,
+        fertilizerInstruction: description.fertilizerInstruction,
       },
     };
     // Stringify the description
