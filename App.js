@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import {useCallback, useEffect, useState} from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import {StyleSheet, View} from 'react-native';
@@ -19,6 +20,14 @@ import {useLogger} from './src/services/useLogger';
 import {fetchUserPlantList} from './src/hooks/useUserPlantHooks';
 import {fetchPrimaryPlantList} from './src/hooks/usePrimaryPlantHooks';
 import {showToast} from './src/utils/Toast';
+import LottieIcons from './src/components/LottieIcons/LottieIcons';
+import {
+  Lato_100Thin,
+  Lato_400Regular,
+  Lato_700Bold,
+  useFonts,
+} from '@expo-google-fonts/lato';
+import {fontFamily} from './src/utils/sizes';
 
 const USER_TOKEN_STORAGE_KEY = `${applicationPrefixId}.user.token`;
 const USER_PROFILE_STORAGE_KEY = `${applicationPrefixId}.user.profile`;
@@ -27,6 +36,13 @@ const EXPIRATION_DATE_STORAGE_KEY = `${applicationPrefixId}.user.token.expiratio
 const App = () => {
   const {log} = useLogger('App');
   const {getDetailedMediaListByTagName, getMediaCommentsById} = useApi();
+
+  const [fontsLoaded] = useFonts({
+    Lato_100Thin,
+    Lato_400Regular,
+    Lato_700Bold,
+  });
+
   const [appIsReady, setAppIsReady] = useState(false);
   const [storageUserProfile, setStorageUserProfile] = useState(null);
   const [storageAccessToken, setStorageAccessToken] = useState(null);
@@ -176,14 +192,20 @@ const App = () => {
     })();
   }, [storageExpirationDate]);
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   if (!appIsReady) {
     return (
       <View
         style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}
         onLayout={onLayoutRootView}
       >
-        <Text>SplashScreen Demo! 👋</Text>
-        <View style={styles.container}>
+        <Text style={styles.logo}>Plantpolia</Text>
+        <LottieIcons iconName="WalkingPlant" focused autoPlay loop />
+
+        <View style={styles.debugContainer}>
           <View style={styles.debugItem}>
             <Text style={styles.itemTitle}>applicationPrefixId</Text>
             <Text style={styles.item}>{applicationPrefixId}</Text>
@@ -229,8 +251,18 @@ const App = () => {
   );
 };
 const styles = StyleSheet.create({
-  container: {
+  logo: {
+    fontFamily: fontFamily.thin,
+    bottom: 200,
+    fontSize: 55,
+    textAlign: 'center',
+    display: 'flex',
+  },
+  debugContainer: {
+    fontFamily: fontFamily.thin,
     width: '100%',
+    position: 'absolute',
+    bottom: 50,
   },
   debugItem: {
     width: '100%',
@@ -238,9 +270,11 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     textAlign: 'center',
+    fontFamily: fontFamily.regular,
     fontWeight: 'bold',
   },
   item: {
+    fontFamily: fontFamily.bold,
     textAlign: 'center',
   },
 });

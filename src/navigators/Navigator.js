@@ -18,21 +18,20 @@ import {colors} from '../utils/colors';
 import SuggestPlant from '../views/SuggestPlant';
 import PlantDetail from '../views/PlantDetail';
 import EditProfile from '../views/EditProfile';
+import {fontFamily} from '../utils/sizes';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const screenOptions = {
-  tabBarStyle: {
-    backgroundColor: colors.primary50,
-  },
-};
-
-// screenOptions={{headerShown: false}}
-
 const TabScreen = () => {
   return (
-    <Tab.Navigator {...{screenOptions}}>
+    <Tab.Navigator
+      screenOptions={{
+        headerTitleStyle: {
+          fontFamily: fontFamily.regular,
+        },
+      }}
+    >
       <Tab.Screen
         name="Home"
         component={Home}

@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {useWindowDimensions, View} from 'react-native';
-import {useBottomTabBarHeight} from '@react-navigation/bottom-tabs';
+import {View} from 'react-native';
 import {FloatingButtons} from '../components/FloatingButtons';
 import MyPlantList from '../components/Home/MyPlantList';
 
 const Home = ({navigation}) => {
-  const {height} = useWindowDimensions();
-  const bottomTabBarHeight = useBottomTabBarHeight();
   return (
     <View
       style={{
-        minHeight: height - bottomTabBarHeight,
+        flex: 1,
       }}
     >
       <MyPlantList navigation={navigation} />

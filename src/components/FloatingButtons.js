@@ -1,6 +1,6 @@
 import React from 'react';
 import {FAB, Icon} from '@rneui/themed';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import PropTypes from 'prop-types';
 
 export const FloatingButtons = ({
@@ -10,18 +10,13 @@ export const FloatingButtons = ({
   onWateringCanIconPress,
 }) => {
   return (
-    <View
-      style={{
-        position: 'absolute',
-        right: 20,
-        bottom: 100,
-      }}
-    >
+    <View style={styles.container}>
       {!hideWateringCanIcon && (
         <FAB
           color="white"
           style={{
-            margin: 10,
+            ...styles.fab,
+            ...styles.shadow,
           }}
           onPress={() => {
             onWateringCanIconPress();
@@ -34,7 +29,8 @@ export const FloatingButtons = ({
         <FAB
           color="white"
           style={{
-            margin: 10,
+            ...styles.fab,
+            ...styles.shadow,
           }}
           onPress={() => onHomeIconPress()}
         >
@@ -44,6 +40,23 @@ export const FloatingButtons = ({
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
+  },
+  fab: {
+    margin: 5,
+  },
+  shadow: {
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+});
 
 FloatingButtons.propTypes = {
   hideHomeIcon: PropTypes.bool,
