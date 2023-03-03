@@ -14,7 +14,7 @@ const PlantListItem = ({plantDescription, imageUrl, title, onPress}) => {
         <RNEListItem.Title style={styles.title}>{title}</RNEListItem.Title>
         <View style={styles.levelContainer}>
           <RNEListItem.Subtitle style={styles.subtitle}>
-            {plantDescription.level}
+            {plantDescription.difficulty}
           </RNEListItem.Subtitle>
         </View>
       </RNEListItem.Content>

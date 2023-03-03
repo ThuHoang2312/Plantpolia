@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "seed": "APP_VERSION=1 node seed-data/importPrimaryPlants.js",
-    "start": "APP_VERSION=1 EXPO_NO_TYPESCRIPT_SETUP=1 expo start",
-    "android": "APP_VERSION=1 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --android",
-    "ios": "APP_VERSION=1 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --ios",
-    "web": "APP_VERSION=1 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --web",
+    "seed": "APP_VERSION=2 node seed-data/importPrimaryPlants.js",
+    "start": "APP_VERSION=2 EXPO_NO_TYPESCRIPT_SETUP=1 expo start",
+    "android": "APP_VERSION=2 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --android",
+    "ios": "APP_VERSION=2 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --ios",
+    "web": "APP_VERSION=2 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --web",
     "test": "npx eslint ."
   },
   "dependencies": {
