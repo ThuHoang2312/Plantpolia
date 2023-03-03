@@ -17,10 +17,19 @@ const PlantOverview = ({plantDescription}) => {
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.labelContainer}>
+          <Text style={styles.label}>Plant location</Text>
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>{plantDescription.location}</Text>
+        </View>
+      </View>
+
+      <View style={styles.contentContainer}>
+        <View style={styles.labelContainer}>
           <Text style={styles.label}>Level</Text>
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>{plantDescription.level}</Text>
+          <Text style={styles.text}>{plantDescription.difficulty}</Text>
         </View>
       </View>
       <View style={styles.contentContainer}>
@@ -28,7 +37,9 @@ const PlantOverview = ({plantDescription}) => {
           <Text style={styles.label}>Clean</Text>
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>{plantDescription.clean}</Text>
+          <Text style={styles.text}>
+            {plantDescription.cleaningInstruction}
+          </Text>
         </View>
       </View>
       <View style={styles.contentContainer}>
@@ -36,15 +47,9 @@ const PlantOverview = ({plantDescription}) => {
           <Text style={styles.label}>Liquid Fertilizing</Text>
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.text}>{plantDescription.liquidFertilizing}</Text>
-        </View>
-      </View>
-      <View style={styles.contentContainer}>
-        <View style={styles.labelContainer}>
-          <Text style={styles.label}>Water Instruction</Text>
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>{plantDescription.waterInstruction}</Text>
+          <Text style={styles.text}>
+            {plantDescription.fertilizerInstruction}
+          </Text>
         </View>
       </View>
     </>

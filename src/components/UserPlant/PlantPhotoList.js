@@ -64,6 +64,8 @@ const PlantPhotoList = ({title, fileId, navigation}) => {
                   imageUrl={item.thumbnails.w160}
                   title={title}
                   date={item.time_added}
+                  navigation={navigation}
+                  fileId={item.file_id}
                 />
               )}
             />

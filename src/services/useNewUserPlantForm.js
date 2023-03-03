@@ -2,7 +2,7 @@ import {useCallback, useState} from 'react';
 
 export const useNewUserPlantForm = ({primaryPlant}) => {
   /** @type {import('../types/BaseModels').PrimaryPlantModel} */
-  // const {description} = primaryPlant;
+  const {description} = primaryPlant;
   // Name of plant
   const [title, setTitle] = useState(primaryPlant.title);
 
@@ -17,17 +17,18 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
   const [openLocationDropdown, setOpenLocationDropdown] = useState(false);
 
   const [lastTimeWateredDropdownOptions] = useState([
-    {label: 'Today', value: 0},
+    {label: 'Today', value: '0'},
     {label: 'Yesterday', value: 1},
     {label: 'About one week ago', value: 7},
     {label: 'About two week ago', value: 14},
-    {label: 'Not sure/ Never water', value: 2},
+    {label: 'Not sure/ Never water', value: description.waterInterval},
   ]);
   const [
     selectedLastTimeWateredDropdownOption,
     setSelectedLastTimeWateredDropdownOption,
   ] = useState(null);
 
+  // TODO: decide if we still need to have this
   const [preferredNotificationTimeDropdownOptions] = useState([
     {label: 'Morning (9AM)', value: 'morning'},
     {label: 'Afternoon (2PM)', value: 'afternoon'},
@@ -46,7 +47,6 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
     {label: 'Bathroom', value: 'Bathroom'},
     {label: 'Balcony / Terrace', value: 'Balcony / Terrace'},
     {label: 'Hall', value: 'Hall'},
-    {label: 'Others', value: 'Others'},
   ]);
   const [selectedLocationDropdownOption, setSelectedLocationDropdownOption] =
     useState(null);

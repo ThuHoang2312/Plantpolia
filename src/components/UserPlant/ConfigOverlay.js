@@ -7,9 +7,9 @@ import {colors} from '../../utils/colors';
 import Input from '../shared/Input';
 import Button from '../shared/Button';
 import {MainContext} from '../../contexts/MainContext';
-import {useUploadFormState} from '../../services/useUploadFormState';
 import {IconButton} from 'react-native-paper';
 import {useApi} from '../../hooks/ApiHooks';
+import {useConfigForm} from '../../services/useConfigForm';
 
 export const ConfigOverlay = ({
   name,
@@ -18,17 +18,19 @@ export const ConfigOverlay = ({
   closeOverlay,
   navigation,
 }) => {
+  // console.log('plant config', plant);
   const {
     title,
     setTitle,
-    plantLocation,
+
     plantLocationItem,
-    onPlantLocationOpen,
-    setPlantLocation,
-    setOpenPlantLocation,
     setPlantLocationItem,
     openPlantLocation,
-  } = useUploadFormState();
+    setOpenPlantLocation,
+    location,
+    setLocation,
+  } = useConfigForm();
+  // console.log(title);
 
   const {image, token, setUserPlantListNeedsHydration} =
     useContext(MainContext);
@@ -36,7 +38,7 @@ export const ConfigOverlay = ({
   const {deleteMedia, putMedia} = useApi();
   // Condition to check for disable button
   let buttonStatus = false;
-  if (!plantLocation) {
+  if (!location && !title) {
     buttonStatus = true;
   }
 
@@ -54,12 +56,14 @@ export const ConfigOverlay = ({
         difficulty: description.difficulty,
         waterInterval: description.waterInterval,
         notificationTime: description.notificationTime,
-        location: plantLocation,
+        location: location,
         waterInstruction: description.waterInstruction,
         cleaningInstruction: description.cleaningInstruction,
         fertilizerInstruction: description.fertilizerInstruction,
+        lastWater: description.lastWater,
       },
     };
+
     // Stringify the description
     const editDescription = JSON.stringify(data.description);
 
@@ -133,15 +137,15 @@ export const ConfigOverlay = ({
         </View>
         <Text style={styles.text}>Current name: {name}</Text>
         <Input text="Re-name your plant (optional)" onChangeText={setTitle} />
+
         <DropDownPicker
           zIndex={3000}
           zIndexInverse={1000}
           open={openPlantLocation}
-          onOpen={onPlantLocationOpen}
-          value={plantLocation}
+          value={description.location}
           items={plantLocationItem}
           setOpen={setOpenPlantLocation}
-          setValue={setPlantLocation}
+          setValue={setLocation}
           setItems={setPlantLocationItem}
           listMode="SCROLLVIEW"
           placeholder="Where is the plant located?"

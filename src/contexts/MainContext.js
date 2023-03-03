@@ -47,6 +47,7 @@ export const MainProvider = ({
 
   const [lastWater, setLastWater] = useState('');
   const [notificationTime, setNotificationTime] = useState('');
+  const [location, setLocation] = useState('');
   const [image, setImage] = useState('');
   const [type, setType] = useState('image');
   const [upload, setUpload] = useState(false);
@@ -66,6 +67,8 @@ export const MainProvider = ({
         setLastWater,
         notificationTime,
         setNotificationTime,
+        location,
+        setLocation,
         image,
         setImage,
         upload,
