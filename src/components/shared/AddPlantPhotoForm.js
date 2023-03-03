@@ -1,9 +1,8 @@
 import React, {useContext, useState} from 'react';
 import {Alert, StyleSheet, Text, View, TextInput} from 'react-native';
 import PropTypes from 'prop-types';
-import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
-import {Card, Icon, Input} from '@rneui/themed';
+import {Card, Icon} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {useApi} from '../../hooks/ApiHooks';
 import Button from './Button';
