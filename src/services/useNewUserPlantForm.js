@@ -2,7 +2,7 @@ import {useCallback, useState} from 'react';
 
 export const useNewUserPlantForm = ({primaryPlant}) => {
   /** @type {import('../types/BaseModels').PrimaryPlantModel} */
-  const {description} = primaryPlant;
+  // const {description} = primaryPlant;
   // Name of plant
   const [title, setTitle] = useState(primaryPlant.title);
 
@@ -13,15 +13,15 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
     openPreferredNotificationTimeDropdown,
     setOpenPreferredNotificationTimeDropdown,
   ] = useState(false);
-  const [openWateringIntervalDropdown, setOpenWateringIntervalDropdown] =
-    useState(false);
+
+  const [openLocationDropdown, setOpenLocationDropdown] = useState(false);
 
   const [lastTimeWateredDropdownOptions] = useState([
     {label: 'Today', value: 0},
     {label: 'Yesterday', value: 1},
     {label: 'About one week ago', value: 7},
     {label: 'About two week ago', value: 14},
-    {label: 'Not sure/ Never water', value: -1},
+    {label: 'Not sure/ Never water', value: 2},
   ]);
   const [
     selectedLastTimeWateredDropdownOption,
@@ -29,41 +29,40 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
   ] = useState(null);
 
   const [preferredNotificationTimeDropdownOptions] = useState([
-    {label: 'Morning', value: 'Morning'},
-    {label: 'Afternoon', value: 'Afternoon'},
-    {label: 'Evening', value: 'Evening'},
+    {label: 'Morning (9AM)', value: 'morning'},
+    {label: 'Afternoon (2PM)', value: 'afternoon'},
+    {label: 'Evening (7PM)', value: 'evening'},
   ]);
   const [
     selectedPreferredNotificationTimeDropdownOption,
     setSelectedPreferredNotificationTimeDropdownOption,
   ] = useState(null);
 
-  const [wateringIntervalOptions] = useState([
-    {value: 1, label: 'Every day'},
-    {value: 2, label: 'Every second day'},
-    {value: 3, label: 'Every three days'},
-    {value: 4, label: 'Every four days'},
-    {value: 5, label: 'Every five days'},
-    {value: 6, label: 'Every six days'},
-    {value: 7, label: 'Every week'},
-    {value: 10, label: 'Every ten days'},
-    {value: 14, label: 'Every two week'},
+  const [locationOptions] = useState([
+    {label: 'Living Room', value: 'Living Room'},
+    {label: 'Bedroom', value: 'Bedroom'},
+    {label: 'Kitchen', value: 'Kitchen'},
+    {label: 'Office', value: 'Office'},
+    {label: 'Bathroom', value: 'Bathroom'},
+    {label: 'Balcony / Terrace', value: 'Balcony / Terrace'},
+    {label: 'Hall', value: 'Hall'},
+    {label: 'Others', value: 'Others'},
   ]);
-  const [selectedWateringIntervalOption, setSelectedWateringIntervalOption] =
-    useState(description.waterInterval);
+  const [selectedLocationDropdownOption, setSelectedLocationDropdownOption] =
+    useState(null);
 
   // Close other picker when one is in used
   const onLastTimeWateredDropdownOpen = useCallback(() => {
     setOpenPreferredNotificationTimeDropdown(false);
-    setOpenWateringIntervalDropdown(false);
+    setOpenLocationDropdown(false);
   }, []);
 
   const onPreferredNotificationTimDropdownOpen = useCallback(() => {
     setOpenLastTimeWateredDropdown(false);
-    setOpenWateringIntervalDropdown(false);
+    setOpenLocationDropdown(false);
   }, []);
 
-  const onWateringIntervalDropdownOpen = useCallback(() => {
+  const onLocationDropdownOpen = useCallback(() => {
     setOpenLastTimeWateredDropdown(false);
     setOpenPreferredNotificationTimeDropdown(false);
   }, []);
@@ -86,11 +85,11 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
     setSelectedPreferredNotificationTimeDropdownOption,
     setOpenPreferredNotificationTimeDropdown,
 
-    wateringIntervalOptions,
-    openWateringIntervalDropdown,
-    selectedWateringIntervalOption,
-    onWateringIntervalDropdownOpen,
-    setSelectedWateringIntervalOption,
-    setOpenWateringIntervalDropdown,
+    locationOptions,
+    openLocationDropdown,
+    selectedLocationDropdownOption,
+    onLocationDropdownOpen,
+    setOpenLocationDropdown,
+    setSelectedLocationDropdownOption,
   };
 };

@@ -5,10 +5,10 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
 import Input from './shared/Input';
+import Button from './shared/Button';
 import {useNewUserPlantForm} from '../services/useNewUserPlantForm';
 import {useAppImagePicker} from './useAppImagePicker';
 import {uploadUrl} from '../utils/variables';
-import {Button, CheckBox} from '@rneui/themed';
 import {safeIntegerParse} from '../utils/safeIntegerParse';
 
 /** @type {import('../types/TypedComponents').UploadForm} */
@@ -35,12 +35,12 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
     setSelectedPreferredNotificationTimeDropdownOption,
     setOpenPreferredNotificationTimeDropdown,
 
-    wateringIntervalOptions,
-    openWateringIntervalDropdown,
-    selectedWateringIntervalOption,
-    onWateringIntervalDropdownOpen,
-    setSelectedWateringIntervalOption,
-    setOpenWateringIntervalDropdown,
+    locationOptions,
+    openLocationDropdown,
+    selectedLocationDropdownOption,
+    onLocationDropdownOpen,
+    setOpenLocationDropdown,
+    setSelectedLocationDropdownOption,
   } = useNewUserPlantForm({
     primaryPlant,
   });
@@ -50,14 +50,15 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
       selectedImage: selectedImage,
       title: title,
       description: {
-        waterInterval: safeIntegerParse(selectedWateringIntervalOption),
+        waterInterval: safeIntegerParse(primaryPlant.description.waterInterval),
         otherNames: primaryPlant.description.otherNames,
         cleaningInstruction: primaryPlant.description.cleaningInstruction,
         waterInstruction: primaryPlant.description.waterInstruction,
         fertilizerInstruction: primaryPlant.description.fertilizerInstruction,
-        location: '', //  TODO: Implement
-        difficulty: '', //  TODO: Implement
-        notificationTime: '', //  TODO: Implement
+        location: selectedLocationDropdownOption,
+        difficulty: primaryPlant.description.difficulty,
+        notificationTime: selectedPreferredNotificationTimeDropdownOption,
+        lastWater: safeIntegerParse(selectedLastTimeWateredDropdownOption),
       },
     });
   };
@@ -73,14 +74,29 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         Click here to choose your image
       </Text>
 
+      <Text style={styles.suggestion}>Re-name your plant here (optional)</Text>
       <Input
         defaultValue={title}
-        text="Name your plant (optional)"
+        // text="Name your plant (optional)"
         onChangeText={setTitle}
       />
 
       <DropDownPicker
         zIndex={4}
+        placeholder="Where is the plant located?"
+        open={openLocationDropdown}
+        value={selectedLocationDropdownOption}
+        items={locationOptions}
+        setOpen={setOpenLocationDropdown}
+        setValue={setSelectedLocationDropdownOption}
+        listMode="SCROLLVIEW"
+        onOpen={onLocationDropdownOpen}
+        containerStyle={styles.picker}
+        textStyle={styles.textPicker}
+        selectedItemLabelStyle={{fontWeight: 'bold'}}
+      />
+      <DropDownPicker
+        zIndex={3}
         open={openLastTimeWateredDropdown}
         onOpen={onLastTimeWateredDropdownOpen}
         value={selectedLastTimeWateredDropdownOption}
@@ -93,20 +109,7 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         textStyle={styles.textPicker}
         selectedItemLabelStyle={{fontWeight: 'bold'}}
       />
-      <DropDownPicker
-        zIndex={3}
-        placeholder="Watering preferences"
-        open={openWateringIntervalDropdown}
-        value={selectedWateringIntervalOption}
-        items={wateringIntervalOptions}
-        setOpen={setOpenWateringIntervalDropdown}
-        setValue={setSelectedWateringIntervalOption}
-        listMode="SCROLLVIEW"
-        onOpen={onWateringIntervalDropdownOpen}
-        containerStyle={styles.picker}
-        textStyle={styles.textPicker}
-        selectedItemLabelStyle={{fontWeight: 'bold'}}
-      />
+
       <DropDownPicker
         zIndex={2}
         placeholder="Notification time preferences"
@@ -121,27 +124,22 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         textStyle={styles.textPicker}
         selectedItemLabelStyle={{fontWeight: 'bold'}}
       />
-      <CheckBox
+      {/* <CheckBox
         title="Send the notification as groups"
         onPress={() => {}}
         checked
-      />
+      /> */}
       <View style={styles.buttonWrapper}>
         <Button
-          style={styles.actionButton}
-          title="Save"
+          text="Save"
           onPress={handlerSubmit}
           disabled={
             !selectedLastTimeWateredDropdownOption ||
-            !selectedPreferredNotificationTimeDropdownOption ||
-            !selectedWateringIntervalOption
+            !selectedLocationDropdownOption ||
+            !selectedPreferredNotificationTimeDropdownOption
           }
         />
-        <Button
-          style={styles.actionButton}
-          title="Cancel"
-          onPress={cancelSubmit}
-        />
+        <Button text="Cancel" onPress={cancelSubmit} disabled={false} />
       </View>
     </View>
   );
@@ -181,13 +179,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: colors.primary700,
   },
-
   text: {
     fontSize: fontSizes.md,
     color: colors.primary700,
     alignSelf: 'center',
     marginTop: spacing.lg,
     marginBottom: spacing.lg,
+  },
+  suggestion: {
+    fontSize: fontSizes.md,
+    color: colors.primary700,
+    alignSelf: 'center',
   },
   picker: {
     height: spacing.xxl,

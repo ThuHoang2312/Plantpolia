@@ -1,602 +1,602 @@
 [
-    {
-        "filename": "plantpolia_primary_0.jpg",
-        "title": "String Of Pearls",
-        "description": {
-            "level": "Hard",
-            "waterInterval": "18",
-            "liquidFertilizing": "Never",
-            "waterInstruction": "Like other succulents, String of Pearls requires little water. If your String of Pearls gets too much water, it can develop root rot, which is often fatal to the plant.",
-            "clean": "Never",
-            "otherNames": "Curio rowleyanus"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_1.jpg",
-        "title": "Fiddle Leaf Fig",
-        "description": {
-            "level": "Hard",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fetilize every 25th day",
-            "waterInstruction": "The top soil should be dry before watering again. If the soil is still moist, you risk giving the plant too much water and it can rot.",
-            "clean": "Clean leaves every third month",
-            "otherNames": "Ficus lyrata, Banjo Fig"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_2.jpg",
-        "title": "Aloe Vera",
-        "description": {
-            "clean": "Never",
-            "level": "Easy",
-            "liquidFertilizing": "Never",
-            "otherNames": "Medicinal Aloe, Barbados Aloe",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Aloe too much water which can make it start to rot.",
-            "waterInterval": "18"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_3.jpg",
-        "title": "Snake Plant",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Easy",
-            "liquidFertilizing": "Never",
-            "otherNames": "Dracaena trifasciata",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your snake plant too much water which can make it start to rot.",
-            "waterInterval": "18"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_4.jpg",
-        "title": "Monstera",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Easy",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Monstera deliciosa, Swiss Cheese",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving the Monstera more water.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_5.jpg",
-        "title": "Areca Palm",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Easy",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Dypsis lutescens, Bamboo Palm, Golden Cane Palm",
-            "waterInstruction": "Feel the soil: it can be slightly dry to a bit moist but not wet when watering it again. Squeeze a bit of soil between your fingers, if water seeps out its still wet.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_6.jpg",
-        "title": "Philodendron",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Easy",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Philodendron hederaceum, Sweetheart vine",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your philodendron more water.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_7.jpg",
-        "title": "Alocasia x",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Hard",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "African Mask, Jewel Alocasia",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving the plant too much water and it can rot.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_8.jpg",
-        "title": "Spineless Yucca",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Easy",
-            "liquidFertilizing": "Never",
-            "otherNames": "Yucca gigantea, Giant yucca",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil still is moist, you risk giving the plant too much water and it can rot.",
-            "waterInterval": "18"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_9.jpg",
-        "title": "White Bird Of Paradise",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Hard",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Strelitzia Nicola ",
-            "waterInstruction": "Strelitzia likes moisture but doesn’t want to stay wet during a long time so it can actually needs a soil that drains well and can withhold water at the same time. It’s also important that it’s planted in a pot with drainage holes. If  all this is done properly but it still doesn’t dry up: make sure that it gets enough light ( at least 6 hours of sunlight each day).",
-            "waterInterval": "9"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_10.jpg",
-        "title": "Cactus",
-        "description": {
-            "clean": "Never",
-            "level": "Easy",
-            "liquidFertilizing": "Never",
-            "otherNames": "Cactaceae",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Cactus too much water which can make it start to rot",
-            "waterInterval": "24"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_11.jpg",
-        "title": "Benjamin Fig",
-        "description": {
-            "clean": "Never",
-            "level": "Medium",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Ficus benjamina ‘Danielle’, Weeping fig",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Benjamin Fig too much water and it can rot.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_12.jpg",
-        "title": "Common Ivy",
-        "description": {
-            "clean": "Clean leaves every second month",
-            "level": "Hard",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Hedera helix",
-            "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Common Ivy again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet.",
-            "waterInterval": "9"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_13.jpg",
-        "title": "Dragon Tree",
-        "description": {
-            "clean": "Never",
-            "level": "Easy",
-            "liquidFertilizing": "Fertilize every 49th day",
-            "otherNames": "Dracaena reflexa var. angustifolia",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Dragon Tree more water. Dragon Tree are somewhat drought-tolerant, so you don't need to stress about them drying up a bit.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_14.jpg",
-        "title": "Spider Plant",
-        "description": {
-            "clean": "Never",
-            "level": "Easy",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Chlorophytum comosum ‘Bonnie’",
-            "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Spider Plant again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_15.jpg",
-        "title": "Thyme",
-        "description": {
-            "clean": "Never",
-            "level": "Medium",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Thymus vulgaris",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Thyme too much water which can make it start to rot",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_16.jpg",
-        "title": "Ficus ",
-        "description": {
-            "clean": "Never",
-            "level": "Hard",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Ficus microcarpa",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Ficus  more water. Ficus  are somewhat drought-tolerant, so you don't need to stress about them drying up a bit.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_17.jpg",
-        "title": "Guiana Chestnut",
-        "description": {
-            "clean": "Never",
-            "level": "Hard",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Pachira aquatica",
-            "waterInstruction": "Feel the soil: the top layer (about 2 inches) should be dry before giving your Guiana Chestnut more water",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_18.jpg",
-        "title": "Basil",
-        "description": {
-            "clean": "Never",
-            "level": "Medium",
-            "liquidFertilizing": "Fertilize every 12th day",
-            "otherNames": "Ocium basilicum",
-            "waterInstruction": "Basil really loves water and does not like to dry up! It's hard to overwater it, but even a water-loving plant can get too much water. Always feel the soil before watering - it should feel damp but not wet.",
-            "waterInterval": "6"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_19.jpg",
-        "title": "Silver Inch Plant",
-        "description": {
-            "clean": "Never",
-            "level": "Medium",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Tradescantia zebrina",
-            "waterInstruction": "Feel the soil: it should be a bit moist but not wet when watering your Silver Inch Plant again. Squeeze a bit of soil between your fingers - if water seeps out, it's still wet.",
-            "waterInterval": "6"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_20.jpg",
-        "title": "Monkey Mask",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Hard",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Monstera adansonii",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Monkey Mask more water. Monkey Mask are somewhat drought-tolerant, so you don't need to stress about them drying up a bit.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_21.jpg",
-        "title": "False Christmas Cactus",
-        "description": {
-            "clean": "Never",
-            "level": "Easy",
-            "liquidFertilizing": "Never",
-            "otherNames": "Schlumbergera truncata",
-            "waterInstruction": "Feel the soil: the top layer (about 2 inches) should be dry before giving your False Christmas Cactus more water",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_22.jpg",
-        "title": "Orchid",
-        "description": {
-            "clean": "Clean leaves every month",
-            "level": "Easy",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Phalaenopsis",
-            "waterInstruction": "Check the potting mix - if it looks dry and maybe a bit dusty, it might be time to water. You can also lift up the pot to check its weight, if it feels too light it's time to water your Orchid",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_23.jpg",
-        "title": "Money Plant",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Medium",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Pilea peperomioides",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Money Plant more water. Money Plant are somewhat drought-tolerant, so you don't need to stress about them drying up a bit.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_24.jpg",
-        "title": "Echeveria",
-        "description": {
-            "clean": "Never",
-            "level": "Easy",
-            "liquidFertilizing": "Never",
-            "otherNames": "Echeveria",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Echeveria too much water which can make it start to rot",
-            "waterInterval": "18"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_25.jpg",
-        "title": "Jade Plant",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Easy",
-            "liquidFertilizing": "Never",
-            "otherNames": "Crassula ovata, Friendship tree",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Jade Plant too much water which can make it start to rot",
-            "waterInterval": "18"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_26.jpg",
-        "title": "Candelabra Tree",
-        "description": {
-            "clean": "Never",
-            "level": "Easy",
-            "liquidFertilizing": "Never",
-            "otherNames": "Euphorbia ingens",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Candelabra Tree too much water which can make it start to rot",
-            "waterInterval": "24"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_27.jpg",
-        "title": "Coconut Palm",
-        "description": {
-            "clean": "Clean leaves every third month",
-            "level": "Hard",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "otherNames": "Cocos nucifera",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Coconut Palm too much water and it can rot.",
-            "waterInterval": "12"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_28.jpg",
-        "title": "Sword Fern",
-        "description": {
-            "otherNames": "Nephrolepis exaltata “Green Lady”",
-            "level": "Hard",
-            "waterInterval": "6",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Never",
-            "waterInstruction": "Sword Fern really loves water and does not like to dry up! It's hard to overwater it, but even a water-loving plant can get too much water. Always feel the soil before watering - it should feel damp but not wet."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_29.jpg",
-        "title": "Pincushion Peperomia",
-        "description": {
-            "otherNames": "Peperomia ferreyrae ‘Nevada’",
-            "level": "Medium",
-            "waterInterval": "25",
-            "liquidFertilizing": "Fertilize every 49th day",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Pincushion Peperomia too much water and it can rot."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_30.jpg",
-        "title": "Striped Dracaena",
-        "description": {
-            "otherNames": "Dracaena grahams ‘Janet Lind’",
-            "level": "Easy",
-            "waterInterval": "18",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Striped Dracaena more water. Striped Dracaena are somewhat drought-tolerant, so you don't need to stress about them drying up a bit."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_31.jpg",
-        "title": "Dwarf fiddle Leaf Fig",
-        "description": {
-            "otherNames": "Ficus lyrata ‘Bambino”",
-            "level": "Medium",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Clean leaves every third month",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Dwarf fiddle Leaf Fig too much water which can make it start to rot"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_32.jpg",
-        "title": "Lucky Bamboo",
-        "description": {
-            "otherNames": "Dracaena sanderiana",
-            "level": "Easy",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer (about 2 inches) should be dry before giving your Lucky Bamboo more water"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_33.jpg",
-        "title": "Cylinder Snake Plant",
-        "description": {
-            "otherNames": "Dracaena angolensis",
-            "level": "Easy",
-            "waterInterval": "18",
-            "liquidFertilizing": "Never",
-            "clean": "Clean leaves every third month",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Cylinder Snake Plant too much water which can make it start to rot"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_34.jpg",
-        "title": "Hyacinth",
-        "description": {
-            "otherNames": "Hyacinthus orientalis",
-            "level": "Medium",
-            "waterInterval": "12",
-            "liquidFertilizing": "Never",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Hyacinth too much water and it can rot."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_35.jpg",
-        "title": "Monterey Cypress",
-        "description": {
-            "otherNames": "Cupressus macrocarpa “Goldcrest”",
-            "level": "Medium",
-            "waterInterval": "6",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Never",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Monterey Cypress too much water which can make it start to rot"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_36.jpg",
-        "title": "Evergreen",
-        "description": {
-            "otherNames": "Aglaonema",
-            "level": "Easy",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Clean leaves every third month",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Evergreen too much water and it can rot."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_37.jpg",
-        "title": "Hardy chrysanthemum",
-        "description": {
-            "otherNames": "Chrysanthemum x morifolium",
-            "level": "Medium",
-            "waterInterval": "30",
-            "liquidFertilizing": "Change depend on season",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Hardy chrysanthemum too much water and it can rot."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_38.jpg",
-        "title": "Flamingo Flower",
-        "description": {
-            "otherNames": "Anthurium scherzerianum",
-            "level": "Medium",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Flamingo Flower more water. Flamingo Flower are somewhat drought-tolerant, so you don't need to stress about them drying up a bit."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_39.jpg",
-        "title": "Rubber Plant",
-        "description": {
-            "otherNames": "Ficus elastics “Abidjan”",
-            "level": "Easy",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fertilize every 49th day",
-            "clean": "Clean leaves every third month",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Rubber Plant too much water which can make it start to rot"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_40.jpg",
-        "title": "Citrus",
-        "description": {
-            "otherNames": "Citrus x microcarpa",
-            "level": "Hard",
-            "waterInterval": "30",
-            "liquidFertilizing": "Change depend on season",
-            "clean": "Clean leaves every Change depend on season month",
-            "waterInstruction": "Citrus love water and do not like to dry out completely. Feel the top soil: it can be slightly dry to a bit moist, but not wet, when watering it again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet. The only time they don't want a lot of water is in winter if they are being overwintered, you should then let the soil dry out slightly before watering again."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_41.jpg",
-        "title": "Pineapple",
-        "description": {
-            "otherNames": "Ananas comosus",
-            "level": "Medium",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inches) should be dry before giving your Pineapple more water. You should also check the rosette/center of the plant, it should always have at least a little water in it."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_42.jpg",
-        "title": "Cast Iron Plant",
-        "description": {
-            "otherNames": "Aspidistra elatior",
-            "level": "Easy",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Cast Iron Plant too much water and it can rot."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_43.jpg",
-        "title": "Fishtail Palm",
-        "description": {
-            "otherNames": "Caryota mitis",
-            "level": "Medium",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Clean leaves every third month",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Fishtail Palm too much water and it can rot."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_44.jpg",
-        "title": "Pickle plant",
-        "description": {
-            "otherNames": "Delosperma echinatum, Ice plant",
-            "level": "Easy",
-            "waterInterval": "25",
-            "liquidFertilizing": "Fertilize every 49th day",
-            "clean": "Never",
-            "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Pickle plant too much water which can make it start to rot"
-        }
-    },
-    {
-        "filename": "plantpolia_primary_45.jpg",
-        "title": "Banana plant",
-        "description": {
-            "otherNames": "Musa ‘Tropicana’",
-            "level": "Medium",
-            "waterInterval": "6",
-            "liquidFertilizing": "Fertilize every 12th day",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Banana plant again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_46.jpg",
-        "title": "Poinsettia",
-        "description": {
-            "otherNames": "Euphorbia pulcherrima",
-            "level": "Medium",
-            "waterInterval": "9",
-            "liquidFertilizing": "Never",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Poinsettia again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_47.jpg",
-        "title": "Guzmania",
-        "description": {
-            "otherNames": "Guzmania",
-            "level": "Easy",
-            "waterInterval": "12",
-            "liquidFertilizing": "Fertilize every 25th day",
-            "clean": "Clean leaves every third month",
-            "waterInstruction": "Feel the soil: the top layer (about 1 inches) should be dry before giving your Guzmania more water. You should also check the rosette/center of the plant, it should always have at least a little water in it."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_48.jpg",
-        "title": "Hydrangea",
-        "description": {
-            "otherNames": "Hydrangea macrophylla",
-            "level": "Medium",
-            "waterInterval": "28",
-            "liquidFertilizing": "Change depend on season",
-            "clean": "Never",
-            "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Hydrangea again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet."
-        }
-    },
-    {
-        "filename": "plantpolia_primary_49.jpg",
-        "title": "Golden polypody",
-        "description": {
-            "otherNames": "Phlebodium aurerum",
-            "level": "Hard",
-            "waterInterval": "12",
-            "liquidFertilizing": "Never",
-            "clean": "Never",
-            "waterInstruction": "Golden polypody love water and do not like to dry out completely. Feel the top soil: it can be slightly dry to a bit moist, but not wet, when watering it again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet. The only time they don't want a lot of water is in winter if they are being overwintered, you should then let the soil dry out slightly before watering again."
-        }
+  {
+    "filename": "plantpolia_primary_0.jpg",
+    "title": "String Of Pearls",
+    "description": {
+      "difficulty": "Hard",
+      "waterInterval": 18,
+      "fertilizerInstruction": "Never",
+      "waterInstruction": "Like other succulents, String of Pearls requires little water. If your String of Pearls gets too much water, it can develop root rot, which is often fatal to the plant.",
+      "cleaningInstruction": "Never",
+      "otherNames": "Curio rowleyanus"
     }
+  },
+  {
+    "filename": "plantpolia_primary_1.jpg",
+    "title": "Fiddle Leaf Fig",
+    "description": {
+      "difficulty": "Hard",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fetilize every 25th day",
+      "waterInstruction": "The top soil should be dry before watering again. If the soil is still moist, you risk giving the plant too much water and it can rot.",
+      "cleaningInstruction": "Clean leaves every third month",
+      "otherNames": "Ficus lyrata, Banjo Fig"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_2.jpg",
+    "title": "Aloe Vera",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Never",
+      "otherNames": "Medicinal Aloe, Barbados Aloe",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Aloe too much water which can make it start to rot.",
+      "waterInterval": "18"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_3.jpg",
+    "title": "Snake Plant",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Never",
+      "otherNames": "Dracaena trifasciata",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your snake plant too much water which can make it start to rot.",
+      "waterInterval": "18"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_4.jpg",
+    "title": "Monstera",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Monstera deliciosa, Swiss Cheese",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving the Monstera more water.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_5.jpg",
+    "title": "Areca Palm",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Dypsis lutescens, Bamboo Palm, Golden Cane Palm",
+      "waterInstruction": "Feel the soil: it can be slightly dry to a bit moist but not wet when watering it again. Squeeze a bit of soil between your fingers, if water seeps out its still wet.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_6.jpg",
+    "title": "Philodendron",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Philodendron hederaceum, Sweetheart vine",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your philodendron more water.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_7.jpg",
+    "title": "Alocasia x",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Hard",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "African Mask, Jewel Alocasia",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving the plant too much water and it can rot.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_8.jpg",
+    "title": "Spineless Yucca",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Never",
+      "otherNames": "Yucca gigantea, Giant yucca",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil still is moist, you risk giving the plant too much water and it can rot.",
+      "waterInterval": "18"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_9.jpg",
+    "title": "White Bird Of Paradise",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Hard",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Strelitzia Nicola ",
+      "waterInstruction": "Strelitzia likes moisture but doesn’t want to stay wet during a long time so it can actually needs a soil that drains well and can withhold water at the same time. It’s also important that it’s planted in a pot with drainage holes. If  all this is done properly but it still doesn’t dry up: make sure that it gets enough light ( at least 6 hours of sunlight each day).",
+      "waterInterval": "9"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_10.jpg",
+    "title": "Cactus",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Never",
+      "otherNames": "Cactaceae",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Cactus too much water which can make it start to rot",
+      "waterInterval": "24"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_11.jpg",
+    "title": "Benjamin Fig",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Medium",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Ficus benjamina ‘Danielle’, Weeping fig",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Benjamin Fig too much water and it can rot.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_12.jpg",
+    "title": "Common Ivy",
+    "description": {
+      "cleaningInstruction": "Clean leaves every second month",
+      "difficulty": "Hard",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Hedera helix",
+      "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Common Ivy again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet.",
+      "waterInterval": "9"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_13.jpg",
+    "title": "Dragon Tree",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Fertilize every 49th day",
+      "otherNames": "Dracaena reflexa var. angustifolia",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Dragon Tree more water. Dragon Tree are somewhat drought-tolerant, so you don't need to stress about them drying up a bit.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_14.jpg",
+    "title": "Spider Plant",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Chlorophytum comosum ‘Bonnie’",
+      "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Spider Plant again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_15.jpg",
+    "title": "Thyme",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Medium",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Thymus vulgaris",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Thyme too much water which can make it start to rot",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_16.jpg",
+    "title": "Ficus ",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Hard",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Ficus microcarpa",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Ficus  more water. Ficus  are somewhat drought-tolerant, so you don't need to stress about them drying up a bit.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_17.jpg",
+    "title": "Guiana Chestnut",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Hard",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Pachira aquatica",
+      "waterInstruction": "Feel the soil: the top layer (about 2 inches) should be dry before giving your Guiana Chestnut more water",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_18.jpg",
+    "title": "Basil",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Medium",
+      "fertilizerInstruction": "Fertilize every 12th day",
+      "otherNames": "Ocium basilicum",
+      "waterInstruction": "Basil really loves water and does not like to dry up! It's hard to overwater it, but even a water-loving plant can get too much water. Always feel the soil before watering - it should feel damp but not wet.",
+      "waterInterval": "6"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_19.jpg",
+    "title": "Silver Inch Plant",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Medium",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Tradescantia zebrina",
+      "waterInstruction": "Feel the soil: it should be a bit moist but not wet when watering your Silver Inch Plant again. Squeeze a bit of soil between your fingers - if water seeps out, it's still wet.",
+      "waterInterval": "6"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_20.jpg",
+    "title": "Monkey Mask",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Hard",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Monstera adansonii",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Monkey Mask more water. Monkey Mask are somewhat drought-tolerant, so you don't need to stress about them drying up a bit.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_21.jpg",
+    "title": "False Christmas Cactus",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Never",
+      "otherNames": "Schlumbergera truncata",
+      "waterInstruction": "Feel the soil: the top layer (about 2 inches) should be dry before giving your False Christmas Cactus more water",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_22.jpg",
+    "title": "Orchid",
+    "description": {
+      "cleaningInstruction": "Clean leaves every month",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Phalaenopsis",
+      "waterInstruction": "Check the potting mix - if it looks dry and maybe a bit dusty, it might be time to water. You can also lift up the pot to check its weight, if it feels too light it's time to water your Orchid",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_23.jpg",
+    "title": "Money Plant",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Medium",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Pilea peperomioides",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Money Plant more water. Money Plant are somewhat drought-tolerant, so you don't need to stress about them drying up a bit.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_24.jpg",
+    "title": "Echeveria",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Never",
+      "otherNames": "Echeveria",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Echeveria too much water which can make it start to rot",
+      "waterInterval": "18"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_25.jpg",
+    "title": "Jade Plant",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Never",
+      "otherNames": "Crassula ovata, Friendship tree",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Jade Plant too much water which can make it start to rot",
+      "waterInterval": "18"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_26.jpg",
+    "title": "Candelabra Tree",
+    "description": {
+      "cleaningInstruction": "Never",
+      "difficulty": "Easy",
+      "fertilizerInstruction": "Never",
+      "otherNames": "Euphorbia ingens",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Candelabra Tree too much water which can make it start to rot",
+      "waterInterval": "24"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_27.jpg",
+    "title": "Coconut Palm",
+    "description": {
+      "cleaningInstruction": "Clean leaves every third month",
+      "difficulty": "Hard",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "otherNames": "Cocos nucifera",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Coconut Palm too much water and it can rot.",
+      "waterInterval": "12"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_28.jpg",
+    "title": "Sword Fern",
+    "description": {
+      "otherNames": "Nephrolepis exaltata “Green Lady”",
+      "difficulty": "Hard",
+      "waterInterval": "6",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Sword Fern really loves water and does not like to dry up! It's hard to overwater it, but even a water-loving plant can get too much water. Always feel the soil before watering - it should feel damp but not wet."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_29.jpg",
+    "title": "Pincushion Peperomia",
+    "description": {
+      "otherNames": "Peperomia ferreyrae ‘Nevada’",
+      "difficulty": "Medium",
+      "waterInterval": "25",
+      "fertilizerInstruction": "Fertilize every 49th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Pincushion Peperomia too much water and it can rot."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_30.jpg",
+    "title": "Striped Dracaena",
+    "description": {
+      "otherNames": "Dracaena grahams ‘Janet Lind’",
+      "difficulty": "Easy",
+      "waterInterval": "18",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Striped Dracaena more water. Striped Dracaena are somewhat drought-tolerant, so you don't need to stress about them drying up a bit."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_31.jpg",
+    "title": "Dwarf fiddle Leaf Fig",
+    "description": {
+      "otherNames": "Ficus lyrata ‘Bambino”",
+      "difficulty": "Medium",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Clean leaves every third month",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Dwarf fiddle Leaf Fig too much water which can make it start to rot"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_32.jpg",
+    "title": "Lucky Bamboo",
+    "description": {
+      "otherNames": "Dracaena sanderiana",
+      "difficulty": "Easy",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer (about 2 inches) should be dry before giving your Lucky Bamboo more water"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_33.jpg",
+    "title": "Cylinder Snake Plant",
+    "description": {
+      "otherNames": "Dracaena angolensis",
+      "difficulty": "Easy",
+      "waterInterval": "18",
+      "fertilizerInstruction": "Never",
+      "cleaningInstruction": "Clean leaves every third month",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Cylinder Snake Plant too much water which can make it start to rot"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_34.jpg",
+    "title": "Hyacinth",
+    "description": {
+      "otherNames": "Hyacinthus orientalis",
+      "difficulty": "Medium",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Never",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Hyacinth too much water and it can rot."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_35.jpg",
+    "title": "Monterey Cypress",
+    "description": {
+      "otherNames": "Cupressus macrocarpa “Goldcrest”",
+      "difficulty": "Medium",
+      "waterInterval": "6",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Monterey Cypress too much water which can make it start to rot"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_36.jpg",
+    "title": "Evergreen",
+    "description": {
+      "otherNames": "Aglaonema",
+      "difficulty": "Easy",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Clean leaves every third month",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Evergreen too much water and it can rot."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_37.jpg",
+    "title": "Hardy chrysanthemum",
+    "description": {
+      "otherNames": "Chrysanthemum x morifolium",
+      "difficulty": "Medium",
+      "waterInterval": "30",
+      "fertilizerInstruction": "Change depend on season",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Hardy chrysanthemum too much water and it can rot."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_38.jpg",
+    "title": "Flamingo Flower",
+    "description": {
+      "otherNames": "Anthurium scherzerianum",
+      "difficulty": "Medium",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving your Flamingo Flower more water. Flamingo Flower are somewhat drought-tolerant, so you don't need to stress about them drying up a bit."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_39.jpg",
+    "title": "Rubber Plant",
+    "description": {
+      "otherNames": "Ficus elastics “Abidjan”",
+      "difficulty": "Easy",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fertilize every 49th day",
+      "cleaningInstruction": "Clean leaves every third month",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Rubber Plant too much water which can make it start to rot"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_40.jpg",
+    "title": "Citrus",
+    "description": {
+      "otherNames": "Citrus x microcarpa",
+      "difficulty": "Hard",
+      "waterInterval": "30",
+      "fertilizerInstruction": "Change depend on season",
+      "cleaningInstruction": "Clean leaves every Change depend on season month",
+      "waterInstruction": "Citrus love water and do not like to dry out completely. Feel the top soil: it can be slightly dry to a bit moist, but not wet, when watering it again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet. The only time they don't want a lot of water is in winter if they are being overwintered, you should then let the soil dry out slightly before watering again."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_41.jpg",
+    "title": "Pineapple",
+    "description": {
+      "otherNames": "Ananas comosus",
+      "difficulty": "Medium",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inches) should be dry before giving your Pineapple more water. You should also check the rosette/center of the plant, it should always have at least a little water in it."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_42.jpg",
+    "title": "Cast Iron Plant",
+    "description": {
+      "otherNames": "Aspidistra elatior",
+      "difficulty": "Easy",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Cast Iron Plant too much water and it can rot."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_43.jpg",
+    "title": "Fishtail Palm",
+    "description": {
+      "otherNames": "Caryota mitis",
+      "difficulty": "Medium",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Clean leaves every third month",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inch) should be dry before giving more water. If the soil is still wet, you risk giving your Fishtail Palm too much water and it can rot."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_44.jpg",
+    "title": "Pickle plant",
+    "description": {
+      "otherNames": "Delosperma echinatum, Ice plant",
+      "difficulty": "Easy",
+      "waterInterval": "25",
+      "fertilizerInstruction": "Fertilize every 49th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "All the soil should be dry before watering again. If the soil is still moist, you risk giving your Pickle plant too much water which can make it start to rot"
+    }
+  },
+  {
+    "filename": "plantpolia_primary_45.jpg",
+    "title": "Banana plant",
+    "description": {
+      "otherNames": "Musa ‘Tropicana’",
+      "difficulty": "Medium",
+      "waterInterval": "6",
+      "fertilizerInstruction": "Fertilize every 12th day",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Banana plant again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_46.jpg",
+    "title": "Poinsettia",
+    "description": {
+      "otherNames": "Euphorbia pulcherrima",
+      "difficulty": "Medium",
+      "waterInterval": "9",
+      "fertilizerInstruction": "Never",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Poinsettia again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_47.jpg",
+    "title": "Guzmania",
+    "description": {
+      "otherNames": "Guzmania",
+      "difficulty": "Easy",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Fertilize every 25th day",
+      "cleaningInstruction": "Clean leaves every third month",
+      "waterInstruction": "Feel the soil: the top layer (about 1 inches) should be dry before giving your Guzmania more water. You should also check the rosette/center of the plant, it should always have at least a little water in it."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_48.jpg",
+    "title": "Hydrangea",
+    "description": {
+      "otherNames": "Hydrangea macrophylla",
+      "difficulty": "Medium",
+      "waterInterval": "28",
+      "fertilizerInstruction": "Change depend on season",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Feel the soil: the top layer of soil can be slightly dry and the soil below should be a bit moist, but not wet, when watering your Hydrangea again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet."
+    }
+  },
+  {
+    "filename": "plantpolia_primary_49.jpg",
+    "title": "Golden polypody",
+    "description": {
+      "otherNames": "Phlebodium aurerum",
+      "difficulty": "Hard",
+      "waterInterval": "12",
+      "fertilizerInstruction": "Never",
+      "cleaningInstruction": "Never",
+      "waterInstruction": "Golden polypody love water and do not like to dry out completely. Feel the top soil: it can be slightly dry to a bit moist, but not wet, when watering it again. Squeeze a bit of soil between your fingers - if water seeps out it's still wet. The only time they don't want a lot of water is in winter if they are being overwintered, you should then let the soil dry out slightly before watering again."
+    }
+  }
 ]
