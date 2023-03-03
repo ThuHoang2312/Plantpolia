@@ -15,8 +15,13 @@ const AddPlant = ({navigation}) => {
 
   const {search} = useSearch();
 
-  const searchResult = primaryPlantList.filter((obj) =>
-    obj.title.toLowerCase().includes(search.value.toLowerCase())
+  // Search for plant by plant's name or plant's other names
+  const searchResult = primaryPlantList.filter(
+    (obj) =>
+      obj.title.toLowerCase().includes(search.value.toLowerCase()) ||
+      obj.description.otherNames
+        .toLowerCase()
+        .includes(search.value.toLowerCase())
   );
 
   searchResult.sort((a, b) => {
@@ -32,11 +37,6 @@ const AddPlant = ({navigation}) => {
 
     return 0;
   });
-
-  // searchResult.forEach((e) => {
-  //   console.log(`${e.title}`);
-  // });
-  // console.log(searchResult.length);
 
   // if (load) {
   //   return <LoadingOverlay />;
