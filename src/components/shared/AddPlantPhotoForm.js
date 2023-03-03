@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View, TextInput} from 'react-native';
 import PropTypes from 'prop-types';
 import {Controller, useForm} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
@@ -12,18 +12,11 @@ import {colors} from '../../utils/colors';
 import {createPlantPhotoTagName} from '../../utils/variables';
 
 export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
-  const {token, type, setType, setUpload, upload} = useContext(MainContext);
+  const {token, type, setType} = useContext(MainContext);
   const {postTag, postMedia} = useApi();
-  const [pickUri, setPickUri] = useState('defaultPhoto');
+  const [pickUri, setPickUri] = useState('');
   const [imageSelected, setImageSelected] = useState(false);
-
-  const {control, reset} = useForm({
-    defaultValues: {
-      title: title,
-      description: '',
-    },
-    mode: 'onChange',
-  });
+  const [notes, setNotes] = useState('');
 
   // pick image function
   const pickImage = async (id) => {
@@ -40,16 +33,22 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
         setType(result.type);
       }
     } catch (err) {
-      // TODO: set error handler
       console.log(err.message);
     }
   };
 
+  // Clear form
+  const onReset = () => {
+    setNotes('');
+    setPickUri('');
+    setImageSelected(!imageSelected);
+  };
+
   // // Submit request form
-  const onSubmit = async (data) => {
+  const onSubmit = async () => {
     const formData = new FormData();
-    formData.append('title', 'title');
-    formData.append('description', data.description);
+    formData.append('title', title);
+    formData.append('description', notes);
     const filename = pickUri.split('/').pop();
     let fileExtension = filename.split('.').pop();
     fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
@@ -72,10 +71,7 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
             {
               text: 'OK',
               onPress: () => {
-                setUpload(!upload);
-                // setImage(imageDefault);
-                setImageSelected(!imageSelected);
-                reset();
+                onReset();
                 closeForm(true);
               },
             },
@@ -92,38 +88,34 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
       <Text style={styles.text}>Add a picture of your plant</Text>
 
       <Card containerStyle={styles.card}>
-        {imageSelected ? (
-          <Card.Image
-            source={{uri: pickUri}}
-            style={styles.image}
-            onPress={pickImage}
-          />
-        ) : (
-          <Icon
-            name="image"
-            size={50}
-            type="font-awesome"
-            color={colors.primary800}
-            onPress={pickImage}
-          />
-        )}
+        <Icon
+          name="image"
+          size={50}
+          type="font-awesome"
+          color={colors.primary800}
+          onPress={pickImage}
+        />
       </Card>
 
       <Text style={styles.text}>Note (Optional)</Text>
-      <Controller
-        control={control}
-        render={({field: {onChange, onBlur, value}}) => (
-          <Input
-            style={styles.input}
-            onChangeText={onChange}
-            value={value}
-            autoCapitalize="none"
-          />
-        )}
-        name="description"
+
+      <TextInput
+        autoCapitalize="none"
+        style={styles.input}
+        onChangeText={setNotes}
+        value={notes}
+        placeholder="Notes"
+        multiline={true}
+        numberOfLines={5}
       />
 
-      <Button text="Submit" onPress={onSubmit} disabled={!imageSelected} />
+      <Button
+        text="Submit"
+        onPress={onSubmit}
+        disabled={!imageSelected || !notes}
+      />
+
+      <Button text="Reset" onPress={onReset} disabled={false} />
     </View>
   );
 };
@@ -151,18 +143,10 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   input: {
-    marginVertical: spacing.md,
-    fontSize: fontSizes.md,
-    color: colors.primary700,
-    padding: spacing.sm,
     backgroundColor: colors.primary50,
-    borderRadius: spacing.sm,
-    height: spacing.xxl,
-    width: '90%',
-    alignSelf: 'center',
-    textAlign: 'center',
-    borderColor: colors.primary100,
-    borderWidth: spacing.sm / 4,
+    borderRadius: spacing.md,
+    padding: spacing.md,
+    fontSize: spacing.md,
   },
   card: {
     borderRadius: spacing.sm,
