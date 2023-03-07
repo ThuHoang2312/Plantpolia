@@ -1,10 +1,11 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext} from 'react';
 import PropTypes from 'prop-types';
 import {useClock} from '../utils/useClock';
 import {usePrimaryPlantHooks} from '../hooks/usePrimaryPlantHooks';
 import {useUserPlantHooks} from '../hooks/useUserPlantHooks';
 import {useNotification} from '../services/useNotification';
 import {useUserPlantWateringEvent} from '../hooks/useUserPlantWateringEvent';
+import {DAY_IN_MILLI_SECONDS} from '../utils/variables';
 
 /** @type {import('../types/TypedMainContext').MainContextReactContext} */
 export const MainContext = createContext(null);
@@ -45,36 +46,17 @@ export const MainProvider = ({
     defaultWateringEventList,
   });
 
-  const [lastWater, setLastWater] = useState('');
-  const [notificationTime, setNotificationTime] = useState('');
-  const [location, setLocation] = useState('');
-  const [image, setImage] = useState('');
-  const [type, setType] = useState('image');
-  const [upload, setUpload] = useState(false);
-
   const isExpired = !!accessToken && !!userProfile && expirationDate < date;
   const isLoggedIn = !isExpired && !!userProfile && !!accessToken;
 
   return (
     <MainContext.Provider
       value={{
-        ACCESS_TOKEN_AGE_IN_MS: 86_400_000, //  One Day
+        ACCESS_TOKEN_AGE_IN_MS: DAY_IN_MILLI_SECONDS, //  One Day
         isLoggedIn,
         isExpired,
         user: userProfile,
         setUser: setUserProfile,
-        lastWater,
-        setLastWater,
-        notificationTime,
-        setNotificationTime,
-        location,
-        setLocation,
-        image,
-        setImage,
-        upload,
-        setUpload,
-        type,
-        setType,
         token: accessToken,
         setToken: setAccessToken,
         expirationDate,

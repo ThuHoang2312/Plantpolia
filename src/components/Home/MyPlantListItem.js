@@ -1,11 +1,10 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View} from 'react-native';
 import {Avatar, Chip, ListItem as RNEListItem} from '@rneui/themed';
 import {fontFamily, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
-import {MainContext} from '../../contexts/MainContext';
 
 /** @type {import('../../types/TypedComponents').MyPlantListItem} */
 export const MyPlantListItem = ({
@@ -18,7 +17,6 @@ export const MyPlantListItem = ({
   // console.log('PLANT LIST ITEM:', plant);
   const imageUrl = plant.thumbnails.w160;
   const description = plant.description;
-  const {setImage, setUpload} = useContext(MainContext);
 
   /** @type {import('../../types/BaseModels').ChipModelList} */
   const chips = [
@@ -43,8 +41,6 @@ export const MyPlantListItem = ({
     <RNEListItem
       style={{marginVertical: spacing.md}}
       onPress={() => {
-        setImage(uploadUrl + imageUrl);
-        setUpload(false);
         navigation.navigate('PlantDetail', {plant: plant});
       }}
     >

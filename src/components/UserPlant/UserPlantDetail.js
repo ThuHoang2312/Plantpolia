@@ -1,22 +1,20 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
-import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
 import {fontSizes, spacing} from '../../utils/sizes';
 import Button from '../shared/Button';
 import PlantOverview from './PlantOverview';
 import PlantPhotoList from './PlantPhotoList';
 import {ConfigOverlay} from './ConfigOverlay';
+import {uploadUrl} from '../../utils/variables';
 
 const UserPlantDetail = ({plant, navigation}) => {
   // Get plant's description and its file id
   const description = plant.description;
   const plantId = plant.file_id;
-  // console.log(plantId);
-  const {image} = useContext(MainContext);
 
   // State to store user's choice on tab
   const [isOverview, setIsOverView] = useState(false);
@@ -42,7 +40,7 @@ const UserPlantDetail = ({plant, navigation}) => {
           <View style={styles.imageContainer}>
             <Image
               style={styles.image}
-              source={{uri: image}}
+              source={{uri: uploadUrl + plant.thumbnails.w640}}
               blurRadius={0.1}
             />
             <Text style={styles.title}>{plant.title}</Text>

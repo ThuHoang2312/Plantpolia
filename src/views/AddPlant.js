@@ -7,11 +7,10 @@ import {useSearch} from '../services/useSearch';
 import {SearchBar} from '@rneui/themed';
 import PlantNotFound from '../components/shared/PlantNotFound';
 import PlantListItem from '../components/shared/PlantListItem';
-import {uploadUrl} from '../utils/variables';
 import React from 'react';
 
 const AddPlant = ({navigation}) => {
-  const {primaryPlantList, setImage, setUpload} = useMainContext();
+  const {primaryPlantList} = useMainContext();
 
   const {search} = useSearch();
 
@@ -67,8 +66,6 @@ const AddPlant = ({navigation}) => {
               imageUrl={item.thumbnails.w160}
               title={item.title}
               onPress={() => {
-                setImage(`${uploadUrl}${item.thumbnails.w160}`);
-                setUpload(false);
                 navigation.navigate('Upload', {primaryPlant: item});
               }}
             />

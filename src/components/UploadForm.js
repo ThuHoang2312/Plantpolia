@@ -13,7 +13,7 @@ import {safeIntegerParse} from '../utils/safeIntegerParse';
 
 /** @type {import('../types/TypedComponents').UploadForm} */
 const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
-  const {pickImage, selectedImage} = useAppImagePicker({
+  const {pickImage, selectedImage, selectedImageFile} = useAppImagePicker({
     uri: uploadUrl + primaryPlant.thumbnails.w640,
   });
 
@@ -47,7 +47,8 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
 
   const handlerSubmit = () => {
     onSubmit({
-      selectedImage: selectedImage,
+      lastWater: safeIntegerParse(selectedLastTimeWateredDropdownOption),
+      selectedImageFile: selectedImageFile,
       title: title,
       description: {
         waterInterval: safeIntegerParse(primaryPlant.description.waterInterval),
@@ -58,7 +59,6 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         location: selectedLocationDropdownOption,
         difficulty: primaryPlant.description.difficulty,
         notificationTime: selectedPreferredNotificationTimeDropdownOption,
-        lastWater: safeIntegerParse(selectedLastTimeWateredDropdownOption),
       },
     });
   };

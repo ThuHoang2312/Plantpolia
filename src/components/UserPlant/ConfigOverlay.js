@@ -10,6 +10,7 @@ import {MainContext} from '../../contexts/MainContext';
 import {IconButton} from 'react-native-paper';
 import {useApi} from '../../hooks/ApiHooks';
 import {useConfigForm} from '../../services/useConfigForm';
+import {uploadUrl} from '../../utils/variables';
 
 export const ConfigOverlay = ({
   name,
@@ -32,8 +33,7 @@ export const ConfigOverlay = ({
   } = useConfigForm();
   // console.log(title);
 
-  const {image, token, setUserPlantListNeedsHydration} =
-    useContext(MainContext);
+  const {token, setUserPlantListNeedsHydration} = useContext(MainContext);
 
   const {deleteMedia, putMedia} = useApi();
   // Condition to check for disable button
@@ -60,7 +60,6 @@ export const ConfigOverlay = ({
         waterInstruction: description.waterInstruction,
         cleaningInstruction: description.cleaningInstruction,
         fertilizerInstruction: description.fertilizerInstruction,
-        lastWater: description.lastWater,
       },
     };
 
@@ -133,7 +132,10 @@ export const ConfigOverlay = ({
         />
         <Text style={styles.title}>Modify plant information</Text>
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{uri: image}} />
+          <Image
+            style={styles.image}
+            source={{uri: uploadUrl + plant?.thumbnails?.w640}}
+          />
         </View>
         <Text style={styles.text}>Current name: {name}</Text>
         <Input text="Re-name your plant (optional)" onChangeText={setTitle} />

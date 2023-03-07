@@ -1,5 +1,4 @@
-import {useContext, useState} from 'react';
-import {MainContext} from '../contexts/MainContext';
+import {useState} from 'react';
 
 export const useConfigForm = () => {
   // Name of plant
@@ -7,7 +6,7 @@ export const useConfigForm = () => {
 
   // Picker open states
   const [openPlantLocation, setOpenPlantLocation] = useState(false);
-  const {location, setLocation} = useContext(MainContext);
+  const [location, setLocation] = useState(null);
 
   // Picker items
 
@@ -31,6 +30,6 @@ export const useConfigForm = () => {
     openPlantLocation,
     setOpenPlantLocation,
     location,
-    setLocation,
+    setLocation: setLocation,
   };
 };

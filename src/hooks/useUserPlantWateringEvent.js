@@ -1,7 +1,11 @@
 import {useEffect, useState} from 'react';
-import {userPlantWateringEventName} from '../utils/variables';
+import {
+  DAY_IN_MILLI_SECONDS,
+  userPlantWateringEventName,
+} from '../utils/variables';
 import {useApi} from './ApiHooks';
 import {useLogger} from '../services/useLogger';
+import {safeIntegerParse} from '../utils/safeIntegerParse';
 
 /** @type {import('../types/TypedHooks').UseUserPlantWateringEvent} */
 export const useUserPlantWateringEvent = ({
@@ -56,7 +60,9 @@ export const fetchMediaListComments = async ({
         log(err);
       }
       return (items ?? [])
-        .filter((item) => item && item.comment === userPlantWateringEventName)
+        .filter(
+          (item) => item && item.comment.startsWith(userPlantWateringEventName)
+        )
         .map((item) => {
           return {
             ...item,
@@ -74,19 +80,26 @@ export const checkPlantWaterNeed = ({plantWateringEvents, waterInterval}) => {
   if (plantWateringEvents.length === 0) {
     return true;
   }
-  const sortedPlantWateringEvents = plantWateringEvents.sort(
-    (a, b) => a.time_added.getTime() - b.time_added.getTime()
-  );
+  const sortedPlantWateringEvents = plantWateringEvents.sort((a, b) => {
+    const aDate = a.comment.split('.').reverse()[0];
+    const bDate = b.comment.split('.').reverse()[0];
+    return safeIntegerParse(aDate) - safeIntegerParse(bDate);
+  });
 
   const lastWateringEvent =
     sortedPlantWateringEvents[plantWateringEvents.length - 1];
 
   const nowInMilliseconds = Date.now();
 
-  const lastWateringEventTimeInMilliseconds =
-    lastWateringEvent.time_added.getTime();
+  const lastWateringEventTime = lastWateringEvent.comment
+    .split('.')
+    .reverse()[0];
 
-  const waterIntervalInMilliseconds = 86_400_000 * waterInterval;
+  const lastWateringEventTimeInMilliseconds = safeIntegerParse(
+    lastWateringEventTime
+  );
+
+  const waterIntervalInMilliseconds = DAY_IN_MILLI_SECONDS * waterInterval;
 
   return (
     lastWateringEventTimeInMilliseconds <

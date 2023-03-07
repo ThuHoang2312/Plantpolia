@@ -3,15 +3,26 @@ import PropTypes from 'prop-types';
 import {ScrollView} from 'react-native';
 import UploadForm from '../components/UploadForm';
 import {MainContext} from '../contexts/MainContext';
-import {userPlantTagName} from '../utils/variables';
+import {
+  createPlantWateringEventName,
+  DAY_IN_MILLI_SECONDS,
+  userPlantTagName,
+} from '../utils/variables';
 import {useApi} from '../hooks/ApiHooks';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
 import {useNotificationStatus} from '../services/useNotificationStatus';
+import {useLogger} from '../services/useLogger';
 
 const Upload = ({navigation, route}) => {
+  const {log} = useLogger('Upload');
+
   const [error, setError] = useState();
-  const {postTag, postMedia} = useApi();
-  const {token, setUserPlantListNeedsHydration} = useContext(MainContext);
+  const {postTag, postMedia, postCommentByMediaId} = useApi();
+  const {
+    token,
+    setUserPlantListNeedsHydration,
+    setWateringEventListNeedsHydration,
+  } = useContext(MainContext);
   const {
     canAskForNotificationPermission,
     isNotificationsGranted,
@@ -26,13 +37,8 @@ const Upload = ({navigation, route}) => {
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('description', addData);
-
-    formData.append('file', {
-      // @ts-ignore
-      name: data.selectedImage.fileName ?? 'image.jpg',
-      uri: data.selectedImage.uri,
-      type: data.selectedImage.type ?? 'image',
-    });
+    // @ts-ignore
+    formData.append('file', data.selectedImageFile);
 
     try {
       // console.log('token', token);
@@ -41,9 +47,29 @@ const Upload = ({navigation, route}) => {
         {file_id: response.file_id, tag: userPlantTagName},
         token
       );
-      //  TODO: Check if lastWater value is more than interval then it means that plant is thirsty.
-      //  TODO: If plant is not thirsty then create watering event (comment).
       setUserPlantListNeedsHydration(true);
+
+      const waterInterval = data.description.waterInterval;
+      const lastWater = data.lastWater;
+
+      if (waterInterval > lastWater) {
+        //  Example: If interval is 5 and last water is 2 then user needs to water it after three days.
+        //  Example: Create a watering event for 2 days ago
+        const [result, error] = await postCommentByMediaId(
+          response.file_id,
+          createPlantWateringEventName(
+            Date.now() - (waterInterval - lastWater) * DAY_IN_MILLI_SECONDS
+          ),
+          token
+        );
+        log({result, error});
+        setWateringEventListNeedsHydration(true);
+      }
+
+      if (waterInterval <= lastWater) {
+        //  If interval is 5 and last water is 7 then user needs to water it immediately
+        //  Todo: Create a immediate notification for the user
+      }
 
       setTimeout(() => {
         if (canAskForNotificationPermission && !isNotificationsGranted) {

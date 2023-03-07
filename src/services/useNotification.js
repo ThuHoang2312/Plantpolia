@@ -6,18 +6,15 @@ import {
   setNotificationHandler,
 } from 'expo-notifications';
 import {safeIntegerParse} from '../utils/safeIntegerParse';
-import {useEnv} from './useEnv';
 import {useLogger} from './useLogger';
 import {useNotificationStatus} from './useNotificationStatus';
+import {DAY_IN_SECONDS} from '../utils/variables';
 
 /** @type {import('../types/TypedHooks').UseNotification} */
 export const useNotification = ({userPlantList}) => {
   const {log} = useLogger('useNotification');
   const {isNotificationsGranted, notificationStatusLoaded} =
     useNotificationStatus();
-
-  const {isDevice} = useEnv();
-  const DAY_IN_SECONDS = 86_400;
 
   const generateNotificationTitle = useCallback((plantName) => {
     return `Your plant "${plantName}" is feeling thirsty. Don't forget to water it to keep it healthy and happy!`;
@@ -35,11 +32,6 @@ export const useNotification = ({userPlantList}) => {
 
   useEffect(() => {
     (async () => {
-      if (!isDevice) {
-        log(`Emulator found. Skipping notification scheduling.`);
-        return;
-      }
-
       if (!notificationStatusLoaded) {
         log(`Waiting for notification status to load.`);
         return;
@@ -52,8 +44,12 @@ export const useNotification = ({userPlantList}) => {
 
       {
         const allNotifications = await getAllScheduledNotificationsAsync();
+        const repeatedNotifications = allNotifications.filter(
+          // @ts-ignore
+          (notification) => notification.trigger.repeats
+        );
         //  Delete notifications that plant does not exist anymore or has changed.
-        for (const notification of allNotifications) {
+        for (const notification of repeatedNotifications) {
           const userPlant = userPlantList.find((plantListItem) => {
             return plantListItem.file_id.toString() === notification.identifier;
           });
