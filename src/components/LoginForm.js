@@ -8,8 +8,14 @@ import {colors} from '../utils/colors';
 import {applicationPrefixId} from '../utils/variables';
 
 const LoginForm = (props) => {
-  const {setUser, setToken, setExpirationDate, ACCESS_TOKEN_AGE_IN_MS} =
-    React.useContext(MainContext);
+  const {
+    setUser,
+    setToken,
+    setExpirationDate,
+    ACCESS_TOKEN_AGE_IN_MS,
+    setUserPlantListNeedsHydration,
+    setWateringEventListNeedsHydration,
+  } = React.useContext(MainContext);
   const {postLogin} = useApi();
   const {
     control,
@@ -27,6 +33,8 @@ const LoginForm = (props) => {
       setUser(loginResult.user);
       setToken(loginResult.token);
       setExpirationDate(Date.now() + ACCESS_TOKEN_AGE_IN_MS); //  Token expires in 10 min ?
+      setUserPlantListNeedsHydration(true);
+      setWateringEventListNeedsHydration(true);
     } catch (error) {
       console.log('logIn', error);
       if (error == 'Error: Authentication failed due bad password') {
