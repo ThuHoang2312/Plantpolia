@@ -6,7 +6,6 @@ import {
   setNotificationHandler,
 } from 'expo-notifications';
 import {safeIntegerParse} from '../utils/safeIntegerParse';
-import {useEnv} from './useEnv';
 import {useLogger} from './useLogger';
 import {useNotificationStatus} from './useNotificationStatus';
 import {DAY_IN_SECONDS} from '../utils/variables';
@@ -16,8 +15,6 @@ export const useNotification = ({userPlantList}) => {
   const {log} = useLogger('useNotification');
   const {isNotificationsGranted, notificationStatusLoaded} =
     useNotificationStatus();
-
-  const {isDevice} = useEnv();
 
   const generateNotificationTitle = useCallback((plantName) => {
     return `Your plant "${plantName}" is feeling thirsty. Don't forget to water it to keep it healthy and happy!`;
