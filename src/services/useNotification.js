@@ -35,11 +35,6 @@ export const useNotification = ({userPlantList}) => {
 
   useEffect(() => {
     (async () => {
-      if (!isDevice) {
-        log(`Emulator found. Skipping notification scheduling.`);
-        return;
-      }
-
       if (!notificationStatusLoaded) {
         log(`Waiting for notification status to load.`);
         return;
