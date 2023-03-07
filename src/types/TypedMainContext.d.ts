@@ -59,19 +59,6 @@ export interface MainContextModel {
   /**
    * TODO: Write description.
    */
-  image: any;
-  /**
-   * TODO: Write description.
-   */
-  setImage: Dispatch<any>;
-  /**
-   * TODO: Write description.
-   */
-  upload: any;
-  setUpload: Dispatch<any>;
-  /**
-   * TODO: Write description.
-   */
   type: any;
   /**
    * TODO: Write description.

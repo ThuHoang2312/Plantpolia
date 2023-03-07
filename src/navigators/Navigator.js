@@ -42,7 +42,7 @@ const TabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Add Plant"
+        name="AddPlant"
         component={AddPlant}
         options={{
           tabBarIcon: () => (

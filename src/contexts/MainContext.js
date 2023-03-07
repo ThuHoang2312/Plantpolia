@@ -47,10 +47,7 @@ export const MainProvider = ({
   });
 
   const [notificationTime, setNotificationTime] = useState('');
-  const [location, setLocation] = useState('');
-  const [image, setImage] = useState('');
   const [type, setType] = useState('image');
-  const [upload, setUpload] = useState(false);
 
   const isExpired = !!accessToken && !!userProfile && expirationDate < date;
   const isLoggedIn = !isExpired && !!userProfile && !!accessToken;
@@ -65,12 +62,6 @@ export const MainProvider = ({
         setUser: setUserProfile,
         notificationTime,
         setNotificationTime,
-        location,
-        setLocation,
-        image,
-        setImage,
-        upload,
-        setUpload,
         type,
         setType,
         token: accessToken,

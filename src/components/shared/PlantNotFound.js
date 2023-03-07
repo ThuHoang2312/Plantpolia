@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
 import {Card, Icon, Overlay} from '@rneui/themed';
-import * as ImagePicker from 'expo-image-picker';
 import {Controller, useForm} from 'react-hook-form';
 import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
 import {fontSizes, spacing} from '../../utils/sizes';
@@ -11,29 +10,25 @@ import {MainContext} from '../../contexts/MainContext';
 import {useApi} from '../../hooks/ApiHooks';
 import {requestedPlantTagName} from '../../utils/variables';
 import {useRequestedPlantHooks} from '../../hooks/useRequestedPlantHooks';
+import {useAppImagePicker} from '../useAppImagePicker';
 
 const PlantNotFound = ({navigation, isUserList}) => {
   const [visible, setVisible] = useState(false);
-  const [imageSelected, setImageSelected] = useState(false);
+  const {pickImage, selectedImage, setSelectedImage} = useAppImagePicker(null);
 
-  const {token, image, setImage, type, setType, setUpload, upload} =
-    useContext(MainContext);
+  const {token} = useContext(MainContext);
 
   const {postTag, postMedia} = useApi();
 
   const {setRequestedPlantListNeedsHydration} = useRequestedPlantHooks();
   const toggleOverlay = () => {
-    setImageSelected(false);
     setVisible(!visible);
   };
-
-  // // Check default vaue:
-  // console.log('BeGINING IMAGE: ', image);
-  // console.log('BeGINING IMAGE SELECTED: ', imageSelected);
 
   const {
     control,
     formState: {errors},
+    reset,
   } = useForm({
     defaultValues: {
       scientificName: '',
@@ -42,39 +37,16 @@ const PlantNotFound = ({navigation, isUserList}) => {
     mode: 'onChange',
   });
 
-  // pick image function
-  const pickImage = async (id) => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        quality: 0.5,
-      });
-      if (!result.canceled) {
-        setImage(result.uri);
-        setImageSelected(true);
-        setType(result.type);
-        // Check Image after value:
-        console.log('AFTER PICK IMAGE: ', image);
-        console.log('AFTER PICK IMAGE SELECTED: ', imageSelected);
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-
   // // Submit request form
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append('title', 'title');
     formData.append('description', data.description);
-    const filename = image.split('/').pop();
-    let fileExtension = filename.split('.').pop();
-    fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
     formData.append('file', {
-      uri: image,
-      name: filename,
-      type: type + '/' + fileExtension,
+      // @ts-ignore
+      name: data.selectedImage?.fileName ?? 'image.jpg',
+      uri: data.selectedImage?.uri,
+      type: data.selectedImage?.type ?? 'image',
     });
     try {
       const response = await postMedia(formData, token);
@@ -82,14 +54,8 @@ const PlantNotFound = ({navigation, isUserList}) => {
         {file_id: response.file_id, tag: requestedPlantTagName},
         token
       );
-      setUpload(!upload);
       setRequestedPlantListNeedsHydration(true);
-      // setImage(imageDefault);
-      setImageSelected(!imageSelected);
 
-      // // AFTer submit vaue:
-      // console.log('AFTER SM IMAGE: ', image);
-      // console.log('AFTER SM IMAGE SELECTED: ', imageSelected);
       setTimeout(() => {
         tagResponse &&
           Alert.alert('Success', 'Uploaded successfully', [
@@ -97,12 +63,15 @@ const PlantNotFound = ({navigation, isUserList}) => {
               text: 'OK',
             },
           ]);
+        setSelectedImage(null);
+        reset();
+        setVisible(false);
       }, 1500);
     } catch (error) {
       console.error(error);
     }
   };
-
+  console.log({selectedImage});
   return (
     <>
       {isUserList ? (
@@ -122,11 +91,7 @@ const PlantNotFound = ({navigation, isUserList}) => {
             </Text>
           </View>
           <View style={styles.container}>
-            <Button
-              text="Suggest plant to be added"
-              disabled={false}
-              onPress={toggleOverlay}
-            />
+            <Button text="Suggest" disabled={false} onPress={toggleOverlay} />
           </View>
           <Overlay
             overlayStyle={styles.overlay}
@@ -139,9 +104,9 @@ const PlantNotFound = ({navigation, isUserList}) => {
             </Text>
 
             <Card containerStyle={styles.card}>
-              {imageSelected ? (
+              {selectedImage ? (
                 <Card.Image
-                  source={{uri: image}}
+                  source={{uri: selectedImage?.uri}}
                   style={styles.image}
                   onPress={pickImage}
                 />
@@ -192,7 +157,7 @@ const PlantNotFound = ({navigation, isUserList}) => {
             <Button
               text="Submit"
               onPress={onSubmit}
-              disabled={!imageSelected}
+              disabled={!selectedImage}
             />
             <Button text="Cancel" onPress={toggleOverlay} />
           </Overlay>
