@@ -74,7 +74,9 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
       />
 
       <DropDownPicker
-        zIndex={4}
+        zIndex={3000}
+        zIndexInverse={1000}
+        dropDownDirection="TOP"
         placeholder="Where is the plant located?"
         open={openLocationDropdown}
         value={selectedLocationDropdownOption}
@@ -89,7 +91,9 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
       />
 
       <DropDownPicker
-        zIndex={3}
+        zIndex={1000}
+        zIndexInverse={3000}
+        dropDownDirection="TOP"
         open={openLastTimeWateredDropdown}
         onOpen={onLastTimeWateredDropdownOpen}
         value={selectedLastTimeWateredDropdownOption}
