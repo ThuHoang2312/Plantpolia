@@ -51,11 +51,6 @@ export interface PrimaryPlantModel extends Omit<PlantModel, 'description'> {
 export interface UserPlantModelDescription {
   otherNames: string;
   difficulty: string;
-  /**
-   * Preferred receiving notification time
-   * values: Morning | Afternoon | ...
-   */
-  notificationTime: string;
 
   waterInstruction: string;
   cleaningInstruction: string;
