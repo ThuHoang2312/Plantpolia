@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext} from 'react';
 import PropTypes from 'prop-types';
 import {useClock} from '../utils/useClock';
 import {usePrimaryPlantHooks} from '../hooks/usePrimaryPlantHooks';
@@ -46,9 +46,6 @@ export const MainProvider = ({
     defaultWateringEventList,
   });
 
-  const [notificationTime, setNotificationTime] = useState('');
-  const [type, setType] = useState('image');
-
   const isExpired = !!accessToken && !!userProfile && expirationDate < date;
   const isLoggedIn = !isExpired && !!userProfile && !!accessToken;
 
@@ -60,10 +57,6 @@ export const MainProvider = ({
         isExpired,
         user: userProfile,
         setUser: setUserProfile,
-        notificationTime,
-        setNotificationTime,
-        type,
-        setType,
         token: accessToken,
         setToken: setAccessToken,
         expirationDate,

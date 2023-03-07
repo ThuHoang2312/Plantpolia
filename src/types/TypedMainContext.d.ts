@@ -52,19 +52,6 @@ export interface MainContextModel {
    */
   setExpirationDate: Dispatch<number | null>;
   /**
-   * TODO: Write description.
-   */
-  notificationTime: any;
-  setNotificationTime: Dispatch<any>;
-  /**
-   * TODO: Write description.
-   */
-  type: any;
-  /**
-   * TODO: Write description.
-   */
-  setType: Dispatch<any>;
-  /**
    * Access token of the user.
    */
   token: string | null;

@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
-import {Alert, StyleSheet, Text, View, TextInput} from 'react-native';
+import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
 import PropTypes from 'prop-types';
-import * as ImagePicker from 'expo-image-picker';
 import {Card, Icon} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {useApi} from '../../hooks/ApiHooks';
@@ -9,38 +8,18 @@ import Button from './Button';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {createPlantPhotoTagName} from '../../utils/variables';
+import {useAppImagePicker} from '../useAppImagePicker';
 
 export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
-  const {token, type, setType} = useContext(MainContext);
+  const {token} = useContext(MainContext);
   const {postTag, postMedia} = useApi();
-  const [pickUri, setPickUri] = useState('');
-  const [imageSelected, setImageSelected] = useState(false);
+  const {selectedImage, pickImage, setSelectedImage} = useAppImagePicker(null);
   const [notes, setNotes] = useState('');
-
-  // pick image function
-  const pickImage = async (id) => {
-    setImageSelected(false);
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        quality: 0.5,
-      });
-      if (!result.canceled) {
-        setPickUri(result.uri);
-        setImageSelected(true);
-        setType(result.type);
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
 
   // Clear form
   const onReset = () => {
     setNotes('');
-    setPickUri('');
-    setImageSelected(!imageSelected);
+    setSelectedImage(null);
   };
 
   // // Submit request form
@@ -48,14 +27,11 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', notes);
-    const filename = pickUri.split('/').pop();
-    let fileExtension = filename.split('.').pop();
-    fileExtension = fileExtension === 'jpg' ? 'jpeg' : fileExtension;
     formData.append('file', {
       // @ts-ignore
-      uri: pickUri,
-      name: filename,
-      type: type + '/' + fileExtension,
+      name: selectedImage?.fileName ?? 'image.jpg',
+      uri: selectedImage?.uri,
+      type: selectedImage?.type ?? 'image',
     });
     try {
       const response = await postMedia(formData, token);
@@ -87,13 +63,21 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
       <Text style={styles.text}>Add a picture of your plant</Text>
 
       <Card containerStyle={styles.card}>
-        <Icon
-          name="image"
-          size={50}
-          type="font-awesome"
-          color={colors.primary800}
-          onPress={pickImage}
-        />
+        {selectedImage ? (
+          <Card.Image
+            source={{uri: selectedImage?.uri}}
+            style={styles.image}
+            onPress={pickImage}
+          />
+        ) : (
+          <Icon
+            name="image"
+            size={50}
+            type="font-awesome"
+            color={colors.primary800}
+            onPress={pickImage}
+          />
+        )}
       </Card>
 
       <Text style={styles.text}>Note (Optional)</Text>
@@ -111,7 +95,7 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
       <Button
         text="Submit"
         onPress={onSubmit}
-        disabled={!imageSelected || !notes}
+        disabled={!selectedImage || !notes}
       />
 
       <Button text="Reset" onPress={onReset} disabled={false} />
