@@ -5,6 +5,9 @@ let {APP_VERSION} = Constants.expoConfig.extra;
 
 APP_VERSION = APP_VERSION ?? '1';
 
+export const DAY_IN_SECONDS = 86_400;
+export const DAY_IN_MILLI_SECONDS = 86_400_000;
+
 export const baseUrl = 'https://media.mw.metropolia.fi/wbma/';
 export const uploadUrl = 'https://media.mw.metropolia.fi/wbma/uploads/';
 export const applicationPrefixId = `plantpolia.v${APP_VERSION}.`;

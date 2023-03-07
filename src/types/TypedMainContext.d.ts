@@ -54,14 +54,6 @@ export interface MainContextModel {
   /**
    * TODO: Write description.
    */
-  lastWater: any;
-  /**
-   * TODO: Write description.
-   */
-  setLastWater: Dispatch<any>;
-  /**
-   * TODO: Write description.
-   */
   notificationTime: any;
   setNotificationTime: Dispatch<any>;
   /**

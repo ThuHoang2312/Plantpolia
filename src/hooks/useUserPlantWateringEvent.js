@@ -1,5 +1,8 @@
 import {useEffect, useState} from 'react';
-import {userPlantWateringEventName} from '../utils/variables';
+import {
+  DAY_IN_MILLI_SECONDS,
+  userPlantWateringEventName,
+} from '../utils/variables';
 import {useApi} from './ApiHooks';
 import {useLogger} from '../services/useLogger';
 import {safeIntegerParse} from '../utils/safeIntegerParse';
@@ -96,7 +99,7 @@ export const checkPlantWaterNeed = ({plantWateringEvents, waterInterval}) => {
     lastWateringEventTime
   );
 
-  const waterIntervalInMilliseconds = 86_400_000 * waterInterval;
+  const waterIntervalInMilliseconds = DAY_IN_MILLI_SECONDS * waterInterval;
 
   return (
     lastWateringEventTimeInMilliseconds <

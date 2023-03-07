@@ -73,6 +73,7 @@ export interface UserPlantModel extends Omit<PlantModel, 'description'> {
 export interface NewUserPlantModel
   extends Pick<UserPlantModel, 'title' | 'description'> {
   selectedImage: ImagePickerAsset;
+  lastWater: number;
 }
 export interface EditUserPlantModel
   extends Pick<UserPlantModel, 'title' | 'description'> {}

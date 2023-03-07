@@ -9,6 +9,7 @@ import {safeIntegerParse} from '../utils/safeIntegerParse';
 import {useEnv} from './useEnv';
 import {useLogger} from './useLogger';
 import {useNotificationStatus} from './useNotificationStatus';
+import {DAY_IN_SECONDS} from '../utils/variables';
 
 /** @type {import('../types/TypedHooks').UseNotification} */
 export const useNotification = ({userPlantList}) => {
@@ -17,7 +18,6 @@ export const useNotification = ({userPlantList}) => {
     useNotificationStatus();
 
   const {isDevice} = useEnv();
-  const DAY_IN_SECONDS = 86_400;
 
   const generateNotificationTitle = useCallback((plantName) => {
     return `Your plant "${plantName}" is feeling thirsty. Don't forget to water it to keep it healthy and happy!`;

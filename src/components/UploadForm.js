@@ -47,6 +47,7 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
 
   const handlerSubmit = () => {
     onSubmit({
+      lastWater: safeIntegerParse(selectedLastTimeWateredDropdownOption),
       selectedImage: selectedImage,
       title: title,
       description: {
@@ -58,7 +59,6 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         location: selectedLocationDropdownOption,
         difficulty: primaryPlant.description.difficulty,
         notificationTime: selectedPreferredNotificationTimeDropdownOption,
-        lastWater: safeIntegerParse(selectedLastTimeWateredDropdownOption),
       },
     });
   };

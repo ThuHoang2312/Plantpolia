@@ -60,7 +60,6 @@ export const ConfigOverlay = ({
         waterInstruction: description.waterInstruction,
         cleaningInstruction: description.cleaningInstruction,
         fertilizerInstruction: description.fertilizerInstruction,
-        lastWater: description.lastWater,
       },
     };
 
