@@ -8,7 +8,6 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
 import {colors} from '../../utils/colors';
 import {fontSizes, spacing} from '../../utils/sizes';
