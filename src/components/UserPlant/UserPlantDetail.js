@@ -1,6 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import PropTypes from 'prop-types';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import {IconButton} from 'react-native-paper';
 import {Overlay} from '@rneui/themed';
 import {colors} from '../../utils/colors';
@@ -31,6 +38,23 @@ const UserPlantDetail = ({plant, navigation}) => {
     setConfigVisible(!configVisible);
   };
 
+  // Edit tab
+  // const headerPressHandler = () => {
+  //   console.log('PRESS ME');
+  // };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <TouchableOpacity onPress={toggleConfig}>
+            <Text style={styles.text}>Edit</Text>
+          </TouchableOpacity>
+        );
+      },
+    });
+  }, [navigation, toggleConfig]);
+
   // Submit the config form
 
   return (
@@ -60,12 +84,6 @@ const UserPlantDetail = ({plant, navigation}) => {
 
             <View style={styles.headerContainer}>
               <View style={styles.menuContainer}>
-                <IconButton
-                  icon="cog"
-                  size={30}
-                  iconColor={colors.primary800}
-                  onPress={toggleConfig}
-                />
                 <Overlay
                   overlayStyle={styles.overlay}
                   isVisible={configVisible}
