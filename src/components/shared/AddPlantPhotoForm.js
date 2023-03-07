@@ -13,7 +13,8 @@ import {useAppImagePicker} from '../useAppImagePicker';
 export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
   const {token} = useContext(MainContext);
   const {postTag, postMedia} = useApi();
-  const {selectedImage, pickImage, setSelectedImage} = useAppImagePicker(null);
+  const {selectedImage, pickImage, setSelectedImage, selectedImageFile} =
+    useAppImagePicker(null);
   const [notes, setNotes] = useState('');
 
   // Clear form
@@ -27,12 +28,8 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', notes);
-    formData.append('file', {
-      // @ts-ignore
-      name: selectedImage?.fileName ?? 'image.jpg',
-      uri: selectedImage?.uri,
-      type: selectedImage?.type ?? 'image',
-    });
+    // @ts-ignore
+    formData.append('file', selectedImageFile);
     try {
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(

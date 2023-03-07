@@ -14,7 +14,8 @@ import {useAppImagePicker} from '../useAppImagePicker';
 
 const PlantNotFound = ({navigation, isUserList}) => {
   const [visible, setVisible] = useState(false);
-  const {pickImage, selectedImage, setSelectedImage} = useAppImagePicker(null);
+  const {pickImage, selectedImage, setSelectedImage, selectedImageFile} =
+    useAppImagePicker(null);
 
   const {token} = useContext(MainContext);
 
@@ -42,12 +43,8 @@ const PlantNotFound = ({navigation, isUserList}) => {
     const formData = new FormData();
     formData.append('title', 'title');
     formData.append('description', data.description);
-    formData.append('file', {
-      // @ts-ignore
-      name: data.selectedImage?.fileName ?? 'image.jpg',
-      uri: data.selectedImage?.uri,
-      type: data.selectedImage?.type ?? 'image',
-    });
+    // @ts-ignore
+    formData.append('file', selectedImageFile);
     try {
       const response = await postMedia(formData, token);
       const tagResponse = await postTag(

@@ -47,8 +47,12 @@ export const useNotification = ({userPlantList}) => {
 
       {
         const allNotifications = await getAllScheduledNotificationsAsync();
+        const repeatedNotifications = allNotifications.filter(
+          // @ts-ignore
+          (notification) => notification.trigger.repeats
+        );
         //  Delete notifications that plant does not exist anymore or has changed.
-        for (const notification of allNotifications) {
+        for (const notification of repeatedNotifications) {
           const userPlant = userPlantList.find((plantListItem) => {
             return plantListItem.file_id.toString() === notification.identifier;
           });

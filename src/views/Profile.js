@@ -77,7 +77,7 @@ const Profile = ({navigation}) => {
     let fileExt = filename.split('.').pop();
     if (fileExt === 'jpg') fileExt = 'jpeg';
     const mimeType = result.assets[0].type + '/' + fileExt;
-
+    //  Todo: Maybe use useAppImagePicker
     formData.append('file', {
       // @ts-ignore
       uri: result.assets[0].uri,

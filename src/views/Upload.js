@@ -37,13 +37,8 @@ const Upload = ({navigation, route}) => {
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('description', addData);
-
-    formData.append('file', {
-      // @ts-ignore
-      name: data.selectedImage.fileName ?? 'image.jpg',
-      uri: data.selectedImage.uri,
-      type: data.selectedImage.type ?? 'image',
-    });
+    // @ts-ignore
+    formData.append('file', data.selectedImageFile);
 
     try {
       // console.log('token', token);
