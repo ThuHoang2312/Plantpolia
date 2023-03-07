@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {WateringProcessInstruction} from '../components/WateringProcess/WateringProcessInstruction';
 import {WateringProcessListItem} from '../components/WateringProcess/WateringProcessListItem';
 import {Button, Icon, Text} from '@rneui/themed';
-import {uploadUrl, userPlantWateringEventName} from '../utils/variables';
+import {createPlantWateringEventName, uploadUrl} from '../utils/variables';
 import {useApi} from '../hooks/ApiHooks';
 import {useMainContext} from '../contexts/MainContext';
 import {showToast} from '../utils/Toast';
@@ -52,7 +52,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
       const plant = userPlantListThatNeedsWater[currentPlantIndex];
       const [result, error] = await postCommentByMediaId(
         plant.file_id,
-        userPlantWateringEventName,
+        createPlantWateringEventName(Date.now()),
         token
       );
 
