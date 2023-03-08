@@ -9,10 +9,6 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
   // Picker open states
   const [openLastTimeWateredDropdown, setOpenLastTimeWateredDropdown] =
     useState(false);
-  const [
-    openPreferredNotificationTimeDropdown,
-    setOpenPreferredNotificationTimeDropdown,
-  ] = useState(false);
 
   const [openLocationDropdown, setOpenLocationDropdown] = useState(false);
 
@@ -26,17 +22,6 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
   const [
     selectedLastTimeWateredDropdownOption,
     setSelectedLastTimeWateredDropdownOption,
-  ] = useState(null);
-
-  // TODO: decide if we still need to have this
-  const [preferredNotificationTimeDropdownOptions] = useState([
-    {label: 'Morning (9AM)', value: 'morning'},
-    {label: 'Afternoon (2PM)', value: 'afternoon'},
-    {label: 'Evening (7PM)', value: 'evening'},
-  ]);
-  const [
-    selectedPreferredNotificationTimeDropdownOption,
-    setSelectedPreferredNotificationTimeDropdownOption,
   ] = useState(null);
 
   const [locationOptions] = useState([
@@ -53,18 +38,11 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
 
   // Close other picker when one is in used
   const onLastTimeWateredDropdownOpen = useCallback(() => {
-    setOpenPreferredNotificationTimeDropdown(false);
-    setOpenLocationDropdown(false);
-  }, []);
-
-  const onPreferredNotificationTimDropdownOpen = useCallback(() => {
-    setOpenLastTimeWateredDropdown(false);
     setOpenLocationDropdown(false);
   }, []);
 
   const onLocationDropdownOpen = useCallback(() => {
     setOpenLastTimeWateredDropdown(false);
-    setOpenPreferredNotificationTimeDropdown(false);
   }, []);
 
   return {
@@ -77,13 +55,6 @@ export const useNewUserPlantForm = ({primaryPlant}) => {
     openLastTimeWateredDropdown,
     onLastTimeWateredDropdownOpen,
     setOpenLastTimeWateredDropdown,
-
-    preferredNotificationTimeDropdownOptions,
-    openPreferredNotificationTimeDropdown,
-    selectedPreferredNotificationTimeDropdownOption,
-    onPreferredNotificationTimDropdownOpen,
-    setSelectedPreferredNotificationTimeDropdownOption,
-    setOpenPreferredNotificationTimeDropdown,
 
     locationOptions,
     openLocationDropdown,

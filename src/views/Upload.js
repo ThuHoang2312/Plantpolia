@@ -12,6 +12,7 @@ import {useApi} from '../hooks/ApiHooks';
 import ErrorOverlay from '../components/shared/ErrorOverlay';
 import {useNotificationStatus} from '../services/useNotificationStatus';
 import {useLogger} from '../services/useLogger';
+import {safeIntegerParse} from '../utils/safeIntegerParse';
 
 const Upload = ({navigation, route}) => {
   const {log} = useLogger('Upload');
@@ -52,13 +53,11 @@ const Upload = ({navigation, route}) => {
       const waterInterval = data.description.waterInterval;
       const lastWater = data.lastWater;
 
-      if (waterInterval > lastWater) {
-        //  Example: If interval is 5 and last water is 2 then user needs to water it after three days.
-        //  Example: Create a watering event for 2 days ago
+      if (waterInterval > safeIntegerParse(lastWater)) {
         const [result, error] = await postCommentByMediaId(
           response.file_id,
           createPlantWateringEventName(
-            Date.now() - (waterInterval - lastWater) * DAY_IN_MILLI_SECONDS
+            Date.now() - lastWater * DAY_IN_MILLI_SECONDS
           ),
           token
         );

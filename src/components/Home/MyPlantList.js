@@ -4,7 +4,6 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import MyPlantListItem from './MyPlantListItem';
 import {colors} from '../../utils/colors';
 import PlantNotFound from '../shared/PlantNotFound';
-import {spacing} from '../../utils/sizes';
 import {useMainContext} from '../../contexts/MainContext';
 import MyPlantListHeader from './MyPlantListHeader';
 import EmptyPlantList from '../shared/EmptyPlantList';
@@ -30,6 +29,8 @@ const MyPlantList = ({navigation}) => {
     <MyPlantListHeader
       searchTextValue={searchTextValue}
       onChangeSearchText={onChangeSearchText}
+      userPlantList={userPlantList}
+      wateringEventList={wateringEventList}
     />
   );
   const ListEmptyComponent = userTypedInSearchBar ? (
@@ -75,13 +76,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-  searchBox: {
-    backgroundColor: colors.primary50,
-    height: spacing.xxl,
-    justifyContent: 'center',
-    marginVertical: spacing.md,
-  },
-  searchInput: {backgroundColor: colors.primary50},
 });
 MyPlantList.propTypes = {
   navigation: PropTypes.object.isRequired,

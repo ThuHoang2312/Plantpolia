@@ -55,7 +55,6 @@ export const ConfigOverlay = ({
         otherNames: description.otherNames,
         difficulty: description.difficulty,
         waterInterval: description.waterInterval,
-        notificationTime: description.notificationTime,
         location: location,
         waterInstruction: description.waterInstruction,
         cleaningInstruction: description.cleaningInstruction,
