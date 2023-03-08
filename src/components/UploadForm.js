@@ -28,13 +28,6 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
     onLastTimeWateredDropdownOpen,
     setOpenLastTimeWateredDropdown,
 
-    preferredNotificationTimeDropdownOptions,
-    openPreferredNotificationTimeDropdown,
-    selectedPreferredNotificationTimeDropdownOption,
-    onPreferredNotificationTimDropdownOpen,
-    setSelectedPreferredNotificationTimeDropdownOption,
-    setOpenPreferredNotificationTimeDropdown,
-
     locationOptions,
     openLocationDropdown,
     selectedLocationDropdownOption,
@@ -58,7 +51,6 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         fertilizerInstruction: primaryPlant.description.fertilizerInstruction,
         location: selectedLocationDropdownOption,
         difficulty: primaryPlant.description.difficulty,
-        notificationTime: selectedPreferredNotificationTimeDropdownOption,
       },
     });
   };
@@ -68,7 +60,7 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={{uri: selectedImage?.uri}} />
       </View>
-      <Text style={styles.title}>{primaryPlant.title}</Text>
+      <Text style={styles.title}>{primaryPlant.title.toUpperCase()}</Text>
 
       <Text style={styles.text} onPress={pickImage}>
         Click here to choose your image
@@ -82,7 +74,9 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
       />
 
       <DropDownPicker
-        zIndex={4}
+        zIndex={3000}
+        zIndexInverse={1000}
+        dropDownDirection="TOP"
         placeholder="Where is the plant located?"
         open={openLocationDropdown}
         value={selectedLocationDropdownOption}
@@ -95,8 +89,11 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         textStyle={styles.textPicker}
         selectedItemLabelStyle={{fontWeight: 'bold'}}
       />
+
       <DropDownPicker
-        zIndex={3}
+        zIndex={1000}
+        zIndexInverse={3000}
+        dropDownDirection="TOP"
         open={openLastTimeWateredDropdown}
         onOpen={onLastTimeWateredDropdownOpen}
         value={selectedLastTimeWateredDropdownOption}
@@ -110,33 +107,13 @@ const UploadForm = ({primaryPlant, onSubmit, cancelSubmit}) => {
         selectedItemLabelStyle={{fontWeight: 'bold'}}
       />
 
-      <DropDownPicker
-        zIndex={2}
-        placeholder="Notification time preferences"
-        open={openPreferredNotificationTimeDropdown}
-        value={selectedPreferredNotificationTimeDropdownOption}
-        items={preferredNotificationTimeDropdownOptions}
-        setOpen={setOpenPreferredNotificationTimeDropdown}
-        setValue={setSelectedPreferredNotificationTimeDropdownOption}
-        listMode="SCROLLVIEW"
-        onOpen={onPreferredNotificationTimDropdownOpen}
-        containerStyle={styles.picker}
-        textStyle={styles.textPicker}
-        selectedItemLabelStyle={{fontWeight: 'bold'}}
-      />
-      {/* <CheckBox
-        title="Send the notification as groups"
-        onPress={() => {}}
-        checked
-      /> */}
       <View style={styles.buttonWrapper}>
         <Button
           text="Save"
           onPress={handlerSubmit}
           disabled={
             !selectedLastTimeWateredDropdownOption ||
-            !selectedLocationDropdownOption ||
-            !selectedPreferredNotificationTimeDropdownOption
+            !selectedLocationDropdownOption
           }
         />
         <Button text="Cancel" onPress={cancelSubmit} disabled={false} />
@@ -185,6 +162,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: spacing.lg,
     marginBottom: spacing.lg,
+    fontWeight: 'bold',
   },
   suggestion: {
     fontSize: fontSizes.md,

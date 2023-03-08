@@ -80,9 +80,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary50,
     height: spacing.xxl,
     justifyContent: 'center',
-    marginVertical: spacing.md,
+    marginVertical: spacing.sm,
   },
-  searchInput: {backgroundColor: colors.primary50},
+  searchInput: {
+    backgroundColor: colors.primary50,
+    height: spacing.xxl,
+  },
   statisticsContainer: {
     marginHorizontal: 10,
     display: 'flex',

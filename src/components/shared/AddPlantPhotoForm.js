@@ -77,7 +77,7 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
         )}
       </Card>
 
-      <Text style={styles.text}>Note (Optional)</Text>
+      <Text style={styles.text}>Note </Text>
 
       <TextInput
         autoCapitalize="none"
