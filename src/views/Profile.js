@@ -10,7 +10,6 @@ import {
   createUserAvatarTagName,
   uploadUrl,
 } from '../utils/variables';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '../utils/colors';
 import {useNotificationStatus} from '../services/useNotificationStatus';
 
@@ -117,7 +116,7 @@ const Profile = ({navigation}) => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.wrapper}>
+    <View style={styles.wrapper}>
       <ScrollView>
         <View
           style={{
@@ -175,7 +174,7 @@ const Profile = ({navigation}) => {
           titleStyle={{fontWeight: 'bold'}}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -192,6 +191,7 @@ const styles = StyleSheet.create({
     marginVertical: 0,
   },
   avatar: {
+    marginTop: 10,
     borderColor: colors.primary100,
     borderWidth: 5,
   },

@@ -7,21 +7,18 @@ import {colors} from '../utils/colors';
 import {applicationPrefixId} from '../utils/variables';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const EditProfile = ({navigation}) => {
+  const {isUsernameFocus, setIsUsernameFocus} = React.useState(false);
   const {putUser, checkUsername} = useApi();
-  const {setUser, user} = React.useContext(MainContext);
+  const {setUser, user, token} = React.useContext(MainContext);
   const {
     control,
     handleSubmit,
-    getValues,
     formState: {errors},
   } = useForm({
     defaultValues: {
       username: user.username.split(applicationPrefixId)[1],
-      password: '',
-      confirmPassword: '',
       email: user.email.split(applicationPrefixId)[1],
       full_name: user.full_name,
     },
@@ -29,14 +26,10 @@ const EditProfile = ({navigation}) => {
   });
   const onSubmit = async (data) => {
     try {
-      delete data.confirmPassword;
-      if (data.password === '') {
-        delete data.password;
-      }
-      const userToken = await AsyncStorage.getItem('userToken');
       data.username = applicationPrefixId + data.username;
       data.email = applicationPrefixId + data.email;
-      const userData = await putUser(data, userToken);
+      console.log('edit user', data);
+      const userData = await putUser(data, token);
       if (userData) {
         Alert.alert('Success', userData.message);
         delete data.password;
@@ -45,6 +38,7 @@ const EditProfile = ({navigation}) => {
       }
     } catch (error) {
       console.error(error);
+      Alert.alert('Error', 'Error happened. Please try again!', [{text: 'OK'}]);
     }
   };
 
@@ -63,19 +57,19 @@ const EditProfile = ({navigation}) => {
       <Controller
         control={control}
         rules={{
-          required: {value: true, message: 'This is required.'},
           minLength: {
             value: 3,
             message: 'Username min length is 3 characters!',
           },
-          validate: checkUser,
+          validate: isUsernameFocus && checkUser(),
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input
             onBlur={onBlur}
             onChangeText={onChange}
+            onFocus={() => setIsUsernameFocus(true)}
             value={value}
-            placeholder="Username"
+            placeholder={user.username.split(applicationPrefixId)[1]}
             autoCapitalize="none"
             errorMessage={errors.username && errors.username.message}
             inputContainerStyle={styles.input}
@@ -107,59 +101,6 @@ const EditProfile = ({navigation}) => {
           />
         )}
         name="email"
-      />
-
-      <Controller
-        control={control}
-        rules={{
-          pattern: {
-            value: /(?=.*\p{Lu})(?=.*[0-9]).{5,}/u,
-            message: 'Min 5 characters, needs one number, one uppercase letter',
-          },
-        }}
-        render={({field: {onChange, onBlur, value}}) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Password"
-            secureTextEntry={true}
-            autoCapitalize="none"
-            errorMessage={errors.password && errors.password.message}
-            inputContainerStyle={styles.input}
-            inputStyle={{color: colors.primary700}}
-          />
-        )}
-        name="password"
-      />
-
-      <Controller
-        control={control}
-        rules={{
-          validate: (value) => {
-            if (value === getValues('password')) {
-              return true;
-            } else {
-              return 'password must match';
-            }
-          },
-        }}
-        render={({field: {onChange, onBlur, value}}) => (
-          <Input
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-            placeholder="Re-type password"
-            secureTextEntry={true}
-            autoCapitalize="none"
-            errorMessage={
-              errors.confirmPassword && errors.confirmPassword.message
-            }
-            inputContainerStyle={styles.input}
-            inputStyle={{color: colors.primary700}}
-          />
-        )}
-        name="confirmPassword"
       />
 
       <Controller

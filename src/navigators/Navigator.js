@@ -19,6 +19,9 @@ import SuggestPlant from '../views/SuggestPlant';
 import PlantDetail from '../views/PlantDetail';
 import EditProfile from '../views/EditProfile';
 import {fontFamily} from '../utils/sizes';
+import EditPassword from '../views/EditPassword';
+import Settings from '../views/Settings';
+import AboutPlantpolia from '../views/AboutPlantpolia';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -56,11 +59,11 @@ const TabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="Settings"
+        component={Settings}
         options={{
           tabBarIcon: () => (
-            <Icon name="person" color={colors.primary700} size={30} />
+            <Icon name="settings" color={colors.primary700} size={30} />
           ),
         }}
       />
@@ -112,7 +115,10 @@ const StackScreen = () => {
           />
           <Stack.Screen name="SuggestPlant" component={SuggestPlant} />
           <Stack.Screen name="PlantDetail" component={PlantDetail} />
+          <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
+          <Stack.Screen name="EditPassword" component={EditPassword} />
+          <Stack.Screen name="AboutPlantpolia" component={AboutPlantpolia} />
         </>
       ) : isExpired ? (
         <>
