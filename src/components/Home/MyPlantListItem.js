@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View} from 'react-native';
-import {Avatar, Chip, ListItem as RNEListItem} from '@rneui/themed';
+import {Avatar, ListItem as RNEListItem} from '@rneui/themed';
 import {fontFamily, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
+import {StatusChip} from '../StatusChip';
 
 /** @type {import('../../types/TypedComponents').MyPlantListItem} */
 export const MyPlantListItem = ({
@@ -58,18 +59,10 @@ export const MyPlantListItem = ({
         </RNEListItem.Subtitle>
         <View style={styles.statusContainer}>
           {(chips ?? []).map(({title, status, disabled}, index) => (
-            <Chip
-              disabled={disabled}
+            <StatusChip
               key={[title, status, index].join()}
-              buttonStyle={{
-                ...styles.statusChipButton,
-                ...(status === 'info' ? styles.statusChipInfoButton : {}),
-                ...(status === 'normal' ? styles.statusChipNormalButton : {}),
-                ...(status === 'alert' ? styles.statusChipAlertButton : {}),
-              }}
-              containerStyle={styles.statusChipContainer}
-              titleStyle={styles.statusChipTitle}
-              style={styles.statusChip}
+              disabled={disabled}
+              status={status}
               title={String(title).toUpperCase()}
             />
           ))}
@@ -101,28 +94,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  statusChipContainer: {
-    borderRadius: 0,
-    margin: spacing.sm / 4,
-  },
-  statusChipTitle: {
-    fontFamily: fontFamily.regular,
-    fontSize: 12,
-  },
-  statusChipButton: {
-    padding: spacing.sm / 4,
-    borderRadius: spacing.sm / 2,
-  },
-  statusChipAlertButton: {
-    backgroundColor: '#DC2626',
-  },
-  statusChipNormalButton: {
-    backgroundColor: '#059669',
-  },
-  statusChipInfoButton: {
-    backgroundColor: '#0284C7',
-  },
-  statusChip: {},
   locationContainer: {
     backgroundColor: colors.primary700,
     borderRadius: spacing.sm,
