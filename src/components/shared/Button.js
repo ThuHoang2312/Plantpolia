@@ -22,7 +22,7 @@ const Button = ({text, onPress, disabled}) => {
 const styles = StyleSheet.create({
   buttonEnabled: {
     width: '45%',
-    backgroundColor: colors.primary700,
+    backgroundColor: colors.primary50,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   buttonDisabled: {
     width: '45%',
-    backgroundColor: colors.primary50,
+    backgroundColor: colors.primary700,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
   },
   buttonTextEnabled: {
-    color: colors.primary50,
+    color: colors.primary700,
     fontSize: fontSizes.md,
     fontWeight: 'bold',
   },
   buttonTextDisabled: {
-    color: colors.primary700,
+    color: colors.primary50,
     fontSize: fontSizes.md,
     fontWeight: 'bold',
   },

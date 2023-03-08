@@ -26,6 +26,7 @@ const LoginForm = (props) => {
   const logIn = async (loginData) => {
     console.log('Login button pressed', loginData);
     try {
+      // Add prefix to username and email to identify Plantpolia's users
       loginData.username = applicationPrefixId + loginData.username;
       loginData.email = applicationPrefixId + loginData.email;
       const loginResult = await postLogin(loginData);

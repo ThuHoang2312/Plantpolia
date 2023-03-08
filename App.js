@@ -8,12 +8,7 @@ import {MainProvider} from './src/contexts/MainContext';
 import Navigator from './src/navigators/Navigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useApi} from './src/hooks/ApiHooks';
-import {
-  applicationPrefixId,
-  primaryPlantTagName,
-  requestedPlantTagName,
-  userPlantTagName,
-} from './src/utils/variables';
+import {applicationPrefixId} from './src/utils/variables';
 import {safeJsonParse} from './src/utils/safeJsonParse';
 import {fetchMediaListComments} from './src/hooks/useUserPlantWateringEvent';
 import {useLogger} from './src/services/useLogger';
@@ -204,25 +199,6 @@ const App = () => {
       >
         <Text style={styles.logo}>Plantpolia</Text>
         <LottieIcons iconName="WalkingPlant" focused autoPlay loop />
-
-        <View style={styles.debugContainer}>
-          <View style={styles.debugItem}>
-            <Text style={styles.itemTitle}>applicationPrefixId</Text>
-            <Text style={styles.item}>{applicationPrefixId}</Text>
-          </View>
-          <View style={styles.debugItem}>
-            <Text style={styles.itemTitle}>primaryPlantTagName</Text>
-            <Text style={styles.item}>{primaryPlantTagName}</Text>
-          </View>
-          <View style={styles.debugItem}>
-            <Text style={styles.itemTitle}>userPlantTagName</Text>
-            <Text style={styles.item}>{userPlantTagName}</Text>
-          </View>
-          <View style={styles.debugItem}>
-            <Text style={styles.itemTitle}>requestedPlantTagName</Text>
-            <Text style={styles.item}>{requestedPlantTagName}</Text>
-          </View>
-        </View>
       </View>
     );
   }
@@ -257,25 +233,6 @@ const styles = StyleSheet.create({
     fontSize: 55,
     textAlign: 'center',
     display: 'flex',
-  },
-  debugContainer: {
-    fontFamily: fontFamily.thin,
-    width: '100%',
-    position: 'absolute',
-    bottom: 50,
-  },
-  debugItem: {
-    width: '100%',
-    paddingVertical: 10,
-  },
-  itemTitle: {
-    textAlign: 'center',
-    fontFamily: fontFamily.regular,
-    fontWeight: 'bold',
-  },
-  item: {
-    fontFamily: fontFamily.bold,
-    textAlign: 'center',
   },
 });
 

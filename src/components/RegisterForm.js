@@ -42,6 +42,7 @@ const RegisterForm = ({navigation}) => {
 
   const register = async (registerData) => {
     delete registerData.confrimPassword;
+    // Add prefix to username and email to identify Plantpolia's users
     registerData.username = applicationPrefixId + registerData.username;
     registerData.email = applicationPrefixId + registerData.email;
     console.log('Registering: ', registerData);
