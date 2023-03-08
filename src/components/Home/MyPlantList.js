@@ -30,6 +30,8 @@ const MyPlantList = ({navigation}) => {
     <MyPlantListHeader
       searchTextValue={searchTextValue}
       onChangeSearchText={onChangeSearchText}
+      userPlantList={userPlantList}
+      wateringEventList={wateringEventList}
     />
   );
   const ListEmptyComponent = userTypedInSearchBar ? (
