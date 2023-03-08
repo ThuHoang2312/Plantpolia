@@ -99,7 +99,7 @@ const Settings = ({navigation}) => {
               }}
             />
             <ListItem.Title style={styles.title}>
-              Terms and Conditions
+              Terms and Policies
             </ListItem.Title>
             <ListItem.Chevron />
           </ListItem>
