@@ -24,32 +24,32 @@ export const WateringProcessStarted = ({navigation, route}) => {
   const {postCommentByMediaId} = useApi();
   const {token} = useMainContext();
   const [plantIndex, setPlantIndex] = useState(0);
+  const [skippedPlantCount, setSkippedPlantCount] = useState(0);
   // data is array
   /** @type {import('../types/TypedComponents').WateringProcessStartedParams} */
   const {userPlantListThatNeedsWater} = route.params;
 
-  const generateRemainingText = useCallback((currentPlantIndex, totalCount) => {
-    return `Go ahead and water the following plant. (${
-      totalCount - currentPlantIndex - 1
-    } out of ${totalCount} remaining)`;
-  }, []);
-
-  const isLastItem = useCallback((currentPlantIndex, totalCount) => {
-    return totalCount === currentPlantIndex + 1;
-  }, []);
+  const remainingText = `Go ahead and water the following plant. (${
+    userPlantListThatNeedsWater.length - plantIndex - 1
+  } out of ${userPlantListThatNeedsWater.length} remaining)`;
 
   const onWateredPlantPress = useCallback(
-    async (currentPlantIndex, isLastOne, skip = false) => {
+    async (skip = false) => {
+      const isLastOne = userPlantListThatNeedsWater.length === plantIndex + 1;
+
       if (skip && isLastOne) {
-        navigation.navigate('WateringProcessFinished');
+        navigation.navigate('WateringProcessFinished', {
+          skippedPlantCount: skippedPlantCount + 1,
+        });
         return;
       }
       if (skip) {
-        setPlantIndex(currentPlantIndex + 1);
+        setSkippedPlantCount((prev) => prev + 1);
+        setPlantIndex((prev) => prev + 1);
         return;
       }
 
-      const plant = userPlantListThatNeedsWater[currentPlantIndex];
+      const plant = userPlantListThatNeedsWater[plantIndex];
       const [result, error] = await postCommentByMediaId(
         plant.file_id,
         createPlantWateringEventName(Date.now()),
@@ -63,13 +63,13 @@ export const WateringProcessStarted = ({navigation, route}) => {
       }
 
       if (isLastOne) {
-        navigation.navigate('WateringProcessFinished');
+        navigation.navigate('WateringProcessFinished', {skippedPlantCount});
         return;
       }
 
-      setPlantIndex(currentPlantIndex + 1);
+      setPlantIndex((prev) => prev + 1);
     },
-    []
+    [userPlantListThatNeedsWater, skippedPlantCount, plantIndex]
   );
 
   return (
@@ -94,10 +94,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
             paddingHorizontal: 10,
           }}
         >
-          {generateRemainingText(
-            plantIndex,
-            userPlantListThatNeedsWater.length
-          )}
+          {remainingText}
         </Text>
 
         <WateringProcessListItem
@@ -115,10 +112,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
 
         <Button
           onPress={() => {
-            onWateredPlantPress(
-              plantIndex,
-              isLastItem(plantIndex, userPlantListThatNeedsWater.length)
-            );
+            onWateredPlantPress();
           }}
           buttonStyle={{paddingVertical: 40}}
           titleStyle={{
@@ -130,11 +124,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
 
         <Button
           onPress={() => {
-            onWateredPlantPress(
-              plantIndex,
-              isLastItem(plantIndex, userPlantListThatNeedsWater.length),
-              true
-            );
+            onWateredPlantPress(true);
           }}
           titleStyle={{
             fontSize: 14,

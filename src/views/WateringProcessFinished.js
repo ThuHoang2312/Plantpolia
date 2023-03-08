@@ -13,11 +13,11 @@ import {useMainContext} from '../contexts/MainContext';
  * @return {JSX.Element}
  */
 export const WateringProcessFinished = ({navigation, route}) => {
+  const {skippedPlantCount} = route.params;
   const {width} = useWindowDimensions();
   const {setWateringEventListNeedsHydration} = useMainContext();
 
   const [assets] = useAssets([require('../../assets/happy-face.png')]);
-
   return (
     <View
       style={{
@@ -41,12 +41,28 @@ export const WateringProcessFinished = ({navigation, route}) => {
           fontSize: 20,
           fontWeight: 'bold',
           textAlign: 'center',
-          paddingVertical: 30,
+          paddingVertical: 10,
           paddingHorizontal: 10,
         }}
       >
-        Well done! All the plants are watered now
+        Well done! Your plants are now hydrated
       </Text>
+      {skippedPlantCount > 0 && (
+        <Text
+          style={{
+            textAlign: 'center',
+            color: 'red',
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            paddingBottom: 30,
+          }}
+        >
+          You skipped watering {skippedPlantCount}{' '}
+          {skippedPlantCount === 1 ? 'plant' : 'plants'}. Do not forget to water{' '}
+          {skippedPlantCount === 1 ? 'it' : 'them'} later!
+        </Text>
+      )}
+
       <Button
         onPress={() => {
           setWateringEventListNeedsHydration(true);

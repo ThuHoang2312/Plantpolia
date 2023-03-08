@@ -13,6 +13,7 @@ const Home = ({navigation}) => {
     >
       <MyPlantList navigation={navigation} />
       <FloatingButtons
+        hideHomeIcon
         onHomeIconPress={() => {}}
         onWateringCanIconPress={() => {
           navigation.navigate('WateringProcess');
