@@ -92,6 +92,8 @@ const styles = StyleSheet.create({
     width: '90%',
   },
 
+  photoContainer: {},
+
   text: {
     fontSize: fontSizes.md,
     color: colors.primary800,
