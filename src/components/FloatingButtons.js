@@ -1,7 +1,9 @@
 import React from 'react';
-import {FAB, Icon} from '@rneui/themed';
+import {FAB, Icon, Image} from '@rneui/themed';
 import {StyleSheet, View} from 'react-native';
 import PropTypes from 'prop-types';
+import {useAssets} from 'expo-asset';
+import {colors} from '../utils/colors';
 
 export const FloatingButtons = ({
   hideHomeIcon,
@@ -9,11 +11,13 @@ export const FloatingButtons = ({
   onHomeIconPress,
   onWateringCanIconPress,
 }) => {
+  const [assets] = useAssets([require('../../assets/watering-can-white.png')]);
+
   return (
     <View style={styles.container}>
       {!hideWateringCanIcon && (
         <FAB
-          color="white"
+          color={colors.primary500}
           style={{
             ...styles.fab,
             ...styles.shadow,
@@ -22,7 +26,16 @@ export const FloatingButtons = ({
             onWateringCanIconPress();
           }}
         >
-          <Icon style={{color: 'black'}} name="arrow-right" />
+          {assets && (
+            <Image
+              source={{uri: assets[0].localUri}}
+              style={{
+                width: 45,
+                height: 45,
+                resizeMode: 'contain',
+              }}
+            />
+          )}
         </FAB>
       )}
       {!hideHomeIcon && (
