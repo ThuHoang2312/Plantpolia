@@ -47,12 +47,13 @@ export const PlantPhotoListItem = ({
     <>
       <Card containerStyle={styles.card}>
         <IconButton
-          icon="close"
-          size={20}
+          icon="delete-circle"
+          size={22}
           onPress={toggleOverlay}
           style={styles.icon}
+          iconColor={colors.primary700}
         />
-        <Card.Title>{title}</Card.Title>
+        <Card.Title style={styles.title}>{title}</Card.Title>
         <Card.Image source={{uri: uploadUrl + imageUrl}} style={styles.image} />
         <Card.Title style={styles.text}>{description}</Card.Title>
         <Card.Title style={styles.text}>{timeAdd}</Card.Title>

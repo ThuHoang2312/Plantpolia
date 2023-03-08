@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import {colors} from '../utils/colors';
 import {spacing} from '../utils/sizes';
 import {useMainContext} from '../contexts/MainContext';
@@ -42,7 +42,7 @@ const AddPlant = ({navigation}) => {
   // }
 
   return (
-    <>
+    <View style={styles.container}>
       <SearchBar
         lightTheme
         autoCapitalize="none"
@@ -72,18 +72,22 @@ const AddPlant = ({navigation}) => {
           )}
         />
       )}
-    </>
+    </View>
   );
 };
 const styles = StyleSheet.create({
-  searchContainer: {
+  container: {
+    flex: 1,
     backgroundColor: colors.background,
-    borderColor: colors.background,
+  },
+  searchContainer: {
+    backgroundColor: colors.primary50,
     height: spacing.xxl,
     justifyContent: 'center',
   },
   searchInput: {
     backgroundColor: colors.primary50,
+    height: spacing.xxl,
   },
 });
 

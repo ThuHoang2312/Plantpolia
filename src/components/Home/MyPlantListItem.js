@@ -39,13 +39,12 @@ export const MyPlantListItem = ({
 
   return (
     <RNEListItem
-      style={{marginVertical: spacing.md}}
       onPress={() => {
         navigation.navigate('PlantDetail', {plant: plant});
       }}
     >
       <Avatar
-        size="large"
+        size={120}
         source={{uri: uploadUrl + imageUrl}}
         avatarStyle={styles.avatar}
       />
@@ -53,6 +52,7 @@ export const MyPlantListItem = ({
         <RNEListItem.Title style={styles.title}>
           {plant.title}
         </RNEListItem.Title>
+
         <RNEListItem.Subtitle style={styles.comment}>
           {description.otherNames}
         </RNEListItem.Subtitle>
@@ -83,7 +83,6 @@ export const MyPlantListItem = ({
 const styles = StyleSheet.create({
   content: {
     marginHorizontal: spacing.sm,
-    marginVertical: spacing.sm,
   },
   avatar: {
     borderRadius: spacing.md,
