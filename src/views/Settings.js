@@ -82,6 +82,27 @@ const Settings = ({navigation}) => {
             </ListItem.Title>
             <ListItem.Chevron />
           </ListItem>
+          <ListItem
+            onPress={() => {
+              navigation.navigate('TermsAndConditions');
+            }}
+            style={styles.listItem}
+            bottomDivider
+          >
+            <Avatar
+              rounded
+              icon={{
+                name: 'book',
+                type: 'font-awesome',
+                size: 30,
+                color: colors.primary400,
+              }}
+            />
+            <ListItem.Title style={styles.title}>
+              Terms and Conditions
+            </ListItem.Title>
+            <ListItem.Chevron />
+          </ListItem>
           {canAskForNotificationPermission && !isNotificationsGranted && (
             <Button
               title="Allow notifications"

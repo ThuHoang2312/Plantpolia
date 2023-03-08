@@ -40,10 +40,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   text: {
-    color: colors.primary600,
+    color: colors.primary800,
     fontSize: 20,
     marginVertical: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 20,
+    lineHeight: 25,
   },
   logoutButton: {
     backgroundColor: '#000000',
