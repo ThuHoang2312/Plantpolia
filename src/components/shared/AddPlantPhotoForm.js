@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.lg,
     marginVertical: spacing.md,
     color: colors.primary700,
-    fontFamily: fontFamily.regular,
   },
   overlay: {
     marginHorizontal: spacing.md,
