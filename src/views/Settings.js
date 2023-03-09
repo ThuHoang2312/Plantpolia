@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.primary600,
-    fontSize: 25,
+    fontSize: 20,
     marginVertical: 10,
     fontFamily: fontFamily.regular,
   },
