@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 
 const EmptyPlantList = () => {
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     marginVertical: spacing.md,
     fontWeight: 'bold',
     color: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
 });
 

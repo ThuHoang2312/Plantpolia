@@ -122,7 +122,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
             fontFamily: fontFamily.regular,
           }}
         >
-          <Icon name="save" color="white" />I watered this plant!
+          <Icon name="opacity" color="white" /> I watered this plant!
         </Button>
 
         <Button

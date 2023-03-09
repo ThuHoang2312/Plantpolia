@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Card, Icon, Overlay} from '@rneui/themed';
 import {Controller, useForm} from 'react-hook-form';
 import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import Button from './Button';
 import {MainContext} from '../../contexts/MainContext';
@@ -174,11 +174,13 @@ const styles = StyleSheet.create({
     marginVertical: spacing.md,
     fontWeight: 'bold',
     color: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
   text: {
     color: colors.primary700,
     fontSize: fontSizes.md,
     marginVertical: spacing.md,
+    fontFamily: fontFamily.regular,
   },
   overlay: {
     marginHorizontal: spacing.md,
@@ -199,6 +201,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderColor: colors.primary100,
     borderWidth: spacing.sm / 4,
+    fontFamily: fontFamily.regular,
   },
   card: {
     borderRadius: spacing.sm,

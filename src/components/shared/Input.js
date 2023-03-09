@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, TextInput, View} from 'react-native';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 
 const Input = ({text, defaultValue = '', ...inputConfig}) => {
@@ -36,10 +36,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderColor: colors.primary100,
     borderWidth: spacing.sm / 4,
+    fontFamily: fontFamily.regular,
   },
   placeholder: {
     fontSize: fontSizes.md,
     color: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
 });
 

@@ -1,6 +1,7 @@
 import {Avatar, ListItem as RNEListItem, Text} from '@rneui/themed';
 import PropTypes from 'prop-types';
 import {View} from 'react-native';
+import {fontFamily} from '../../utils/sizes';
 
 export const WateringProcessListItem = ({
   name,
@@ -27,10 +28,14 @@ export const WateringProcessListItem = ({
           }}
         />
         <RNEListItem.Content>
-          <RNEListItem.Title>{name} </RNEListItem.Title>
+          <RNEListItem.Title style={{fontFamily: fontFamily.regular}}>
+            {name}{' '}
+          </RNEListItem.Title>
           {!!location && (
-            <RNEListItem.Subtitle style={{paddingVertical: 5}}>
-              <Text>{location}</Text>
+            <RNEListItem.Subtitle
+              style={{paddingVertical: 5, fontFamily: fontFamily.regular}}
+            >
+              <Text style={{fontFamily: fontFamily.regular}}>{location}</Text>
             </RNEListItem.Subtitle>
           )}
         </RNEListItem.Content>

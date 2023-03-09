@@ -47,12 +47,14 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.lg,
     textAlign: 'center',
     paddingHorizontal: spacing.sm,
+    fontFamily: fontFamily.regular,
   },
   hydrate: {
     color: colors.primary50,
     fontSize: fontSizes.lg,
     textAlign: 'center',
     paddingHorizontal: spacing.sm,
+    fontFamily: fontFamily.regular,
   },
   text: {
     fontFamily: fontFamily.regular,
