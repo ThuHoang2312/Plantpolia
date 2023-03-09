@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View, Text, Alert} from 'react-native';
 import {AirbnbRating} from '@rneui/themed';
