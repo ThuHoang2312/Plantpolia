@@ -24,6 +24,7 @@ import {
 } from '@expo-google-fonts/lato';
 import {fontFamily} from './src/utils/sizes';
 
+const PROMO_STATUS_STORAGE_KEY = `${applicationPrefixId}.promo.status`;
 const USER_TOKEN_STORAGE_KEY = `${applicationPrefixId}.user.token`;
 const USER_PROFILE_STORAGE_KEY = `${applicationPrefixId}.user.profile`;
 const EXPIRATION_DATE_STORAGE_KEY = `${applicationPrefixId}.user.token.expiration`;
@@ -39,6 +40,7 @@ const App = () => {
   });
 
   const [appIsReady, setAppIsReady] = useState(false);
+  const [storagePromoStatus, setStoragePromoStatus] = useState(null); //  'VIEWED' or 'NOT VIEWED'
   const [storageUserProfile, setStorageUserProfile] = useState(null);
   const [storageAccessToken, setStorageAccessToken] = useState(null);
   const [storageExpirationDate, setStorageExpirationDate] = useState(null);
@@ -53,6 +55,13 @@ const App = () => {
 
     async function prepare() {
       try {
+        {
+          const promoStatus = await AsyncStorage.getItem(
+            PROMO_STATUS_STORAGE_KEY
+          );
+          setStoragePromoStatus(promoStatus ?? null);
+        }
+
         {
           const userToken = await AsyncStorage.getItem(USER_TOKEN_STORAGE_KEY);
           setStorageAccessToken(userToken ?? null);
@@ -144,6 +153,22 @@ const App = () => {
       return;
     }
     (async () => {
+      if (storagePromoStatus) {
+        await AsyncStorage.setItem(
+          PROMO_STATUS_STORAGE_KEY,
+          String(storagePromoStatus)
+        );
+      } else {
+        await AsyncStorage.removeItem(PROMO_STATUS_STORAGE_KEY);
+      }
+    })();
+  }, [storagePromoStatus]);
+
+  useEffect(() => {
+    if (!appIsReady) {
+      return;
+    }
+    (async () => {
       if (storageAccessToken) {
         await AsyncStorage.setItem(
           USER_TOKEN_STORAGE_KEY,
@@ -208,6 +233,7 @@ const App = () => {
       userProfile={storageUserProfile}
       accessToken={storageAccessToken}
       expirationDate={storageExpirationDate}
+      defaultPromoStatus={storagePromoStatus}
       defaultPrimaryPlantList={defaultPrimaryPlantList}
       defaultUserPlantList={defaultUserPlantList}
       defaultWateringEventList={defaultWateringEventList}
@@ -219,6 +245,9 @@ const App = () => {
       }}
       setExpirationDate={(expirationDate) => {
         setStorageExpirationDate(expirationDate);
+      }}
+      onPromoStatusSet={(value) => {
+        setStoragePromoStatus(value);
       }}
     >
       <Navigator />

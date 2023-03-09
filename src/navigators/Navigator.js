@@ -24,6 +24,7 @@ import Settings from '../views/Settings';
 import AboutPlantpolia from '../views/AboutPlantpolia';
 import TermsAndConditions from '../views/TermsAndConditions';
 import {Rating} from '../views/Rating';
+import {Intro} from '../views/Intro';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -75,7 +76,7 @@ const TabScreen = () => {
 };
 
 const StackScreen = () => {
-  const {isLoggedIn, isExpired} = useContext(MainContext);
+  const {isLoggedIn, isExpired, promoStatus} = useContext(MainContext);
   return (
     <Stack.Navigator>
       {isLoggedIn ? (
@@ -159,11 +160,16 @@ const StackScreen = () => {
           />
         </>
       ) : (
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{headerShown: false}}
-        />
+        <>
+          {promoStatus !== 'VIEWED' && (
+            <Stack.Screen name="Intro" component={Intro} />
+          )}
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+        </>
       )}
     </Stack.Navigator>
   );
