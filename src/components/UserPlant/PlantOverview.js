@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
 
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   title: {
+    fontFamily: fontFamily.bold,
     fontSize: fontSizes.lg,
     fontWeight: 'bold',
     marginTop: spacing.sm,
@@ -93,15 +94,16 @@ const styles = StyleSheet.create({
     width: '50%',
   },
   label: {
+    fontFamily: fontFamily.bold,
     fontSize: fontSizes.md,
     color: colors.primary700,
-    fontWeight: 'bold',
     marginVertical: spacing.sm,
   },
   text: {
+    fontFamily: fontFamily.regular,
     marginHorizontal: spacing.md,
     fontSize: fontSizes.md,
-    color: colors.primary800,
+    color: colors.primary700,
     marginVertical: spacing.sm,
   },
 });

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {Button, Overlay} from '@rneui/themed';
-import {StyleSheet, Text, View} from 'react-native';
+import {Button, Overlay, Text} from '@rneui/themed';
+import {StyleSheet, View} from 'react-native';
 import {fontFamily} from '../utils/sizes';
 
 const SuggestPlant = (navigation) => {

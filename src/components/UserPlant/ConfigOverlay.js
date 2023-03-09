@@ -1,8 +1,9 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Alert, ScrollView, StyleSheet, View} from 'react-native';
+import {Image, Text} from '@rneui/themed';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import Input from '../shared/Input';
 import Button from '../shared/Button';
@@ -194,6 +195,7 @@ const styles = StyleSheet.create({
     borderWidth: spacing.sm / 4,
   },
   title: {
+    fontFamily: fontFamily.bold,
     fontSize: fontSizes.lg,
     marginTop: spacing.sm,
     alignSelf: 'center',
@@ -201,6 +203,7 @@ const styles = StyleSheet.create({
     color: colors.primary700,
   },
   input: {
+    fontFamily: fontFamily.regular,
     fontSize: fontSizes.md,
     marginHorizontal: spacing.md,
     marginVertical: spacing.md,
@@ -208,6 +211,7 @@ const styles = StyleSheet.create({
   },
 
   text: {
+    fontFamily: fontFamily.regular,
     fontSize: fontSizes.md,
     color: colors.primary700,
     alignSelf: 'center',
@@ -223,6 +227,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary100,
   },
   textPicker: {
+    fontFamily: fontFamily.regular,
     fontSize: fontSizes.md,
     color: colors.primary700,
   },

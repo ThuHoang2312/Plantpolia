@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View, Text} from 'react-native';
-import {spacing, fontFamily, fontSizes} from '../utils/sizes';
+import {StyleSheet, View} from 'react-native';
+import {Text} from '@rneui/themed';
+import {fontFamily, fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
 
 export const StatisticCard = ({number, isHydrated}) => {

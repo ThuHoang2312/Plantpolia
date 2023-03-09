@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import Welcome from './Welcome';
 import {colors} from '../../utils/colors';
 import {SearchBar} from '@rneui/themed';
-import {spacing} from '../../utils/sizes';
+import {fontFamily, spacing} from '../../utils/sizes';
 import PropTypes from 'prop-types';
 import {checkPlantWaterNeed} from '../../hooks/useUserPlantWateringEvent';
 import {safeIntegerParse} from '../../utils/safeIntegerParse';
@@ -33,30 +33,7 @@ const MyPlantListHeader = ({
         hydratedUserPlants={hydratedUserPlants}
         dehydratedUserPlants={dehydratedUserPlants}
       />
-      {/* <View style={styles.statisticsContainer}>
-        <StatusChip
-          status="normal"
-          style={styles.statusChipStyle}
-          buttonStyle={styles.statusChipButtonStyle}
-          titleStyle={styles.statusChipTitleStyle}
-          title={`${hydratedUserPlants.length} Healthy`}
-        />
-        <StatusChip
-          style={styles.statusChipStyle}
-          buttonStyle={styles.statusChipButtonStyle}
-          status={dehydratedUserPlants.length === 0 ? 'normal' : 'alert'}
-          titleStyle={styles.statusChipTitleStyle}
-          title={`${dehydratedUserPlants.length} Dehydrated`}
-        />
-        <StatusChip
-          disabled
-          status="info"
-          style={styles.statusChipStyle}
-          buttonStyle={styles.statusChipButtonStyle}
-          titleStyle={styles.statusChipTitleStyle}
-          title="0 Needs Nutrients"
-        />
-      </View> */}
+
       <SearchBar
         autoCapitalize="none"
         autoCorrect={false}
@@ -85,24 +62,10 @@ const styles = StyleSheet.create({
     marginVertical: spacing.sm,
   },
   searchInput: {
+    fontFamily: fontFamily.regular,
     backgroundColor: colors.primary50,
     height: spacing.xxl,
   },
-  // statisticsContainer: {
-  //   marginHorizontal: 10,
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  // },
-  // statusChipStyle: {},
-  // statusChipButtonStyle: {
-  //   padding: spacing.sm,
-  //   marginHorizontal: spacing.sm,
-  // },
-  // statusChipTitleStyle: {
-  //   fontSize: 16,
-  //   textAlign: 'left',
-  //   flex: 1,
-  // },
 });
 MyPlantListHeader.propTypes = {
   searchTextValue: PropTypes.string,

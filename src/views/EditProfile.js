@@ -10,7 +10,7 @@ import {MainContext} from '../contexts/MainContext';
 import {fontFamily} from '../utils/sizes';
 
 const EditProfile = ({navigation}) => {
-  const {isUsernameFocus, setIsUsernameFocus} = React.useState(false);
+  const [isUsernameFocus, setIsUsernameFocus] = React.useState(false);
   const {putUser, checkUsername} = useApi();
   const {setUser, user, token} = React.useContext(MainContext);
   const {
@@ -46,6 +46,7 @@ const EditProfile = ({navigation}) => {
   const checkUser = async (username) => {
     try {
       const userAvailable = await checkUsername(applicationPrefixId + username);
+      console.log('checkUSer', userAvailable);
       return userAvailable || 'Username is already taken';
     } catch (error) {
       console.error('checkUser', error.message);
@@ -62,7 +63,9 @@ const EditProfile = ({navigation}) => {
             value: 3,
             message: 'Username min length is 3 characters!',
           },
-          validate: isUsernameFocus && checkUser(),
+          validate: async (value) => {
+            return isUsernameFocus ? await checkUser(value) : true;
+          },
         }}
         render={({field: {onChange, onBlur, value}}) => (
           <Input

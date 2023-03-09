@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
-import {spacing, fontSizes} from '../../utils/sizes';
+import {spacing, fontSizes, fontFamily} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 
 const Button = ({text, onPress, disabled}) => {
@@ -41,11 +41,13 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
   },
   buttonTextEnabled: {
+    fontFamily: fontFamily.bold,
     color: colors.primary50,
     fontSize: fontSizes.md,
     fontWeight: 'bold',
   },
   buttonTextDisabled: {
+    fontFamily: fontFamily.bold,
     color: colors.primary700,
     fontSize: fontSizes.md,
     fontWeight: 'bold',
