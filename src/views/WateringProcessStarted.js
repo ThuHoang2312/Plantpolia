@@ -9,6 +9,7 @@ import {useApi} from '../hooks/ApiHooks';
 import {useMainContext} from '../contexts/MainContext';
 import {showToast} from '../utils/Toast';
 import {useLogger} from '../services/useLogger';
+import {fontFamily} from '../utils/sizes';
 
 /**
  * Here we get an array of plants from route.params
@@ -92,6 +93,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
             textAlign: 'center',
             paddingVertical: 30,
             paddingHorizontal: 10,
+            fontFamily: fontFamily.regular,
           }}
         >
           {remainingText}
@@ -117,9 +119,10 @@ export const WateringProcessStarted = ({navigation, route}) => {
           buttonStyle={{paddingVertical: 40}}
           titleStyle={{
             fontWeight: 'bold',
+            fontFamily: fontFamily.regular,
           }}
         >
-          <Icon name="save" color="white" />I watered this plant!
+          <Icon name="opacity" color="white" /> I watered this plant!
         </Button>
 
         <Button
@@ -130,6 +133,7 @@ export const WateringProcessStarted = ({navigation, route}) => {
             fontSize: 14,
             color: 'black',
             fontWeight: 'bold',
+            fontFamily: fontFamily.regular,
           }}
           buttonStyle={{
             backgroundColor: 'transparent',
@@ -153,6 +157,7 @@ export const HeaderLeft = ({navigation}) => {
     <Button
       titleStyle={{
         color: 'black',
+        fontFamily: fontFamily.regular,
       }}
       buttonStyle={{
         backgroundColor: 'transparent',

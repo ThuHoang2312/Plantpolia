@@ -5,6 +5,7 @@ import {MainContext} from '../contexts/MainContext';
 import {Platform, ScrollView, StyleSheet, View} from 'react-native';
 import {colors} from '../utils/colors';
 import {useNotificationStatus} from '../services/useNotificationStatus';
+import {fontFamily} from '../utils/sizes';
 
 const Settings = ({navigation}) => {
   const {setUser, setExpirationDate, setToken} = React.useContext(MainContext);
@@ -107,7 +108,11 @@ const Settings = ({navigation}) => {
             <Button
               title="Allow notifications"
               buttonStyle={styles.editButton}
-              titleStyle={{color: colors.primary700, fontWeight: 'bold'}}
+              titleStyle={{
+                color: colors.primary700,
+                fontWeight: 'bold',
+                fontFamily: fontFamily.regular,
+              }}
               onPress={() => {
                 requestNotificationPermissions();
               }}
@@ -142,7 +147,7 @@ const Settings = ({navigation}) => {
             setToken(null);
           }}
           buttonStyle={styles.logoutButton}
-          titleStyle={{fontWeight: 'bold'}}
+          titleStyle={{fontWeight: 'bold', fontFamily: fontFamily.regular}}
         />
       </ScrollView>
     </View>
@@ -163,8 +168,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.primary600,
-    fontSize: 25,
+    fontSize: 20,
     marginVertical: 10,
+    fontFamily: fontFamily.regular,
   },
   logoutButton: {
     backgroundColor: '#000000',
@@ -177,6 +183,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 20,
     alignContent: 'stretch',
+    fontFamily: fontFamily.regular,
   },
 });
 

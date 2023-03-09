@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Image, Text} from '@rneui/themed';
 import {useAssets} from 'expo-asset';
+import {fontFamily} from '../utils/sizes';
 
 /**
  * Success page shown after all the plants are watered.
@@ -41,6 +42,7 @@ export const ExpiredToken = ({navigation, route}) => {
           textAlign: 'center',
           paddingVertical: 30,
           paddingHorizontal: 10,
+          fontFamily: fontFamily.regular,
         }}
       >
         Your session has expired. Please Login again.
@@ -52,6 +54,7 @@ export const ExpiredToken = ({navigation, route}) => {
         buttonStyle={{paddingVertical: 40}}
         titleStyle={{
           fontWeight: 'bold',
+          fontFamily: fontFamily.regular,
         }}
       >
         Return to Login Page

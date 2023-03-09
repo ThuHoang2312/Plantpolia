@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
+import {fontFamily} from '../../utils/sizes';
 
 export const RoundedButton = ({
   style = {},
@@ -29,7 +30,7 @@ const styles = (size) =>
       borderColor: '#fff',
       borderWidth: 2,
     },
-    text: {color: '#fff', fontSize: size / 3},
+    text: {color: '#fff', fontSize: size / 3, fontFamily: fontFamily.regular},
   });
 
 RoundedButton.propTypes = {
