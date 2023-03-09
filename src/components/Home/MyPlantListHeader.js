@@ -5,7 +5,6 @@ import {colors} from '../../utils/colors';
 import {SearchBar} from '@rneui/themed';
 import {spacing} from '../../utils/sizes';
 import PropTypes from 'prop-types';
-import {StatusChip} from '../StatusChip';
 import {checkPlantWaterNeed} from '../../hooks/useUserPlantWateringEvent';
 import {safeIntegerParse} from '../../utils/safeIntegerParse';
 
@@ -30,8 +29,11 @@ const MyPlantListHeader = ({
 
   return (
     <View style={styles.container}>
-      <Welcome />
-      <View style={styles.statisticsContainer}>
+      <Welcome
+        hydratedUserPlants={hydratedUserPlants}
+        dehydratedUserPlants={dehydratedUserPlants}
+      />
+      {/* <View style={styles.statisticsContainer}>
         <StatusChip
           status="normal"
           style={styles.statusChipStyle}
@@ -54,7 +56,7 @@ const MyPlantListHeader = ({
           titleStyle={styles.statusChipTitleStyle}
           title="0 Needs Nutrients"
         />
-      </View>
+      </View> */}
       <SearchBar
         autoCapitalize="none"
         autoCorrect={false}
@@ -86,21 +88,21 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary50,
     height: spacing.xxl,
   },
-  statisticsContainer: {
-    marginHorizontal: 10,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  statusChipStyle: {},
-  statusChipButtonStyle: {
-    padding: spacing.sm,
-    marginHorizontal: spacing.sm,
-  },
-  statusChipTitleStyle: {
-    fontSize: 16,
-    textAlign: 'left',
-    flex: 1,
-  },
+  // statisticsContainer: {
+  //   marginHorizontal: 10,
+  //   display: 'flex',
+  //   flexDirection: 'row',
+  // },
+  // statusChipStyle: {},
+  // statusChipButtonStyle: {
+  //   padding: spacing.sm,
+  //   marginHorizontal: spacing.sm,
+  // },
+  // statusChipTitleStyle: {
+  //   fontSize: 16,
+  //   textAlign: 'left',
+  //   flex: 1,
+  // },
 });
 MyPlantListHeader.propTypes = {
   searchTextValue: PropTypes.string,

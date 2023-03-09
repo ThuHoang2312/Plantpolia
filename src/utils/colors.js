@@ -9,4 +9,6 @@ export const colors = {
   primary100: '#D3E1D2',
   primary50: '#EAF1EA',
   background: '#FFFFFF',
+  dehydrated: '#DC2626',
+  hydrated: '#059669',
 };
