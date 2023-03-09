@@ -10,8 +10,6 @@ import {safeJsonParse} from '../../utils/safeJsonParse';
 
 const Welcome = ({dehydratedUserPlants, hydratedUserPlants}) => {
   const {user} = useContext(MainContext);
-  const userData = safeJsonParse(user.full_name);
-  console.log(userData);
   let isData = false;
   if (dehydratedUserPlants.length > 0 || hydratedUserPlants.length > 0) {
     isData = true;
@@ -50,7 +48,7 @@ const Welcome = ({dehydratedUserPlants, hydratedUserPlants}) => {
               />
             </View>
             <View style={styles.welcomeContainer}>
-              <Text style={styles.title}>Welcome {userData.fullname}</Text>
+              <Text style={styles.title}>Welcome {user.full_name}</Text>
             </View>
           </View>
           <View style={styles.statisticContainer}>
@@ -65,7 +63,7 @@ const Welcome = ({dehydratedUserPlants, hydratedUserPlants}) => {
           </View>
         </View>
       ) : (
-        <Text style={styles.welcome}>Welcome {userData.fullname}</Text>
+        <Text style={styles.welcome}>Welcome {user.full_name}</Text>
       )}
     </>
   );
