@@ -1,7 +1,6 @@
 import {
   Platform,
   StatusBar,
-  useWindowDimensions,
   View,
   SafeAreaView,
   StyleSheet,
@@ -9,7 +8,6 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Image, Text} from '@rneui/themed';
-import {IconButton} from 'react-native-paper';
 import {useAssets} from 'expo-asset';
 import {fontFamily, fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
@@ -76,6 +74,7 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.bold,
     fontSize: fontSizes.xxl,
     alignSelf: 'center',
+    marginBottom: spacing.lg,
   },
   secondPromo: {
     fontFamily: fontFamily.bold,

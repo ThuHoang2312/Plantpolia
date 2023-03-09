@@ -1,7 +1,6 @@
 import {
   Platform,
   StatusBar,
-  useWindowDimensions,
   View,
   SafeAreaView,
   StyleSheet,
@@ -26,7 +25,6 @@ export const SecondPromo = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.button}>Skip</Text>
       <View style={styles.promoContainer}>
         <Text style={styles.secondPromo}>Grow your</Text>
         <Text style={styles.firstPromo}>

@@ -1,14 +1,13 @@
 import {
   Platform,
   StatusBar,
-  useWindowDimensions,
   View,
   SafeAreaView,
   StyleSheet,
 } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Image, Text} from '@rneui/themed';
+import {Button, Image, Text} from '@rneui/themed';
 import {IconButton} from 'react-native-paper';
 import {useAssets} from 'expo-asset';
 import {fontFamily, fontSizes, spacing} from '../utils/sizes';
@@ -26,9 +25,6 @@ export const FirstPromo = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.buttonContainer}>
-        <Text style={styles.button}> Skip</Text>
-      </View>
       {assets && (
         <View style={styles.imageContainer}>
           <Image source={{uri: assets[0].localUri}} style={styles.image} />
@@ -41,6 +37,13 @@ export const FirstPromo = ({navigation}) => {
         <Text style={styles.secondPromo}>life better</Text>
       </View>
       <View style={styles.buttonContainer}>
+        <Button
+          style={styles.button}
+          type="clear"
+          onPress={() => navigation.navigate('ThirdPromo')}
+        >
+          Skip
+        </Button>
         <IconButton
           icon="arrow-right-bold"
           size={30}
@@ -58,9 +61,10 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     flexDirection: 'column',
+    backgroundColor: colors.background,
   },
   imageContainer: {
-    flex: 5,
+    flex: 6,
     justifyContent: 'center',
   },
   image: {
@@ -69,7 +73,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   buttonContainer: {
-    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   promoContainer: {
     flex: 1,
