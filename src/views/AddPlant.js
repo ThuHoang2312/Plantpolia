@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import {FlatList, StyleSheet, View} from 'react-native';
 import {colors} from '../utils/colors';
-import {spacing} from '../utils/sizes';
+import {fontFamily, spacing} from '../utils/sizes';
 import {useMainContext} from '../contexts/MainContext';
 import {useSearch} from '../services/useSearch';
 import {SearchBar} from '@rneui/themed';
@@ -84,10 +84,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary50,
     height: spacing.xxl,
     justifyContent: 'center',
+    fontFamily: fontFamily.regular,
   },
   searchInput: {
     backgroundColor: colors.primary50,
     height: spacing.xxl,
+    fontFamily: fontFamily.regular,
   },
 });
 

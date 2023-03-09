@@ -7,6 +7,7 @@ import {colors} from '../utils/colors';
 import {applicationPrefixId} from '../utils/variables';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
+import {fontFamily} from '../utils/sizes';
 
 const RegisterForm = ({navigation}) => {
   const {
@@ -94,7 +95,10 @@ const RegisterForm = ({navigation}) => {
               autoCapitalize="none"
               errorMessage={errors.username && errors.username.message}
               inputContainerStyle={styles.input}
-              inputStyle={{color: colors.primary800}}
+              inputStyle={{
+                color: colors.primary800,
+                fontFamily: fontFamily.regular,
+              }}
             />
           )}
           name="username"
@@ -118,7 +122,10 @@ const RegisterForm = ({navigation}) => {
               autoCapitalize="none"
               errorMessage={errors.email && errors.email.message}
               inputContainerStyle={styles.input}
-              inputStyle={{color: colors.primary800}}
+              inputStyle={{
+                color: colors.primary800,
+                fontFamily: fontFamily.regular,
+              }}
             />
           )}
           name="email"
@@ -144,7 +151,10 @@ const RegisterForm = ({navigation}) => {
               autoCapitalize="none"
               errorMessage={errors.password && errors.password.message}
               inputContainerStyle={styles.input}
-              inputStyle={{color: colors.primary800}}
+              inputStyle={{
+                color: colors.primary800,
+                fontFamily: fontFamily.regular,
+              }}
             />
           )}
           name="password"
@@ -173,7 +183,10 @@ const RegisterForm = ({navigation}) => {
                 errors.confrimPassword && errors.confrimPassword.message
               }
               inputContainerStyle={styles.input}
-              inputStyle={{color: colors.primary800}}
+              inputStyle={{
+                color: colors.primary800,
+                fontFamily: fontFamily.regular,
+              }}
             />
           )}
           name="confrimPassword"
@@ -191,7 +204,10 @@ const RegisterForm = ({navigation}) => {
               autoCapitalize="words"
               errorMessage={errors.full_name && errors.full_name.message}
               inputContainerStyle={styles.input}
-              inputStyle={{color: colors.primary800}}
+              inputStyle={{
+                color: colors.primary800,
+                fontFamily: fontFamily.regular,
+              }}
             />
           )}
           name="full_name"
@@ -200,6 +216,7 @@ const RegisterForm = ({navigation}) => {
           title="Register!"
           onPress={handleSubmit(register)}
           buttonStyle={styles.button}
+          titleStyle={{fontFamily: fontFamily.regular}}
         />
       </View>
     </Card>
@@ -221,6 +238,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 50,
     color: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
   input: {
     borderWidth: 1,

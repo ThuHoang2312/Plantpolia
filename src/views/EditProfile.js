@@ -7,6 +7,7 @@ import {colors} from '../utils/colors';
 import {applicationPrefixId} from '../utils/variables';
 import PropTypes from 'prop-types';
 import {MainContext} from '../contexts/MainContext';
+import {fontFamily} from '../utils/sizes';
 
 const EditProfile = ({navigation}) => {
   const {isUsernameFocus, setIsUsernameFocus} = React.useState(false);
@@ -73,7 +74,10 @@ const EditProfile = ({navigation}) => {
             autoCapitalize="none"
             errorMessage={errors.username && errors.username.message}
             inputContainerStyle={styles.input}
-            inputStyle={{color: colors.primary700}}
+            inputStyle={{
+              color: colors.primary700,
+              fontFamily: fontFamily.regular,
+            }}
           />
         )}
         name="username"
@@ -97,7 +101,10 @@ const EditProfile = ({navigation}) => {
             autoCapitalize="none"
             errorMessage={errors.email && errors.email.message}
             inputContainerStyle={styles.input}
-            inputStyle={{color: colors.primary700}}
+            inputStyle={{
+              color: colors.primary700,
+              fontFamily: fontFamily.regular,
+            }}
           />
         )}
         name="email"
@@ -115,7 +122,10 @@ const EditProfile = ({navigation}) => {
             autoCapitalize="words"
             errorMessage={errors.full_name && errors.full_name.message}
             inputContainerStyle={styles.input}
-            inputStyle={{color: colors.primary700}}
+            inputStyle={{
+              color: colors.primary700,
+              fontFamily: fontFamily.regular,
+            }}
           />
         )}
         name="full_name"
@@ -143,6 +153,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 50,
     color: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
   input: {
     borderWidth: 1,
@@ -150,6 +161,7 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: colors.primary50,
     borderRadius: 8,
+    fontFamily: fontFamily.regular,
   },
   button: {
     alignSelf: 'stretch',
@@ -158,6 +170,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 50,
     backgroundColor: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
   wrapper: {
     flex: 1,

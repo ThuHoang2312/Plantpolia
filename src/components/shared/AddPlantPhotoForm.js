@@ -1,10 +1,17 @@
 import React, {useContext, useState} from 'react';
-import {Alert, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import PropTypes from 'prop-types';
-import {Card, Icon} from '@rneui/themed';
+import {Button, Card, Icon, Input, Text} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {useApi} from '../../hooks/ApiHooks';
-import Button from './Button';
 import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {createPlantPhotoTagName} from '../../utils/variables';
@@ -55,48 +62,68 @@ export const AddPlantPhotoForm = ({title, fileId, closeForm}) => {
   };
 
   return (
-    <View>
-      <Text style={styles.title}> Keep notes on progress</Text>
-      <Text style={styles.text}>Add a picture of your plant</Text>
+    <TouchableOpacity
+      onPress={() => Keyboard.dismiss()}
+      style={{flex: 1}}
+      activeOpacity={1}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <ScrollView>
+          <Text style={styles.title}> Keep notes on progress</Text>
+          <Text style={styles.text}>Add a picture of your plant</Text>
 
-      <Card containerStyle={styles.card}>
-        {selectedImage ? (
-          <Card.Image
-            source={{uri: selectedImage?.uri}}
-            style={styles.image}
-            onPress={pickImage}
+          <Card containerStyle={styles.card}>
+            {selectedImage ? (
+              <Card.Image
+                source={{uri: selectedImage?.uri}}
+                style={styles.image}
+                onPress={pickImage}
+              />
+            ) : (
+              <Icon
+                name="image"
+                size={50}
+                type="font-awesome"
+                color={colors.primary800}
+                onPress={pickImage}
+              />
+            )}
+          </Card>
+
+          <Input
+            placeholder="Notes"
+            autoCapitalize="none"
+            value={notes}
+            onChangeText={setNotes}
+            style={[styles.inputSelfStyle]}
+            inputContainerStyle={styles.inputContainerStyle}
+            inputStyle={styles.inputStyle}
+            labelStyle={{}}
+            containerStyle={{
+              borderWidth: 0,
+              shadowOpacity: 0,
+            }}
           />
-        ) : (
-          <Icon
-            name="image"
-            size={50}
-            type="font-awesome"
-            color={colors.primary800}
-            onPress={pickImage}
+
+          <Button
+            title="Submit"
+            onPress={onSubmit}
+            disabled={!selectedImage || !notes}
+            containerStyle={{marginVertical: 5}}
           />
-        )}
-      </Card>
 
-      <Text style={styles.text}>Note </Text>
-
-      <TextInput
-        autoCapitalize="none"
-        style={styles.input}
-        onChangeText={setNotes}
-        value={notes}
-        placeholder="Notes"
-        multiline={true}
-        numberOfLines={5}
-      />
-
-      <Button
-        text="Submit"
-        onPress={onSubmit}
-        disabled={!selectedImage || !notes}
-      />
-
-      <Button text="Reset" onPress={onReset} disabled={false} />
-    </View>
+          <Button
+            title="Reset"
+            onPress={onReset}
+            disabled={false}
+            containerStyle={{marginVertical: 5}}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </TouchableOpacity>
   );
 };
 
@@ -110,12 +137,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.lg,
     marginVertical: spacing.md,
     color: colors.primary700,
-  },
-  text: {
     fontFamily: fontFamily.regular,
-    color: colors.primary700,
-    fontSize: fontSizes.md,
-    marginVertical: spacing.md,
   },
   overlay: {
     marginHorizontal: spacing.md,
@@ -123,12 +145,20 @@ const styles = StyleSheet.create({
     height: '80%',
     width: '80%',
   },
-  input: {
-    fontFamily: fontFamily.regular,
+  inputSelfStyle: {
     backgroundColor: colors.primary50,
     borderRadius: spacing.md,
-    padding: spacing.md,
     fontSize: spacing.md,
+    paddingHorizontal: spacing.md,
+  },
+  inputContainerStyle: {
+    borderRadius: spacing.md,
+    borderBottomWidth: 0,
+    marginVertical: spacing.lg,
+  },
+  inputStyle: {
+    color: colors.primary800,
+    fontFamily: fontFamily.regular,
   },
   card: {
     borderRadius: spacing.sm,

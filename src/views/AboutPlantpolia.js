@@ -2,6 +2,7 @@ import {Text} from '@rneui/themed';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {colors} from '../utils/colors';
+import {fontFamily} from '../utils/sizes';
 const AboutPlantpolia = () => {
   return (
     <View style={styles.wrapper}>
@@ -38,12 +39,14 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginVertical: 10,
     textAlign: 'center',
+    fontFamily: fontFamily.regular,
   },
   text: {
     color: colors.primary800,
     fontSize: 20,
     marginVertical: 10,
     marginHorizontal: 20,
+    fontFamily: fontFamily.regular,
     lineHeight: 25,
   },
   logoutButton: {
@@ -51,12 +54,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 8,
     marginVertical: 20,
+    fontFamily: fontFamily.regular,
     padding: 20,
   },
   listItem: {
     width: '100%',
     padding: 20,
-    alignContent: 'stretch',
   },
 });
 
