@@ -133,11 +133,10 @@ const styles = StyleSheet.create({
     marginVertical: spacing.md,
   },
   title: {
+    fontFamily: fontFamily.bold,
     fontSize: fontSizes.lg,
     marginVertical: spacing.md,
-    fontWeight: 'bold',
     color: colors.primary700,
-    fontFamily: fontFamily.regular,
   },
   overlay: {
     marginHorizontal: spacing.md,

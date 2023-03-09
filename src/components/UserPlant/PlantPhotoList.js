@@ -4,7 +4,7 @@ import {FlatList, StyleSheet, View} from 'react-native';
 import {Overlay, Text} from '@rneui/themed';
 import {IconButton} from 'react-native-paper';
 import {colors} from '../../utils/colors';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {AddPlantPhotoForm} from '../shared/AddPlantPhotoForm';
 import {PlantPhotoListItem} from './PlantPhotoListItem';
 import {useUserPlantPhotoHooks} from '../../hooks/useUserPlantPhotoHooks';
@@ -91,12 +91,12 @@ const styles = StyleSheet.create({
     height: '90%',
     width: '90%',
   },
-
-  photoContainer: {},
-
   text: {
+    fontFamily: fontFamily.bold,
+    marginHorizontal: spacing.md,
+    marginVertical: spacing.lg,
     fontSize: fontSizes.md,
-    color: colors.primary800,
+    color: colors.primary700,
     textAlign: 'center',
   },
 });

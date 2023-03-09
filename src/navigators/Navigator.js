@@ -58,6 +58,7 @@ const TabScreen = () => {
               size={30}
             />
           ),
+          title: 'Add Plant',
         }}
       />
       <Tab.Screen
@@ -106,7 +107,11 @@ const StackScreen = () => {
             }}
           />
 
-          <Stack.Screen name="Upload" component={Upload} />
+          <Stack.Screen
+            name="Upload"
+            component={Upload}
+            options={{title: 'Add Plant'}}
+          />
           <Stack.Screen
             name="UploadCompleted"
             component={UploadCompleted}
@@ -116,15 +121,28 @@ const StackScreen = () => {
             }}
           />
           <Stack.Screen name="SuggestPlant" component={SuggestPlant} />
-          <Stack.Screen name="PlantDetail" component={PlantDetail} />
+          <Stack.Screen
+            name="PlantDetail"
+            component={PlantDetail}
+            options={{title: 'Plant Detail'}}
+          />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
-          <Stack.Screen name="EditPassword" component={EditPassword} />
-          <Stack.Screen name="AboutPlantpolia" component={AboutPlantpolia} />
+          <Stack.Screen
+            name="EditPassword"
+            component={EditPassword}
+            options={{title: 'Update Password'}}
+          />
+          <Stack.Screen
+            name="AboutPlantpolia"
+            component={AboutPlantpolia}
+            options={{title: 'About Plantpolia'}}
+          />
           <Stack.Screen name="Rating" component={Rating} />
           <Stack.Screen
             name="TermsAndConditions"
             component={TermsAndConditions}
+            options={{title: 'Terms and Policies'}}
           />
         </>
       ) : isExpired ? (
