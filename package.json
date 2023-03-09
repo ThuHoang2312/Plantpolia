@@ -5,6 +5,7 @@
   "scripts": {
     "seed": "APP_VERSION=2 node seed-data/importPrimaryPlants.js",
     "start": "APP_VERSION=2 EXPO_NO_TYPESCRIPT_SETUP=1 expo start",
+    "start:tunnel": "APP_VERSION=2 EXPO_NO_TYPESCRIPT_SETUP=1 expo start  --tunnel",
     "android": "APP_VERSION=2 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --android",
     "ios": "APP_VERSION=2 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --ios",
     "web": "APP_VERSION=2 EXPO_NO_TYPESCRIPT_SETUP=1 expo start --web",
