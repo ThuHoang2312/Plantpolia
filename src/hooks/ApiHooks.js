@@ -165,6 +165,7 @@ export const useApi = () => {
     return media;
   };
 
+  // Function to add plant
   const postMedia = async (formData, token) => {
     const options = {
       method: 'POST',
@@ -177,6 +178,7 @@ export const useApi = () => {
     return await doFetch(baseUrl + 'media', options);
   };
 
+  // Function to delete plant
   const deleteMedia = async (fileId, token) => {
     const options = {
       method: 'DELETE',
@@ -191,6 +193,7 @@ export const useApi = () => {
     }
   };
 
+  // Function to edit plant
   const putMedia = async (id, data, token) => {
     const options = {
       method: 'PUT',
@@ -205,6 +208,30 @@ export const useApi = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  // Function for adding rate for app
+  const addRating = async (ratingData, token) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify(ratingData),
+    };
+    return await doFetch(baseUrl + 'ratings', options);
+  };
+
+  // Function to get ratings for file
+  const getRatingsForFile = async (fileId, token) => {
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    return await doFetch(`${baseUrl}ratings/file/${fileId}`, options);
   };
 
   return {
@@ -222,5 +249,7 @@ export const useApi = () => {
     putMedia,
     getMediaCommentsById: getMediaCommentsById,
     postCommentByMediaId: postCommentByMediaId,
+    addRating,
+    getRatingsForFile,
   };
 };

@@ -15,6 +15,7 @@ export const userPlantTagName = `${applicationPrefixId}user.plant`;
 export const primaryPlantTagName = `${applicationPrefixId}primary.plant`;
 export const requestedPlantTagName = `${applicationPrefixId}requested.primary.plant`;
 export const userPlantWateringEventName = `${applicationPrefixId}user.plant.watered`;
+export const fileId = 6974;
 
 export const createPlantWateringEventName = (date) => {
   return `${userPlantWateringEventName}.${date}`;

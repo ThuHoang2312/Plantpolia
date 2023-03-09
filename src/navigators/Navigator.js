@@ -23,6 +23,7 @@ import EditPassword from '../views/EditPassword';
 import Settings from '../views/Settings';
 import AboutPlantpolia from '../views/AboutPlantpolia';
 import TermsAndConditions from '../views/TermsAndConditions';
+import {Rating} from '../views/Rating';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -120,6 +121,7 @@ const StackScreen = () => {
           <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="EditPassword" component={EditPassword} />
           <Stack.Screen name="AboutPlantpolia" component={AboutPlantpolia} />
+          <Stack.Screen name="Rating" component={Rating} />
           <Stack.Screen
             name="TermsAndConditions"
             component={TermsAndConditions}

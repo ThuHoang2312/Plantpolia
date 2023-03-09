@@ -114,6 +114,25 @@ const Settings = ({navigation}) => {
             />
           )}
         </View>
+        <ListItem
+          onPress={() => {
+            navigation.navigate('Rating');
+          }}
+          style={styles.listItem}
+          bottomDivider
+        >
+          <Avatar
+            rounded
+            icon={{
+              name: 'star',
+              type: 'font-awesome',
+              size: 30,
+              color: colors.primary400,
+            }}
+          />
+          <ListItem.Title style={styles.title}>Rate us</ListItem.Title>
+          <ListItem.Chevron />
+        </ListItem>
         <Button
           title="Logout!"
           onPress={async () => {
