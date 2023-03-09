@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
+import {Overlay, Text} from '@rneui/themed';
 import {IconButton} from 'react-native-paper';
-import {Overlay} from '@rneui/themed';
 import {colors} from '../../utils/colors';
 import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {AddPlantPhotoForm} from '../shared/AddPlantPhotoForm';
