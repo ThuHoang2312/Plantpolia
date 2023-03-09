@@ -15,6 +15,7 @@ import RegisterForm from '../components/RegisterForm';
 import {Button} from '@rneui/themed';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {colors} from '../utils/colors';
+import {fontFamily} from '../utils/sizes';
 
 const Login = ({navigation}) => {
   // props is needed for navigation
@@ -94,6 +95,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     height: 50,
+    fontFamily: fontFamily.regular,
   },
 });
 

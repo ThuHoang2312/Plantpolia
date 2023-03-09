@@ -1,6 +1,7 @@
 import {Text} from '@rneui/themed';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {colors} from '../utils/colors';
+import {fontFamily} from '../utils/sizes';
 
 const TermsAndConditions = () => {
   return (
@@ -70,12 +71,14 @@ const styles = StyleSheet.create({
     color: colors.primary600,
     marginVertical: 10,
     textAlign: 'center',
+    fontFamily: fontFamily.regular,
   },
   content: {
     fontSize: 20,
     lineHeight: 25,
     marginBottom: 30,
     color: colors.primary800,
+    fontFamily: fontFamily.regular,
   },
   term: {
     marginLeft: 20,
@@ -83,6 +86,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     lineHeight: 25,
     color: colors.primary800,
+    fontFamily: fontFamily.regular,
   },
 });
 
