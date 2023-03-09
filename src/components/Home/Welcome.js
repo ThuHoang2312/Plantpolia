@@ -6,7 +6,6 @@ import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
 import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {StatisticCard} from '../StatisticCard';
-import {safeJsonParse} from '../../utils/safeJsonParse';
 
 const Welcome = ({dehydratedUserPlants, hydratedUserPlants}) => {
   const {user} = useContext(MainContext);
