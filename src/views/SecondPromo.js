@@ -1,7 +1,6 @@
 import {
   Platform,
   StatusBar,
-  useWindowDimensions,
   View,
   SafeAreaView,
   StyleSheet,
@@ -41,13 +40,13 @@ export const SecondPromo = ({navigation}) => {
 
       <View style={styles.buttonContainer}>
         <IconButton
-          icon="arrow-left-bold"
+          icon="arrow-left"
           size={30}
           iconColor={colors.primary800}
           onPress={() => navigation.navigate('FirstPromo')}
         />
         <IconButton
-          icon="arrow-right-bold"
+          icon="arrow-right"
           size={30}
           iconColor={colors.primary800}
           onPress={() => navigation.navigate('ThirdPromo')}
