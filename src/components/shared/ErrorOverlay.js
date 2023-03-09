@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Text} from '@rneui/themed';
 import {colors} from '../../utils/colors';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import Button from './Button';
 
 const ErrorOverlay = ({message, onConfirm}) => {
@@ -27,11 +28,13 @@ const styles = StyleSheet.create({
     color: colors.primary700,
     textAlign: 'center',
     marginBottom: spacing.sm,
+    fontFamily: fontFamily.regular,
   },
   title: {
     color: colors.primary700,
     fontSize: fontSizes.lg,
     fontWeight: 'bold',
+    fontFamily: fontFamily.regular,
   },
 });
 

@@ -7,6 +7,7 @@ import {colors} from '../utils/colors';
 import {useNotificationStatus} from '../services/useNotificationStatus';
 import {useApi} from '../hooks/ApiHooks';
 import {fileId} from '../utils/variables';
+import {fontFamily} from '../utils/sizes';
 
 const Settings = ({navigation}) => {
   const {user, token, setUser, setExpirationDate, setToken} =
@@ -20,6 +21,7 @@ const Settings = ({navigation}) => {
   const {getRatingsForFile} = useApi();
 
   let hasRated = false;
+  // console.log('BEFORE', hasRated);
   let lastRate = null;
 
   // Get a list of ratings of app
@@ -33,9 +35,10 @@ const Settings = ({navigation}) => {
       const userRate = appRating.filter(
         (item) => item.user_id === user.user_id
       );
-      if (userRate) {
+      // console.log(userRate);
+      if (!(userRate.length === 0)) {
         hasRated = true;
-        lastRate = userRate;
+        lastRate = userRate[0].rating;
       }
     } catch (error) {
       console.log(error);
@@ -136,7 +139,11 @@ const Settings = ({navigation}) => {
             <Button
               title="Allow notifications"
               buttonStyle={styles.editButton}
-              titleStyle={{color: colors.primary700, fontWeight: 'bold'}}
+              titleStyle={{
+                color: colors.primary700,
+                fontWeight: 'bold',
+                fontFamily: fontFamily.regular,
+              }}
               onPress={() => {
                 requestNotificationPermissions();
               }}
@@ -171,7 +178,7 @@ const Settings = ({navigation}) => {
             setToken(null);
           }}
           buttonStyle={styles.logoutButton}
-          titleStyle={{fontWeight: 'bold'}}
+          titleStyle={{fontWeight: 'bold', fontFamily: fontFamily.regular}}
         />
       </ScrollView>
     </View>
@@ -192,8 +199,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.primary600,
-    fontSize: 25,
+    fontSize: 20,
     marginVertical: 10,
+    fontFamily: fontFamily.regular,
   },
   logoutButton: {
     backgroundColor: '#000000',
@@ -206,6 +214,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 20,
     alignContent: 'stretch',
+    fontFamily: fontFamily.regular,
   },
 });
 

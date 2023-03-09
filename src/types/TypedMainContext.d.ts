@@ -7,6 +7,8 @@ import {
 } from './BaseModels';
 
 export interface MainContextProviderProps {
+  defaultPromoStatus: string;
+  onPromoStatusSet: (status: string) => void;
   userProfile: UserModel | null;
   accessToken: string | null;
   expirationDate: number | null;
@@ -27,6 +29,14 @@ export interface MainContextModel {
    * Constant access token age in ms.
    */
   ACCESS_TOKEN_AGE_IN_MS: number;
+  /**
+   * When it's first time user interacts with the application
+   */
+  promoStatus: string;
+  /**
+   * TODO: Write description.
+   */
+  setPromoStatus: Dispatch<string>;
   /**
    * When it's true user is logged in.
    */

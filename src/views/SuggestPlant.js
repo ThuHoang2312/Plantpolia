@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
-import {Button, Overlay} from '@rneui/themed';
-import {StyleSheet, Text, View} from 'react-native';
+import {Button, Overlay, Text} from '@rneui/themed';
+import {StyleSheet, View} from 'react-native';
+import {fontFamily} from '../utils/sizes';
 
 const SuggestPlant = (navigation) => {
   const [visible, setVisible] = useState(false);
@@ -16,6 +17,7 @@ const SuggestPlant = (navigation) => {
         title="Open Overlay"
         onPress={toggleOverlay}
         buttonStyle={styles.button}
+        titleStyle={{fontFamily: fontFamily.regular}}
       />
       <Overlay isVisible={visible} onBackdropPress={toggleOverlay}>
         <Text style={styles.title}>Suggest plant!</Text>
@@ -33,11 +35,13 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     textAlign: 'center',
     fontSize: 20,
+    fontFamily: fontFamily.regular,
   },
   textSecondary: {
     marginBottom: 10,
     textAlign: 'center',
     fontSize: 17,
+    fontFamily: fontFamily.regular,
   },
 });
 

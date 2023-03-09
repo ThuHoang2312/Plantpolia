@@ -24,6 +24,9 @@ import Settings from '../views/Settings';
 import AboutPlantpolia from '../views/AboutPlantpolia';
 import TermsAndConditions from '../views/TermsAndConditions';
 import {Rating} from '../views/Rating';
+import {FirstPromo} from '../views/FirstPromo';
+import {SecondPromo} from '../views/SecondPromo';
+import {ThirdPromo} from '../views/ThirdPromo';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -58,6 +61,7 @@ const TabScreen = () => {
               size={30}
             />
           ),
+          title: 'Add Plant',
         }}
       />
       <Tab.Screen
@@ -74,7 +78,7 @@ const TabScreen = () => {
 };
 
 const StackScreen = () => {
-  const {isLoggedIn, isExpired} = useContext(MainContext);
+  const {isLoggedIn, isExpired, promoStatus} = useContext(MainContext);
   return (
     <Stack.Navigator>
       {isLoggedIn ? (
@@ -106,7 +110,11 @@ const StackScreen = () => {
             }}
           />
 
-          <Stack.Screen name="Upload" component={Upload} />
+          <Stack.Screen
+            name="Upload"
+            component={Upload}
+            options={{title: 'Add Plant'}}
+          />
           <Stack.Screen
             name="UploadCompleted"
             component={UploadCompleted}
@@ -116,15 +124,28 @@ const StackScreen = () => {
             }}
           />
           <Stack.Screen name="SuggestPlant" component={SuggestPlant} />
-          <Stack.Screen name="PlantDetail" component={PlantDetail} />
+          <Stack.Screen
+            name="PlantDetail"
+            component={PlantDetail}
+            options={{title: 'Plant Detail'}}
+          />
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
-          <Stack.Screen name="EditPassword" component={EditPassword} />
-          <Stack.Screen name="AboutPlantpolia" component={AboutPlantpolia} />
+          <Stack.Screen
+            name="EditPassword"
+            component={EditPassword}
+            options={{title: 'Update Password'}}
+          />
+          <Stack.Screen
+            name="AboutPlantpolia"
+            component={AboutPlantpolia}
+            options={{title: 'About Plantpolia'}}
+          />
           <Stack.Screen name="Rating" component={Rating} />
           <Stack.Screen
             name="TermsAndConditions"
             component={TermsAndConditions}
+            options={{title: 'Terms and Policies'}}
           />
         </>
       ) : isExpired ? (
@@ -141,11 +162,32 @@ const StackScreen = () => {
           />
         </>
       ) : (
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{headerShown: false}}
-        />
+        <>
+          {promoStatus !== 'VIEWED' && (
+            <>
+              <Stack.Screen
+                name="FirstPromo"
+                component={FirstPromo}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="SecondPromo"
+                component={SecondPromo}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="ThirdPromo"
+                component={ThirdPromo}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{headerShown: false}}
+              />
+            </>
+          )}
+        </>
       )}
     </Stack.Navigator>
   );

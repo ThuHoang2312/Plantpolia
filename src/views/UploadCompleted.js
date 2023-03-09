@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Button, Image, Text} from '@rneui/themed';
 import {useAssets} from 'expo-asset';
-import {fontSizes, spacing} from '../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
 
 /**
@@ -45,6 +45,7 @@ export const UploadCompleted = ({navigation, route}) => {
           textAlign: 'center',
           paddingVertical: spacing.lg,
           paddingHorizontal: spacing.sm,
+          fontFamily: fontFamily.regular,
         }}
       >
         Added Succesfully
@@ -58,6 +59,7 @@ export const UploadCompleted = ({navigation, route}) => {
         titleStyle={{
           fontWeight: 'bold',
           color: colors.primary50,
+          fontFamily: fontFamily.regular,
         }}
       >
         Return to Home Page

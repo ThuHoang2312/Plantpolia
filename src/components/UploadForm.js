@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Image, Text} from '@rneui/themed';
 import DropDownPicker from 'react-native-dropdown-picker';
-import {fontSizes, spacing} from '../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
 import Input from './shared/Input';
 import Button from './shared/Button';
@@ -155,6 +156,7 @@ const styles = StyleSheet.create({
     marginTop: spacing.sm,
     alignSelf: 'center',
     color: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
   text: {
     fontSize: fontSizes.md,
@@ -163,11 +165,13 @@ const styles = StyleSheet.create({
     marginTop: spacing.lg,
     marginBottom: spacing.lg,
     fontWeight: 'bold',
+    fontFamily: fontFamily.regular,
   },
   suggestion: {
     fontSize: fontSizes.md,
     color: colors.primary700,
     alignSelf: 'center',
+    fontFamily: fontFamily.regular,
   },
   picker: {
     height: spacing.xxl,
@@ -176,10 +180,12 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
     marginTop: spacing.sm,
     backgroundColor: colors.primary100,
+    fontFamily: fontFamily.regular,
   },
   textPicker: {
     fontSize: fontSizes.md,
     color: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
 });
 

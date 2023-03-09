@@ -6,6 +6,7 @@ import {Button, Card, Input, Text} from '@rneui/themed';
 import {Alert, StyleSheet, View} from 'react-native';
 import {colors} from '../utils/colors';
 import {applicationPrefixId} from '../utils/variables';
+import {fontFamily} from '../utils/sizes';
 
 const LoginForm = (props) => {
   const {
@@ -68,7 +69,10 @@ const LoginForm = (props) => {
               autoCapitalize="none"
               errorMessage={errors.username && errors.username.message}
               inputContainerStyle={styles.input}
-              inputStyle={{color: colors.primary800}}
+              inputStyle={{
+                color: colors.primary800,
+                fontFamily: fontFamily.regular,
+              }}
             />
           )}
           name="username"
@@ -87,7 +91,10 @@ const LoginForm = (props) => {
               autoCapitalize="none"
               errorMessage={errors.password && errors.password.message}
               inputContainerStyle={styles.input}
-              inputStyle={{color: colors.primary800}}
+              inputStyle={{
+                color: colors.primary800,
+                fontFamily: fontFamily.regular,
+              }}
             />
           )}
           name="password"
@@ -96,6 +103,7 @@ const LoginForm = (props) => {
           title="Sign in!"
           onPress={handleSubmit(logIn)}
           buttonStyle={styles.button}
+          titleStyle={{fontFamily: fontFamily.regular}}
         />
       </View>
     </Card>
@@ -116,12 +124,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 50,
     color: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
   input: {
     borderWidth: 1,
     borderColor: '#EAF1EA',
     padding: 8,
     borderRadius: 8,
+    fontFamily: fontFamily.regular,
   },
   button: {
     alignSelf: 'stretch',

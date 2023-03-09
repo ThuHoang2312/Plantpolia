@@ -15,12 +15,14 @@ const MyPlantList = ({navigation}) => {
   const {userPlantList, wateringEventList} = useMainContext();
   const userTypedInSearchBar = searchTextValue !== '';
 
+  // Filter the user plant list to get the search result
   const filteredUserPlantList = userPlantList.filter((obj) =>
     userTypedInSearchBar
       ? obj.title.toLowerCase().includes(searchTextValue.toLowerCase())
       : true
   );
 
+  // Set value to search
   const onChangeSearchText = useCallback((value) => {
     setSearchTextValue(value);
   }, []);
@@ -33,6 +35,8 @@ const MyPlantList = ({navigation}) => {
       wateringEventList={wateringEventList}
     />
   );
+
+  // If user doesn't have any plant yet
   const ListEmptyComponent = userTypedInSearchBar ? (
     <PlantNotFound navigation={navigation} isUserList={true} />
   ) : (

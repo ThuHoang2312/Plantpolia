@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {StyleSheet, View} from 'react-native';
 import {Avatar, ListItem as RNEListItem} from '@rneui/themed';
-import {spacing} from '../../utils/sizes';
+import {fontFamily, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';
 
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     color: colors.primary700,
     fontWeight: 'bold',
     marginLeft: spacing.xxl,
+    fontFamily: fontFamily.regular,
   },
   levelContainer: {
     backgroundColor: colors.primary700,
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     color: colors.primary50,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm / 4,
+    fontFamily: fontFamily.regular,
   },
 });
 

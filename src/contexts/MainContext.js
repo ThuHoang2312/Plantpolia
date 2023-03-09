@@ -1,4 +1,4 @@
-import React, {createContext, useContext} from 'react';
+import React, {createContext, useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {useClock} from '../utils/useClock';
 import {usePrimaryPlantHooks} from '../hooks/usePrimaryPlantHooks';
@@ -6,6 +6,9 @@ import {useUserPlantHooks} from '../hooks/useUserPlantHooks';
 import {useNotification} from '../services/useNotification';
 import {useUserPlantWateringEvent} from '../hooks/useUserPlantWateringEvent';
 import {DAY_IN_MILLI_SECONDS} from '../utils/variables';
+import {ThemeProvider} from '@rneui/themed';
+import {theme} from '../utils/theme';
+import {usePromoHooks} from '../hooks/usePromo';
 
 /** @type {import('../types/TypedMainContext').MainContextReactContext} */
 export const MainContext = createContext(null);
@@ -13,6 +16,8 @@ export const MainContext = createContext(null);
 // eslint-disable-next-line valid-jsdoc
 /** @type {import('../types/TypedMainContext').MainContextProviderFC} */
 export const MainProvider = ({
+  defaultPromoStatus,
+  onPromoStatusSet,
   accessToken,
   expirationDate,
   userProfile,
@@ -25,6 +30,7 @@ export const MainProvider = ({
   children,
 }) => {
   const date = useClock();
+  const {promoStatus, setPromoStatus} = usePromoHooks({defaultPromoStatus});
 
   const {
     primaryPlantList,
@@ -46,6 +52,10 @@ export const MainProvider = ({
     defaultWateringEventList,
   });
 
+  useEffect(() => {
+    onPromoStatusSet(promoStatus);
+  }, [promoStatus]);
+
   const isExpired = !!accessToken && !!userProfile && expirationDate < date;
   const isLoggedIn = !isExpired && !!userProfile && !!accessToken;
 
@@ -55,6 +65,8 @@ export const MainProvider = ({
         ACCESS_TOKEN_AGE_IN_MS: DAY_IN_MILLI_SECONDS, //  One Day
         isLoggedIn,
         isExpired,
+        promoStatus,
+        setPromoStatus,
         user: userProfile,
         setUser: setUserProfile,
         token: accessToken,
@@ -75,7 +87,7 @@ export const MainProvider = ({
         wateringEventListLoading,
       }}
     >
-      {children}
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </MainContext.Provider>
   );
 };
@@ -89,7 +101,9 @@ MainProvider.propTypes = {
   setUserProfile: PropTypes.func,
   setExpirationDate: PropTypes.func,
   setAccessToken: PropTypes.func,
+  onPromoStatusSet: PropTypes.func,
   userProfile: PropTypes.any,
+  defaultPromoStatus: PropTypes.string,
   defaultPrimaryPlantList: PropTypes.array,
   defaultUserPlantList: PropTypes.array,
   defaultWateringEventList: PropTypes.array,

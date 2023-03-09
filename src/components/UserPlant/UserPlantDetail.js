@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Button, Overlay} from '@rneui/themed';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Button, Overlay, Text} from '@rneui/themed';
 import {colors} from '../../utils/colors';
 import {fontFamily, spacing} from '../../utils/sizes';
 import PlantOverview from './PlantOverview';
@@ -30,17 +30,13 @@ const UserPlantDetail = ({plant, navigation}) => {
     setConfigVisible(!configVisible);
   };
 
-  // Edit tab
-  // const headerPressHandler = () => {
-  //   console.log('PRESS ME');
-  // };
-
+  // Show edit tab in header
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
           <TouchableOpacity onPress={toggleConfig}>
-            <Text style={styles.text}>Edit</Text>
+            <Text style={styles.headerText}>Edit</Text>
           </TouchableOpacity>
         );
       },
@@ -166,9 +162,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary800,
   },
   tabButtonTitle: {
+    fontFamily: fontFamily.bold,
     color: 'white',
   },
   tabButtonDisabledTitle: {
+    fontFamily: fontFamily.bold,
     color: 'white',
   },
   menuContainer: {
@@ -178,13 +176,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-
   text: {
+    fontFamily: fontFamily.regular,
     color: colors.primary700,
     fontSize: spacing.md,
-    fontWeight: 'bold',
     marginHorizontal: spacing.lg,
     marginVertical: spacing.md,
+  },
+  headerText: {
+    fontFamily: fontFamily.bold,
+    color: colors.primary700,
+    fontSize: spacing.md,
+    marginHorizontal: spacing.md,
   },
 });
 

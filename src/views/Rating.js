@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, View, Text, Alert} from 'react-native';
-import {AirbnbRating} from '@rneui/themed';
+import {Alert, StyleSheet, View} from 'react-native';
+import {AirbnbRating, Text} from '@rneui/themed';
 import {colors} from '../utils/colors';
 import {fontFamily, fontSizes, spacing} from '../utils/sizes';
 import {MainContext} from '../contexts/MainContext';
@@ -13,9 +13,7 @@ export const Rating = ({navigation, route}) => {
   const {addRating} = useApi();
 
   const hasRated = route.params.hasRated;
-  const userRate = route.params.lastRate[0];
-  const lastRate = userRate.rating;
-
+  const lastRate = route.params.lastRate;
   // Send rating
   const handleRate = async (number) => {
     try {
