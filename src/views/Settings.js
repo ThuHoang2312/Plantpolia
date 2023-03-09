@@ -21,6 +21,7 @@ const Settings = ({navigation}) => {
   const {getRatingsForFile} = useApi();
 
   let hasRated = false;
+  // console.log('BEFORE', hasRated);
   let lastRate = null;
 
   // Get a list of ratings of app
@@ -34,10 +35,10 @@ const Settings = ({navigation}) => {
       const userRate = appRating.filter(
         (item) => item.user_id === user.user_id
       );
-      console.log(userRate.rating);
-      if (userRate.rating !== undefined) {
+      // console.log(userRate);
+      if (!(userRate.length === 0)) {
         hasRated = true;
-        lastRate = userRate.rating;
+        lastRate = userRate[0].rating;
       }
     } catch (error) {
       console.log(error);
