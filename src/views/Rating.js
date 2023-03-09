@@ -13,9 +13,7 @@ export const Rating = ({navigation, route}) => {
   const {addRating} = useApi();
 
   const hasRated = route.params.hasRated;
-  const userRate = route.params.lastRate[0];
-  const lastRate = userRate.rating;
-
+  const lastRate = route.params.lastRate;
   // Send rating
   const handleRate = async (number) => {
     try {

@@ -34,9 +34,10 @@ const Settings = ({navigation}) => {
       const userRate = appRating.filter(
         (item) => item.user_id === user.user_id
       );
-      if (userRate) {
+      console.log(userRate.rating);
+      if (userRate.rating !== undefined) {
         hasRated = true;
-        lastRate = userRate;
+        lastRate = userRate.rating;
       }
     } catch (error) {
       console.log(error);
