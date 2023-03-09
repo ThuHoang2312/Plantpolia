@@ -22,6 +22,7 @@ const MyPlantList = ({navigation}) => {
       : true
   );
 
+  // Set value to search
   const onChangeSearchText = useCallback((value) => {
     setSearchTextValue(value);
   }, []);
@@ -34,6 +35,8 @@ const MyPlantList = ({navigation}) => {
       wateringEventList={wateringEventList}
     />
   );
+
+  // If user doesn't have any plant yet
   const ListEmptyComponent = userTypedInSearchBar ? (
     <PlantNotFound navigation={navigation} isUserList={true} />
   ) : (

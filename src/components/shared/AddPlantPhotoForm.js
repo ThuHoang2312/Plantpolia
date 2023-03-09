@@ -5,7 +5,7 @@ import {Card, Icon} from '@rneui/themed';
 import {MainContext} from '../../contexts/MainContext';
 import {useApi} from '../../hooks/ApiHooks';
 import Button from './Button';
-import {fontSizes, spacing} from '../../utils/sizes';
+import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {createPlantPhotoTagName} from '../../utils/variables';
 import {useAppImagePicker} from '../useAppImagePicker';
@@ -106,12 +106,13 @@ const styles = StyleSheet.create({
     marginVertical: spacing.md,
   },
   title: {
+    fontFamily: fontFamily.bold,
     fontSize: fontSizes.lg,
     marginVertical: spacing.md,
-    fontWeight: 'bold',
     color: colors.primary700,
   },
   text: {
+    fontFamily: fontFamily.regular,
     color: colors.primary700,
     fontSize: fontSizes.md,
     marginVertical: spacing.md,
@@ -123,6 +124,7 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   input: {
+    fontFamily: fontFamily.regular,
     backgroundColor: colors.primary50,
     borderRadius: spacing.md,
     padding: spacing.md,

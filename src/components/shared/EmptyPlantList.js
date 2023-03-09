@@ -6,7 +6,7 @@ import {colors} from '../../utils/colors';
 const EmptyPlantList = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>List is empty.</Text>
+      <Text style={styles.title}>You haven&apos;t add any plant</Text>
     </View>
   );
 };

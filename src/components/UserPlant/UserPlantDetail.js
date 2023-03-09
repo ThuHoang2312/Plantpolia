@@ -30,17 +30,13 @@ const UserPlantDetail = ({plant, navigation}) => {
     setConfigVisible(!configVisible);
   };
 
-  // Edit tab
-  // const headerPressHandler = () => {
-  //   console.log('PRESS ME');
-  // };
-
+  // Show edit tab in header
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
           <TouchableOpacity onPress={toggleConfig}>
-            <Text style={styles.text}>Edit</Text>
+            <Text style={styles.headerText}>Edit</Text>
           </TouchableOpacity>
         );
       },
@@ -184,9 +180,14 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.regular,
     color: colors.primary700,
     fontSize: spacing.md,
-    fontWeight: 'bold',
     marginHorizontal: spacing.lg,
     marginVertical: spacing.md,
+  },
+  headerText: {
+    fontFamily: fontFamily.bold,
+    color: colors.primary700,
+    fontSize: spacing.md,
+    marginHorizontal: spacing.md,
   },
 });
 
