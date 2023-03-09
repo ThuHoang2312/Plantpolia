@@ -24,6 +24,9 @@ import Settings from '../views/Settings';
 import AboutPlantpolia from '../views/AboutPlantpolia';
 import TermsAndConditions from '../views/TermsAndConditions';
 import {Rating} from '../views/Rating';
+import {FirstPromo} from '../views/FirstPromo';
+import {SecondPromo} from '../views/SecondPromo';
+import {ThirdPromo} from '../views/ThirdPromo';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -141,11 +144,28 @@ const StackScreen = () => {
           />
         </>
       ) : (
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{headerShown: false}}
-        />
+        <>
+          <Stack.Screen
+            name="FirstPromo"
+            component={FirstPromo}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="SecondPromo"
+            component={SecondPromo}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="ThirdPromo"
+            component={ThirdPromo}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+        </>
       )}
     </Stack.Navigator>
   );
