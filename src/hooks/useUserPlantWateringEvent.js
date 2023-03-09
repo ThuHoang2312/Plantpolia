@@ -11,6 +11,8 @@ import {safeIntegerParse} from '../utils/safeIntegerParse';
 export const useUserPlantWateringEvent = ({
   defaultWateringEventList,
   userPlantList,
+  userPlantListLoading,
+  userProfile,
 }) => {
   const {getMediaCommentsById} = useApi();
   const {log} = useLogger('useUserPlantWateringEvent');
@@ -25,6 +27,19 @@ export const useUserPlantWateringEvent = ({
 
   useEffect(() => {
     (async () => {
+      if (userPlantListLoading) {
+        return;
+      }
+      if (!wateringEventListNeedsHydration) {
+        return;
+      }
+      if (!userProfile) {
+        setWateringEventList([]);
+        setWateringEventListLoading(false);
+        setWateringEventListNeedsHydration(false);
+        log('UserPlantWateringEvent Cleared.');
+        return;
+      }
       setWateringEventListLoading(true);
 
       const list = await fetchMediaListComments({
@@ -38,7 +53,12 @@ export const useUserPlantWateringEvent = ({
       setWateringEventListNeedsHydration(false);
       log('UserPlantWateringEvent Updated.');
     })();
-  }, [wateringEventListNeedsHydration, userPlantList]);
+  }, [
+    wateringEventListNeedsHydration,
+    userPlantList,
+    userProfile,
+    userPlantListLoading,
+  ]);
 
   return {
     wateringEventList: wateringEventList,

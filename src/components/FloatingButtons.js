@@ -6,6 +6,7 @@ import {useAssets} from 'expo-asset';
 import {colors} from '../utils/colors';
 
 export const FloatingButtons = ({
+  enableWateringCanIcon,
   hideHomeIcon,
   hideWateringCanIcon,
   onHomeIconPress,
@@ -17,6 +18,7 @@ export const FloatingButtons = ({
     <View style={styles.container}>
       {!hideWateringCanIcon && (
         <FAB
+          disabled={!enableWateringCanIcon}
           color={colors.primary500}
           style={{
             ...styles.fab,
@@ -72,6 +74,7 @@ const styles = StyleSheet.create({
 });
 
 FloatingButtons.propTypes = {
+  enableWateringCanIcon: PropTypes.bool,
   hideHomeIcon: PropTypes.bool,
   hideWateringCanIcon: PropTypes.bool,
   onHomeIconPress: PropTypes.func,

@@ -1,9 +1,9 @@
 import {
   Platform,
-  StatusBar,
-  View,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
+  View,
 } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -12,6 +12,7 @@ import {IconButton} from 'react-native-paper';
 import {useAssets} from 'expo-asset';
 import {fontFamily, fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
+import {useMainContext} from '../contexts/MainContext';
 
 /**
  * Success page shown after all the plants are watered.
@@ -21,6 +22,7 @@ import {colors} from '../utils/colors';
  * @return {JSX.Element}
  */
 export const FirstPromo = ({navigation}) => {
+  const {setPromoStatus} = useMainContext();
   const [assets] = useAssets([require('../../assets/pot-plant.jpg')]);
 
   return (
@@ -40,7 +42,10 @@ export const FirstPromo = ({navigation}) => {
         <Button
           style={styles.button}
           type="clear"
-          onPress={() => navigation.navigate('ThirdPromo')}
+          onPress={() => {
+            setPromoStatus('VIEWED');
+            navigation.navigate('ThirdPromo');
+          }}
         >
           Skip
         </Button>

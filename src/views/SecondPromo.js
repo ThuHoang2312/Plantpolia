@@ -1,9 +1,9 @@
 import {
   Platform,
-  StatusBar,
-  View,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
+  View,
 } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -12,6 +12,7 @@ import {IconButton} from 'react-native-paper';
 import {useAssets} from 'expo-asset';
 import {fontFamily, fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
+import {useMainContext} from '../contexts/MainContext';
 
 /**
  * Success page shown after all the plants are watered.
@@ -21,6 +22,7 @@ import {colors} from '../utils/colors';
  * @return {JSX.Element}
  */
 export const SecondPromo = ({navigation}) => {
+  const {setPromoStatus} = useMainContext();
   const [assets] = useAssets([require('../../assets/unsplash.jpg')]);
 
   return (
@@ -42,13 +44,18 @@ export const SecondPromo = ({navigation}) => {
           icon="arrow-left"
           size={30}
           iconColor={colors.primary800}
-          onPress={() => navigation.navigate('FirstPromo')}
+          onPress={() => {
+            navigation.navigate('FirstPromo');
+          }}
         />
         <IconButton
           icon="arrow-right"
           size={30}
           iconColor={colors.primary800}
-          onPress={() => navigation.navigate('ThirdPromo')}
+          onPress={() => {
+            setPromoStatus('VIEWED');
+            navigation.navigate('ThirdPromo');
+          }}
         />
       </View>
     </SafeAreaView>
