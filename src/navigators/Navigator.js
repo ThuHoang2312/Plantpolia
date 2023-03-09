@@ -163,7 +163,7 @@ const StackScreen = () => {
         </>
       ) : (
         <>
-          {promoStatus !== 'VIEWED' && (
+          {promoStatus === 'NOT VIEWED' && (
             <>
               <Stack.Screen
                 name="FirstPromo"
@@ -175,18 +175,18 @@ const StackScreen = () => {
                 component={SecondPromo}
                 options={{headerShown: false}}
               />
-              <Stack.Screen
-                name="ThirdPromo"
-                component={ThirdPromo}
-                options={{headerShown: false}}
-              />
-              <Stack.Screen
-                name="Login"
-                component={Login}
-                options={{headerShown: false}}
-              />
             </>
           )}
+          <Stack.Screen
+            name="ThirdPromo"
+            component={ThirdPromo}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
         </>
       )}
     </Stack.Navigator>

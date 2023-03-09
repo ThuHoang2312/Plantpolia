@@ -9,7 +9,9 @@ import {Dispatch} from 'react';
 export type UseNotification = (props: {userPlantList: UserPlantModel[]}) => {};
 export type UseUserPlantWateringEvent = (props: {
   userPlantList: UserPlantModel[];
+  userPlantListLoading: boolean;
   defaultWateringEventList: CommentModel[];
+  userProfile: UserModel | null;
 }) => {
   wateringEventList: CommentModel[];
   wateringEventListLoading: boolean;

@@ -59,7 +59,7 @@ const App = () => {
           const promoStatus = await AsyncStorage.getItem(
             PROMO_STATUS_STORAGE_KEY
           );
-          setStoragePromoStatus(promoStatus ?? null);
+          setStoragePromoStatus(promoStatus ?? 'NOT VIEWED');
         }
 
         {
@@ -95,22 +95,22 @@ const App = () => {
         }
         {
           if (parsedUserProfile) {
-            const list = await fetchUserPlantList({
+            const userPlantList = await fetchUserPlantList({
               getDetailedMediaListByTagName,
               log,
               userId: parsedUserProfile.user_id.toString(),
             });
-            setDefaultUserPlantList(list);
-          }
-        }
-        {
-          const list = await fetchMediaListComments({
-            userPlantList: defaultUserPlantList,
-            log,
-            getMediaCommentsById,
-          });
+            setDefaultUserPlantList(userPlantList);
 
-          setDefaultWateringEventList(list);
+            {
+              const list = await fetchMediaListComments({
+                userPlantList: userPlantList,
+                log,
+                getMediaCommentsById,
+              });
+              setDefaultWateringEventList(list);
+            }
+          }
         }
       } catch (e) {
         console.warn(e);

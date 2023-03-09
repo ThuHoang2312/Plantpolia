@@ -26,8 +26,14 @@ const RegisterForm = ({navigation}) => {
     mode: 'onBlur',
   });
   const {postLogin, postUser, checkUsername} = useApi();
-  const {setUser, setToken, setExpirationDate, ACCESS_TOKEN_AGE_IN_MS} =
-    React.useContext(MainContext);
+  const {
+    setUser,
+    setToken,
+    setExpirationDate,
+    ACCESS_TOKEN_AGE_IN_MS,
+    setUserPlantListNeedsHydration,
+    setWateringEventListNeedsHydration,
+  } = React.useContext(MainContext);
 
   const onLogin = async (data) => {
     try {
@@ -35,6 +41,8 @@ const RegisterForm = ({navigation}) => {
       setToken(userData.token);
       setUser(userData.user);
       setExpirationDate(Date.now() + ACCESS_TOKEN_AGE_IN_MS); //  Token expires in 10 min ?
+      setUserPlantListNeedsHydration(true);
+      setWateringEventListNeedsHydration(true);
     } catch (error) {
       Alert.alert('Login failed!', 'Wrong username or password!');
       console.error(error);
