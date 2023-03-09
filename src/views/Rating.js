@@ -8,9 +8,13 @@ import {MainContext} from '../contexts/MainContext';
 import {useApi} from '../hooks/ApiHooks';
 import {fileId} from '../utils/variables';
 
-export const Rating = ({navigation}) => {
+export const Rating = ({navigation, route}) => {
   const {token} = useContext(MainContext);
   const {addRating} = useApi();
+
+  const hasRated = route.params.hasRated;
+  const userRate = route.params.lastRate[0];
+  const lastRate = userRate.rating;
 
   // Send rating
   const handleRate = async (number) => {
@@ -32,22 +36,32 @@ export const Rating = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.contentWrapper}>
-        <Text style={styles.title}> Rate our app</Text>
+        {!hasRated ? (
+          <>
+            <Text style={styles.title}> Rate our app</Text>
+            <AirbnbRating
+              defaultRating={0}
+              onFinishRating={(number) => {
+                handleRate(number);
+              }}
+            />
 
-        <AirbnbRating
-          defaultRating={0}
-          onFinishRating={(number) => {
-            handleRate(number);
-          }}
-        />
-
-        <Text style={styles.subtitle}>
-          Your thoughts and insights were incredibly valuable to Plantpolia, and
-          we appreciate the time and effort you took to share them with us. Your
-          suggestions and ideas will help us to improve the app and make it even
-          more useful and user-friendly for all of our users.
-        </Text>
-        <Text style={styles.subtitle}> &hearts; from Plantpolia</Text>
+            <Text style={styles.subtitle}>
+              Your thoughts were incredibly valuable to Plantpolia, and we
+              appreciate the time and effort you took to share them with us.
+              Your feedback will help us to improve the app and make it even
+              more useful and user-friendly for all of our users.
+            </Text>
+            <Text style={styles.subtitle}> &hearts; from Plantpolia</Text>
+          </>
+        ) : (
+          <View style={styles.textWrapper}>
+            <Text style={styles.text}>
+              Thank you for rating us with {lastRate} star
+            </Text>
+            <Text style={styles.subtitle}> &hearts; from Plantpolia</Text>
+          </View>
+        )}
       </View>
     </View>
   );
@@ -82,8 +96,20 @@ const styles = StyleSheet.create({
     lineHeight: spacing.lg,
     paddingVertical: spacing.lg,
   },
+  text: {
+    fontFamily: fontFamily.regular,
+    color: colors.primary800,
+    fontSize: fontSizes.lg,
+    textAlign: 'center',
+  },
+  textWrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
 });
 
 Rating.propTypes = {
   navigation: PropTypes.object,
+  route: PropTypes.object,
 };
