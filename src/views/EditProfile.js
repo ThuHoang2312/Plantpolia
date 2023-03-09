@@ -16,7 +16,6 @@ const EditProfile = ({navigation}) => {
   const {
     control,
     handleSubmit,
-    getValues,
     formState: {errors},
   } = useForm({
     defaultValues: {
