@@ -234,6 +234,17 @@ export const useApi = () => {
     return await doFetch(`${baseUrl}ratings/file/${fileId}`, options);
   };
 
+  // Function to delete ratings
+  const deleteRating = async (fileId, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        'x-access-token': token,
+      },
+    };
+    return await doFetch(`${baseUrl}ratings/file/${fileId}`, options);
+  };
+
   return {
     postLogin,
     postUser,
@@ -251,5 +262,6 @@ export const useApi = () => {
     postCommentByMediaId: postCommentByMediaId,
     addRating,
     getRatingsForFile,
+    deleteRating,
   };
 };
