@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Text} from '@rneui/themed';
 import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import LottieIcons from '../LottieIcons/LottieIcons';

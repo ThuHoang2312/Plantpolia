@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {Alert, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Alert, ScrollView, StyleSheet, View} from 'react-native';
+import {Image, Text} from '@rneui/themed';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';

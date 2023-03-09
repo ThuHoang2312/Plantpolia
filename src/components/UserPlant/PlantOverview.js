@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {Image, Text} from '@rneui/themed';
 import {fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import {uploadUrl} from '../../utils/variables';

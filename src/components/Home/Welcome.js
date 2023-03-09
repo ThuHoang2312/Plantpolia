@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {Text} from '@rneui/themed';
 import {VictoryPie} from 'victory-native';
 import {MainContext} from '../../contexts/MainContext';
 import {colors} from '../../utils/colors';
