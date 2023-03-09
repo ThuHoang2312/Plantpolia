@@ -45,7 +45,7 @@ export const FirstPromo = ({navigation}) => {
           Skip
         </Button>
         <IconButton
-          icon="arrow-right-bold"
+          icon="arrow-right"
           size={30}
           iconColor={colors.primary800}
           onPress={() => navigation.navigate('SecondPromo')}
