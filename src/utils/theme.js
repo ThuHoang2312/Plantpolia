@@ -29,5 +29,15 @@ export const theme = createTheme({
         fontFamily: fontFamily.regular,
       },
     },
+    ListItemTitle: {
+      style: {
+        fontFamily: fontFamily.regular,
+      },
+    },
+    ListItemSubtitle: {
+      style: {
+        fontFamily: fontFamily.regular,
+      },
+    },
   },
 });
