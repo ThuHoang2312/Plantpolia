@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {Card, Overlay, Button} from '@rneui/themed';
 import {uploadUrl} from '../../utils/variables';
 import {colors} from '../../utils/colors';
-import {spacing} from '../../utils/sizes';
+import {fontFamily, spacing} from '../../utils/sizes';
 import {IconButton} from 'react-native-paper';
 import {useApi} from '../../hooks/ApiHooks';
 import {MainContext} from '../../contexts/MainContext';
@@ -53,7 +53,7 @@ export const PlantPhotoListItem = ({
           style={styles.icon}
           iconColor={colors.primary700}
         />
-        <Card.Title style={styles.title}>{title}</Card.Title>
+        <Card.Title style={styles.title}>{title.toUpperCase()}</Card.Title>
         <Card.Image source={{uri: uploadUrl + imageUrl}} style={styles.image} />
         <Card.Title style={styles.text}>{description}</Card.Title>
         <Card.Title style={styles.text}>{timeAdd}</Card.Title>
@@ -90,19 +90,19 @@ const styles = StyleSheet.create({
     top: -spacing.md,
     right: -spacing.lg,
   },
-
   image: {
     width: '100%',
     height: 100,
     resizeMode: 'cover',
   },
   title: {
+    fontFamily: fontFamily.bold,
     color: colors.primary700,
     fontWeight: 'bold',
     marginVertical: spacing.sm,
   },
-
   text: {
+    fontFamily: fontFamily.bold,
     color: colors.primary700,
     textAlign: 'center',
     marginVertical: spacing.md,
