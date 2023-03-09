@@ -12,6 +12,7 @@ import {
 } from '../utils/variables';
 import {colors} from '../utils/colors';
 import {useNotificationStatus} from '../services/useNotificationStatus';
+import {fontFamily} from '../utils/sizes';
 
 const Profile = ({navigation}) => {
   const {setUser, setExpirationDate, setToken, user, token} =
@@ -139,13 +140,21 @@ const Profile = ({navigation}) => {
           <Button
             title={'Change avatar'}
             buttonStyle={styles.changeAvatarButton}
-            titleStyle={{color: colors.primary700, fontWeight: 'bold'}}
+            titleStyle={{
+              color: colors.primary700,
+              fontWeight: 'bold',
+              fontFamily: fontFamily.regular,
+            }}
             onPress={changeAvatar}
           />
           <Button
             title="Edit Profile"
             buttonStyle={styles.editButton}
-            titleStyle={{color: colors.primary700, fontWeight: 'bold'}}
+            titleStyle={{
+              color: colors.primary700,
+              fontWeight: 'bold',
+              fontFamily: fontFamily.regular,
+            }}
             onPress={() => {
               navigation.navigate('EditProfile');
             }}
@@ -154,7 +163,11 @@ const Profile = ({navigation}) => {
             <Button
               title="Allow notifications"
               buttonStyle={styles.editButton}
-              titleStyle={{color: colors.primary700, fontWeight: 'bold'}}
+              titleStyle={{
+                color: colors.primary700,
+                fontWeight: 'bold',
+                fontFamily: fontFamily.regular,
+              }}
               onPress={() => {
                 requestNotificationPermissions();
               }}
@@ -170,7 +183,7 @@ const Profile = ({navigation}) => {
             setToken(null);
           }}
           buttonStyle={styles.logoutButton}
-          titleStyle={{fontWeight: 'bold'}}
+          titleStyle={{fontWeight: 'bold', fontFamily: fontFamily.regular}}
         />
       </ScrollView>
     </View>
@@ -199,11 +212,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     marginVertical: 20,
     fontWeight: 'bold',
+    fontFamily: fontFamily.regular,
   },
   username: {
     color: colors.primary600,
     fontSize: 25,
     marginVertical: 10,
+    fontFamily: fontFamily.regular,
   },
   changeAvatarButton: {
     backgroundColor: colors.primary50,

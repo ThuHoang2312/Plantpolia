@@ -7,6 +7,7 @@ import {arrayMove} from '../utils/arrayMove';
 import {useMainContext} from '../contexts/MainContext';
 import {checkPlantWaterNeed} from '../hooks/useUserPlantWateringEvent';
 import {safeIntegerParse} from '../utils/safeIntegerParse';
+import {fontFamily} from '../utils/sizes';
 
 /**
  *  Here we get an array of plants
@@ -55,6 +56,7 @@ export const WateringProcess = ({navigation}) => {
             userPlantListThatNeedsWater,
           });
         }}
+        titleStyle={{fontFamily: fontFamily.regular}}
       >
         Start!
       </Button>

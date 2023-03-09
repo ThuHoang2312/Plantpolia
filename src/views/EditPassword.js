@@ -6,6 +6,7 @@ import {Button, Input, Text} from '@rneui/themed';
 import {Alert, ScrollView, StyleSheet} from 'react-native';
 import {colors} from '../utils/colors';
 import {MainContext} from '../contexts/MainContext';
+import {fontFamily} from '../utils/sizes';
 
 const EditPassword = ({navigation}) => {
   const {
@@ -59,7 +60,10 @@ const EditPassword = ({navigation}) => {
             autoCapitalize="none"
             errorMessage={errors.password && errors.password.message}
             inputContainerStyle={styles.input}
-            inputStyle={{color: colors.primary700}}
+            inputStyle={{
+              color: colors.primary700,
+              fontFamily: fontFamily.regular,
+            }}
           />
         )}
         name="password"
@@ -89,7 +93,10 @@ const EditPassword = ({navigation}) => {
               errors.confirmPassword && errors.confirmPassword.message
             }
             inputContainerStyle={styles.input}
-            inputStyle={{color: colors.primary700}}
+            inputStyle={{
+              color: colors.primary700,
+              fontFamily: fontFamily.regular,
+            }}
           />
         )}
         name="confirmPassword"
@@ -98,6 +105,7 @@ const EditPassword = ({navigation}) => {
         title="Update password!"
         onPress={handleSubmit(editPassword)}
         buttonStyle={styles.button}
+        titleStyle={{fontFamily: fontFamily.regular}}
       />
     </ScrollView>
   );
@@ -121,6 +129,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 50,
     color: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
   input: {
     borderWidth: 1,
@@ -128,6 +137,7 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: colors.primary50,
     borderRadius: 8,
+    fontFamily: fontFamily.regular,
   },
   button: {
     alignSelf: 'stretch',
@@ -136,6 +146,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 50,
     backgroundColor: colors.primary700,
+    fontFamily: fontFamily.regular,
   },
   wrapper: {
     flex: 1,
