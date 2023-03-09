@@ -7,7 +7,7 @@ import {colors} from '../utils/colors';
 export const StatisticCard = ({number, isHydrated}) => {
   return (
     <>
-      {isHydrated ? (
+      {!isHydrated ? (
         <View style={styles.container}>
           <View style={styles.dehydrateWrapper}>
             <Text style={styles.dehydrate}>{number}</Text>
