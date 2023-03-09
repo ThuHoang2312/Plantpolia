@@ -1,18 +1,47 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Avatar, Button, ListItem} from '@rneui/themed';
 import {MainContext} from '../contexts/MainContext';
 import {Platform, ScrollView, StyleSheet, View} from 'react-native';
 import {colors} from '../utils/colors';
 import {useNotificationStatus} from '../services/useNotificationStatus';
+import {useApi} from '../hooks/ApiHooks';
+import {fileId} from '../utils/variables';
 
 const Settings = ({navigation}) => {
-  const {setUser, setExpirationDate, setToken} = React.useContext(MainContext);
+  const {user, token, setUser, setExpirationDate, setToken} =
+    React.useContext(MainContext);
   const {
     canAskForNotificationPermission,
     isNotificationsGranted,
     requestNotificationPermissions,
   } = useNotificationStatus();
+
+  const {getRatingsForFile} = useApi();
+
+  let hasRated = false;
+  let lastRate = null;
+
+  // Get a list of ratings of app
+  useEffect(() => {
+    getRating();
+  });
+
+  const getRating = async () => {
+    try {
+      const appRating = await getRatingsForFile(fileId, token);
+      const userRate = appRating.filter(
+        (item) => item.user_id === user.user_id
+      );
+      if (userRate) {
+        hasRated = true;
+        lastRate = userRate;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.wrapper}>
       <ScrollView>
@@ -116,7 +145,7 @@ const Settings = ({navigation}) => {
         </View>
         <ListItem
           onPress={() => {
-            navigation.navigate('Rating');
+            navigation.navigate('Rating', {hasRated, lastRate});
           }}
           style={styles.listItem}
           bottomDivider
