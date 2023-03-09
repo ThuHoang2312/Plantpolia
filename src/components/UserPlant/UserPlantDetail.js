@@ -1,7 +1,7 @@
 import React, {useLayoutEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Button, Overlay} from '@rneui/themed';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Button, Overlay, Text} from '@rneui/themed';
 import {colors} from '../../utils/colors';
 import {fontFamily, spacing} from '../../utils/sizes';
 import PlantOverview from './PlantOverview';

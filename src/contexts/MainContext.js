@@ -6,6 +6,8 @@ import {useUserPlantHooks} from '../hooks/useUserPlantHooks';
 import {useNotification} from '../services/useNotification';
 import {useUserPlantWateringEvent} from '../hooks/useUserPlantWateringEvent';
 import {DAY_IN_MILLI_SECONDS} from '../utils/variables';
+import {ThemeProvider} from '@rneui/themed';
+import {theme} from '../utils/theme';
 
 /** @type {import('../types/TypedMainContext').MainContextReactContext} */
 export const MainContext = createContext(null);
@@ -75,7 +77,7 @@ export const MainProvider = ({
         wateringEventListLoading,
       }}
     >
-      {children}
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </MainContext.Provider>
   );
 };
