@@ -166,9 +166,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary800,
   },
   tabButtonTitle: {
+    fontFamily: fontFamily.bold,
     color: 'white',
   },
   tabButtonDisabledTitle: {
+    fontFamily: fontFamily.bold,
     color: 'white',
   },
   menuContainer: {
@@ -178,8 +180,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-
   text: {
+    fontFamily: fontFamily.regular,
     color: colors.primary700,
     fontSize: spacing.md,
     fontWeight: 'bold',

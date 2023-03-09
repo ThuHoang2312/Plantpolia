@@ -15,6 +15,7 @@ const MyPlantList = ({navigation}) => {
   const {userPlantList, wateringEventList} = useMainContext();
   const userTypedInSearchBar = searchTextValue !== '';
 
+  // Filter the user plant list to get the search result
   const filteredUserPlantList = userPlantList.filter((obj) =>
     userTypedInSearchBar
       ? obj.title.toLowerCase().includes(searchTextValue.toLowerCase())
