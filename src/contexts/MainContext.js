@@ -49,7 +49,9 @@ export const MainProvider = ({
     wateringEventListLoading,
   } = useUserPlantWateringEvent({
     userPlantList,
+    userPlantListLoading,
     defaultWateringEventList,
+    userProfile,
   });
 
   useEffect(() => {

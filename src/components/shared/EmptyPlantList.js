@@ -4,11 +4,14 @@ import {Text} from '@rneui/themed';
 import {fontFamily, fontSizes, spacing} from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import LottieIcons from '../LottieIcons/LottieIcons';
+import PropTypes from 'prop-types';
 
-const EmptyPlantList = () => {
+const EmptyPlantList = ({isLoading}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Start adding your plants!</Text>
+      {!isLoading && (
+        <Text style={styles.title}>Start adding your plants!</Text>
+      )}
       <LottieIcons iconName="WalkingPlant" focused autoPlay loop />
     </View>
   );
@@ -29,6 +32,8 @@ const styles = StyleSheet.create({
   },
 });
 
-EmptyPlantList.propTypes = {};
+EmptyPlantList.propTypes = {
+  isLoading: PropTypes.bool,
+};
 
 export default EmptyPlantList;

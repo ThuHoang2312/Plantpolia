@@ -15,8 +15,15 @@ import {useNotificationStatus} from '../services/useNotificationStatus';
 import {fontFamily} from '../utils/sizes';
 
 const Profile = ({navigation}) => {
-  const {setUser, setExpirationDate, setToken, user, token} =
-    React.useContext(MainContext);
+  const {
+    setUser,
+    setExpirationDate,
+    setToken,
+    user,
+    token,
+    setUserPlantListNeedsHydration,
+    setWateringEventListNeedsHydration,
+  } = React.useContext(MainContext);
   const {getFileByTag, postTag, postMedia} = useApi();
   const {
     canAskForNotificationPermission,
@@ -181,6 +188,8 @@ const Profile = ({navigation}) => {
             setUser(null);
             setExpirationDate(null);
             setToken(null);
+            setUserPlantListNeedsHydration(true);
+            setWateringEventListNeedsHydration(true);
           }}
           buttonStyle={styles.logoutButton}
           titleStyle={{fontWeight: 'bold', fontFamily: fontFamily.regular}}

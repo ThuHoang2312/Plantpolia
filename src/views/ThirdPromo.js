@@ -1,9 +1,9 @@
 import {
   Platform,
-  StatusBar,
-  View,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
+  View,
 } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -26,23 +26,25 @@ export const ThirdPromo = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       {assets && (
-        <View style={styles.imageContainer}>
-          <Image source={{uri: assets[0].localUri}} style={styles.image} />
-        </View>
+        <>
+          <View style={styles.imageContainer}>
+            <Image source={{uri: assets[0].localUri}} style={styles.image} />
+          </View>
+          <View style={styles.promoContainer}>
+            <Text style={styles.secondPromo}>Keep your</Text>
+            <Text style={styles.firstPromo}>
+              <Text style={styles.plant}>plants</Text> alives
+            </Text>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              text="Sign In"
+              disabled={false}
+              onPress={() => navigation.navigate('Login')}
+            />
+          </View>
+        </>
       )}
-      <View style={styles.promoContainer}>
-        <Text style={styles.secondPromo}>Keep your</Text>
-        <Text style={styles.firstPromo}>
-          <Text style={styles.plant}>plants</Text> alives
-        </Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <Button
-          text="Sign In"
-          disabled={false}
-          onPress={() => navigation.navigate('Login')}
-        />
-      </View>
     </SafeAreaView>
   );
 };

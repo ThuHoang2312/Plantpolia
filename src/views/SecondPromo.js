@@ -1,10 +1,4 @@
-import {
-  Platform,
-  StatusBar,
-  View,
-  SafeAreaView,
-  StyleSheet,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Image, Text} from '@rneui/themed';
@@ -12,6 +6,7 @@ import {IconButton} from 'react-native-paper';
 import {useAssets} from 'expo-asset';
 import {fontFamily, fontSizes, spacing} from '../utils/sizes';
 import {colors} from '../utils/colors';
+import {useMainContext} from '../contexts/MainContext';
 
 /**
  * Success page shown after all the plants are watered.
@@ -21,6 +16,7 @@ import {colors} from '../utils/colors';
  * @return {JSX.Element}
  */
 export const SecondPromo = ({navigation}) => {
+  const {setPromoStatus} = useMainContext();
   const [assets] = useAssets([require('../../assets/unsplash.jpg')]);
 
   return (
@@ -42,13 +38,18 @@ export const SecondPromo = ({navigation}) => {
           icon="arrow-left"
           size={30}
           iconColor={colors.primary800}
-          onPress={() => navigation.navigate('FirstPromo')}
+          onPress={() => {
+            navigation.navigate('FirstPromo');
+          }}
         />
         <IconButton
           icon="arrow-right"
           size={30}
           iconColor={colors.primary800}
-          onPress={() => navigation.navigate('ThirdPromo')}
+          onPress={() => {
+            setPromoStatus('VIEWED');
+            navigation.navigate('ThirdPromo');
+          }}
         />
       </View>
     </SafeAreaView>
@@ -58,7 +59,6 @@ export const SecondPromo = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     flexDirection: 'column',
     backgroundColor: colors.background,
   },
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   promoContainer: {
+    marginTop: 30,
     flex: 1,
     justifyContent: 'flex-end',
     alignContent: 'flex-end',
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.xxl,
     alignSelf: 'flex-start',
     marginRight: spacing.md,
-    marginLeft: spacing.xxxl,
+    marginLeft: spacing.xxl,
   },
   secondPromo: {
     fontFamily: fontFamily.bold,

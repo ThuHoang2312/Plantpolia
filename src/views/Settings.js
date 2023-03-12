@@ -10,8 +10,15 @@ import {fileId} from '../utils/variables';
 import {fontFamily} from '../utils/sizes';
 
 const Settings = ({navigation}) => {
-  const {user, token, setUser, setExpirationDate, setToken} =
-    React.useContext(MainContext);
+  const {
+    user,
+    token,
+    setUser,
+    setExpirationDate,
+    setToken,
+    setUserPlantListNeedsHydration,
+    setWateringEventListNeedsHydration,
+  } = React.useContext(MainContext);
   const {
     canAskForNotificationPermission,
     isNotificationsGranted,
@@ -176,6 +183,8 @@ const Settings = ({navigation}) => {
             setUser(null);
             setExpirationDate(null);
             setToken(null);
+            setUserPlantListNeedsHydration(true);
+            setWateringEventListNeedsHydration(true);
           }}
           buttonStyle={styles.logoutButton}
           titleStyle={{fontWeight: 'bold', fontFamily: fontFamily.regular}}

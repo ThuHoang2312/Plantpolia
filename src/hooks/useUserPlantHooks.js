@@ -15,10 +15,18 @@ export const useUserPlantHooks = ({defaultUserPlantList, userProfile}) => {
     useState(false);
 
   useEffect(() => {
-    if (!userPlantListNeedsHydration || !userProfile) {
-      return;
-    }
     (async () => {
+      if (!userPlantListNeedsHydration) {
+        return;
+      }
+      if (!userProfile) {
+        setUserPlantList([]);
+        setUserPlantListLoading(false);
+        setUserPlantListNeedsHydration(false);
+        log('userPlantList Cleared.');
+        return;
+      }
+
       setUserPlantListLoading(true);
       const userItems = await fetchUserPlantList({
         getDetailedMediaListByTagName,
