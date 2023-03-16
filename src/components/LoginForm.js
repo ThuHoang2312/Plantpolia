@@ -25,13 +25,11 @@ const LoginForm = (props) => {
   } = useForm({defaultValues: {username: '', password: ''}, mode: 'onBlur'});
 
   const logIn = async (loginData) => {
-    console.log('Login button pressed', loginData);
     try {
       // Add prefix to username and email to identify Plantpolia's users
       loginData.username = applicationPrefixId + loginData.username;
       loginData.email = applicationPrefixId + loginData.email;
       const loginResult = await postLogin(loginData);
-      console.log('logIn', loginResult);
       setUser(loginResult.user);
       setToken(loginResult.token);
       setExpirationDate(Date.now() + ACCESS_TOKEN_AGE_IN_MS); //  Token expires in 10 min ?
